@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>📚 L0: Course Introduction // Micro-Contents</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --bg-base: #06080e;
+            --bg-card: #0b0f19;
+            --bg-code: #020408;
+            --stroke-glass: rgba(255, 255, 255, 0.08);
+            --ink-bright: #ffffff;
+            --ink-secondary: #e2e8f0;
+            --ink-muted: #64748b;
+            --neon-emerald: #50fa7b;
+            --neon-cyan: #8be9fd;
+            --neon-blue: #6366f1;
+            --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+        body { background-color: var(--bg-base); color: var(--ink-secondary); font-family: var(--font-sans); padding: 40px 24px; line-height: 1.7; overflow-y: auto !important; -webkit-overflow-scrolling: touch !important; }
+        .wrapper { max-width: 1000px; margin: 0 auto; display: flex; flex-direction: column; gap: 24px; }
+        header { border-bottom: 1px solid var(--stroke-glass); padding-bottom: 20px; margin-bottom: 10px; }
+        .lecture-badge { font-family: var(--font-mono); font-size: 0.75rem; color: var(--neon-cyan); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; }
+        h1 { color: var(--ink-bright); font-size: 1.8rem; font-weight: 800; margin-top: 6px; letter-spacing: -0.02em; }
+        .card { background: var(--bg-card); border: 1px solid var(--stroke-glass); border-radius: 8px; padding: 24px; }
+        h2 { color: var(--neon-cyan); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px; font-family: var(--font-mono); }
+        .objective-text { font-size: 1.1rem; color: var(--ink-bright); font-weight: 500; }
+        .analogy-title { color: var(--ink-bright); font-weight: 600; margin-bottom: 6px; font-size: 0.95rem; }
+        .lexicon-list { list-style: none; display: flex; flex-direction: column; gap: 16px; }
+        .term-name { color: var(--neon-emerald); font-family: var(--font-mono); font-weight: 700; font-size: 0.9rem; background: rgba(80, 250, 123, 0.08); padding: 2px 8px; border-radius: 4px; display: inline-block; margin-bottom: 4px; }
+        .code-block { background: var(--bg-code); border: 1px solid var(--stroke-glass); padding: 16px; border-radius: 6px; font-family: var(--font-mono); font-size: 0.85rem; color: #a5b4fc; margin-top: 8px; }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+            <div class="lecture-badge">Module 1: OS Structure & Design // Lecture 0</div>
+            <h1>Lecture 00: Course Introduction</h1>
+        </header>
+
+        <div class="card">
+            <h2>🎯 1. Objective</h2>
+            <p class="objective-text">State in one clear sentence why an operating system exists, and name the core hardware resources it arbitrates.</p>
+        </div>
+
+        <div class="card">
+            <h2>🛑 2. Prerequisites</h2>
+            <p>Basic familiarity with running computer programs and typing basic keyboard commands.</p>
+        </div>
+
+        <div class="card">
+            <h2>🎪 3 & 4. Pedagogical Analogies</h2>
+            <div style="margin-bottom: 18px;">
+                <div class="analogy-title">Analogy 1 (Everyday Life): The Air Traffic Control Tower</div>
+                <p>Imagine a busy international airport with fifty different pilots (User Programs) all trying to land their planes on a single concrete runway (The CPU) at the exact same microsecond. If every pilot acts selfishly, they will crash into each other. The Operating System is the air traffic controller sitting in the tower—it doesn't fly the planes, but it acts as an absolute referee, telling each pilot exactly when they are allowed to use the runway so nobody collides.</p>
+            </div>
+            <div>
+                <div class="analogy-title">Analogy 2 (Pure Technical): A Multi-Tenant Cloud Virtualization Hypervisor</div>
+                <p>An OS functions exactly like an unyielding infrastructure supervisor that isolates resource quotas so that an unhandled stack overflow in Tenant A cannot block or corrupt the physical hardware memory registers of Tenant B.</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>🔗 5. System Cohesion Matrix</h2>
+            <p><strong>Feeds Into:</strong> All Future Modules — Establishes the foundational definition of a "Resource," which directly unlocks Module 2 (CPU Cycles), Module 3 (RAM), and Module 5 (Disk Blocks).</p>
+        </div>
+
+        <div class="card">
+            <h2>🔍 6. Core Breakdown</h2>
+            <p style="margin-bottom: 12px;">An operating system is primarily a resource manager and a hardware abstraction layer. It exists because physical hardware components (CPU cores, RAM chips, storage blocks) are scarce, while software applications are fundamentally selfish and written as if they own the entire machine.</p>
+            <p>The history of OS design tracks a sequential path to eliminate resource waste: Batch Processing (fixing idle CPU time) → Multiprogramming (fixing idle I/O time) → Time-Sharing (fixing idle human wait time) → Modern Personal/Cloud Systems.</p>
+        </div>
+
+        <div class="card">
+            <h2>🏷️ 7. Lexicon / Terms</h2>
+            <ul class="lexicon-list">
+                <li>
+                    <span class="term-name">Kernel</span>
+                    <p>The core program of the operating system that runs with complete architectural privileges and remains resident in physical memory at all times.</p>
+                </li>
+                <li>
+                    <span class="term-name">Resource Manager</span>
+                    <p>The internal role of the OS dedicated to allocating hardware fairly and efficiently among competing tasks.</p>
+                </li>
+                <li>
+                    <span class="term-name">Abstraction</span>
+                    <p>Hiding complex, low-level hardware implementation details behind clean, universal software interfaces (e.g., presenting a raw disk sector array as a simple "File").</p>
+                </li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>🛠️ 8. Practical Example</h2>
+            <p><strong>1960s Batch Mainframe Job Queue:</strong> A user writes code onto physical cardboard punch cards, hands them to a human operator, and waits hours for the CPU to process that single task in complete isolation.</p>
+            <p style="margin-top: 12px;"><strong>Modern Linux Ecosystem:</strong> The kernel utilizes time-slicing to rotate thousands of independent instruction streams across CPU threads so rapidly that a human observer perceives them as executing simultaneously.</p>
+        </div>
+
+        <div class="card">
+            <h2>🎯 9. Interactive Classroom Activity</h2>
+            <p><strong>The Live htop Inspection:</strong> Open up a live terminal in class running the top or htop system monitor utility. Point out to the students that even though the laptop only has 4 or 8 physical CPU cores, there are currently over 300 active processes running.</p>
+            <div class="code-block">
+                $ htop<br>
+                Tasks: 312 total, 2 running...<br>
+                Cpu(s): 12.5%us,  4.2%sy...
+            </div>
+            <p style="margin-top: 12px;"><strong>Ask the class:</strong> "How many of these processes honestly believe they own 100% of the processor right now?" <em>(Answer: All of them)</em>.</p>
+        </div>
+
+        <div class="card">
+            <h2>🌿 10 & 11. Topology Map</h2>
+            <p style="font-family: var(--font-mono); font-size: 0.85rem; margin-bottom: 8px;">CS 301: Operating Systems -> Module 1: OS Structure & Design -> L0_Course_Introduction -> The OS as a Resource Referee.</p>
+        </div>
+    </div>
+</body>
+</html>
