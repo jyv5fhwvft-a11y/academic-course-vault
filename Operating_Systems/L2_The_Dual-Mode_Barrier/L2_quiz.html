@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>📝 L2: The Dual-Mode Barrier // Self-Assessment Quiz</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --bg-base: #06080e;
+            --bg-card: #0b0f19;
+            --bg-hover: #161f30;
+            --stroke-glass: rgba(255, 255, 255, 0.08);
+            --ink-bright: #ffffff;
+            --ink-secondary: #e2e8f0;
+            --ink-muted: #64748b;
+            --neon-emerald: #50fa7b;
+            --neon-cyan: #8be9fd;
+            --neon-blue: #6366f1;
+            --font-sans: system-ui, -apple-system, sans-serif;
+            --font-mono: monospace;
+        }
+        body { background-color: var(--bg-base); color: var(--ink-secondary); font-family: var(--font-sans); padding: 40px 24px; line-height: 1.7; overflow-y: auto !important; -webkit-overflow-scrolling: touch !important; }
+        .wrapper { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 24px; }
+        header { border-bottom: 1px solid var(--stroke-glass); padding-bottom: 20px; margin-bottom: 10px; }
+        .quiz-badge { font-family: var(--font-mono); font-size: 0.75rem; color: var(--neon-cyan); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; }
+        h1 { color: var(--ink-bright); font-size: 1.8rem; font-weight: 800; margin-top: 6px; letter-spacing: -0.02em; }
+        .card { background: var(--bg-card); border: 1px solid var(--stroke-glass); border-radius: 12px; padding: 28px; display: flex; flex-direction: column; gap: 16px; margin-bottom: 8px; }
+        h2 { color: var(--ink-bright); font-size: 1.05rem; font-weight: 600; line-height: 1.5; }
+        .options-group { display: flex; flex-direction: column; gap: 10px; }
+        .option-btn { width: 100%; text-align: left; background: rgba(255,255,255,0.01); border: 1px solid var(--stroke-glass); border-radius: 8px; padding: 14px 18px; color: var(--ink-secondary); font-size: 0.9rem; cursor: pointer; transition: all 0.2s ease; }
+        .option-btn:hover { background: var(--bg-hover); border-color: var(--neon-cyan); color: var(--ink-bright); }
+        .feedback { display: none; font-size: 0.88rem; padding: 14px; border-radius: 6px; margin-top: 8px; font-family: var(--font-mono); line-height: 1.5; }
+        .feedback.correct { display: block; background: rgba(80, 250, 123, 0.08); border-left: 3px solid var(--neon-emerald); color: var(--neon-emerald); }
+        .feedback.incorrect { display: block; background: rgba(239, 68, 68, 0.08); border-left: 3px solid #ef4444; color: #f87171; }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+            <div class="quiz-badge">Module 1 // Assessment Layer</div>
+            <h1>Lecture 2: The Dual-Mode Barrier Quiz</h1>
+        </header>
+
+        <!-- Question 1 -->
+        <div class="card">
+            <h2>1. Where is the current privilege mode (Ring 0 vs. Ring 3) officially tracked and enforced?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Software environment variables can be altered and do not provide immutable hardware-level isolation barriers.')">A) Inside an environment variable managed by the user-space window layout system</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! The dual-mode mechanism is built into the physical silicon registers of the CPU, tracking privilege rings via status bits like the CPL.')">B) Within specific hardware status bits (such as CPL) inside the physical CPU registers</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Storage blocks handle data preservation at rest rather than monitoring execution modes.')">C) Inside the non-volatile system control sector table arrays on the master disk drive</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="card">
+            <h2>2. What happens immediately when a sandboxed application running in User Mode (Ring 3) attempts to execute a privileged instruction like `cli`?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. The hardware blocks execution instantly to preserve architectural isolation boundaries.')">A) The CPU permits the instruction to run but logs an administrative warning string</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Kernel spaces do not delegate hardware control loops out to unprivileged application threads.')">B) The system temporarily grants Ring 0 privileges to that single application thread</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! The hardware halts execution, refuses the instruction, and fires an electronic exception trap that drops control back to the kernel.')">C) The physical CPU hardware blocks execution and fires an immediate trap exception</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="card">
+            <h2>3. How does a Hybrid Kernel distribute its software components across the dual-mode privilege boundary?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! Hybrid systems balance speed and security by running critical managers in Ring 0 while pushing volatile drivers or graphics out to Ring 3.')">A) It leaves critical performance modules in Ring 0 while running volatile diagnostic tasks in Ring 3</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Stripping Ring 0 down to its bare primitives is the core distribution strategy of a pure Microkernel architecture.')">B) It strips Ring 0 down to minimal IPC mechanics, moving files and stacks completely to user space</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Placing every module into Ring 0 describes a standard Monolithic architecture design.')">C) It forces all components, graphics engines, and third-party drivers to run inside Ring 0</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+              <!-- Question 4 -->
+        <div class="card">
+            <h2>4. Why are normal computation instructions, such as adding variables in memory, permitted directly in User Mode (Ring 3)?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! Local data calculations inside an application\'s own virtual memory sandbox cannot corrupt hardware state or break isolation rules.')">A) They only affect data within the process\'s sandbox and pose no system-wide hardware risk</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. All calculations are evaluated against the current privilege level bits inside the silicon core.')">B) Standard math instructions completely bypass the CPU\'s electronic privilege validation checks</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Math operations execute natively inside user spaces without requiring runtime kernel intervention.')">C) They are automatically converted into microkernel messaging packets over local loops</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Question 5 -->
+        <div class="card">
+            <h2>5. In the context of a hardware-enforced privilege boundary, how do memory management subsystems prevent unauthorized user-space inspection of system memory blocks?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Software application layers are blind to page table configurations, which are managed exclusively by the kernel.')">A) By requiring user-space applications to manually approve kernel memory allocation patterns</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! The kernel configures page-table protection bits, forcing the hardware to fault if an unprivileged thread reads a protected address.')">B) By using hardware page-table protection bits that mark specific RAM blocks as supervisor-only</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Physical device encryption occurs at rest and does not govern active software memory privilege access loops.')">C) By clearing physical RAM arrays completely whenever an application changes workspace tabs</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+    </div>
+
+    <script>
+        function checkAns(btn, isCorrect, reason) {
+            const card = btn.closest('.card');
+            const feedback = card.querySelector('.feedback');
+            const siblings = card.querySelectorAll('.option-btn');
+            
+            siblings.forEach(s => s.style.opacity = "0.5");
+            btn.style.opacity = "1";
+            
+            if (isCorrect) {
+                feedback.className = "feedback correct";
+                feedback.innerText = "✓ " + reason;
+            } else {
+                feedback.className = "feedback incorrect";
+                feedback.innerText = "✗ " + reason;
+            }
+        }
+    </script>
+</body>
+</html>
+
+      
