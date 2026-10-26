@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>📝 L0: Course Introduction // Self-Assessment Quiz</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --bg-base: #06080e;
+            --bg-card: #0b0f19;
+            --bg-hover: #161f30;
+            --stroke-glass: rgba(255, 255, 255, 0.08);
+            --ink-bright: #ffffff;
+            --ink-secondary: #e2e8f0;
+            --ink-muted: #64748b;
+            --neon-emerald: #50fa7b;
+            --neon-cyan: #8be9fd;
+            --neon-blue: #6366f1;
+            --font-sans: system-ui, -apple-system, sans-serif;
+            --font-mono: monospace;
+        }
+        body { background-color: var(--bg-base); color: var(--ink-secondary); font-family: var(--font-sans); padding: 40px 24px; line-height: 1.7; overflow-y: auto !important; -webkit-overflow-scrolling: touch !important; }
+        .wrapper { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 24px; }
+        header { border-bottom: 1px solid var(--stroke-glass); padding-bottom: 20px; margin-bottom: 10px; }
+        .quiz-badge { font-family: var(--font-mono); font-size: 0.75rem; color: var(--neon-cyan); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; }
+        h1 { color: var(--ink-bright); font-size: 1.8rem; font-weight: 800; margin-top: 6px; letter-spacing: -0.02em; }
+        .card { background: var(--bg-card); border: 1px solid var(--stroke-glass); border-radius: 12px; padding: 28px; display: flex; flex-direction: column; gap: 16px; margin-bottom: 8px; }
+        h2 { color: var(--ink-bright); font-size: 1.05rem; font-weight: 600; line-height: 1.5; }
+        .options-group { display: flex; flex-direction: column; gap: 10px; }
+        .option-btn { width: 100%; text-align: left; background: rgba(255,255,255,0.01); border: 1px solid var(--stroke-glass); border-radius: 8px; padding: 14px 18px; color: var(--ink-secondary); font-size: 0.9rem; cursor: pointer; transition: all 0.2s ease; }
+        .option-btn:hover { background: var(--bg-hover); border-color: var(--neon-cyan); color: var(--ink-bright); }
+        .feedback { display: none; font-size: 0.88rem; padding: 14px; border-radius: 6px; margin-top: 8px; font-family: var(--font-mono); line-height: 1.5; }
+        .feedback.correct { display: block; background: rgba(80, 250, 123, 0.08); border-left: 3px solid var(--neon-emerald); color: var(--neon-emerald); }
+        .feedback.incorrect { display: block; background: rgba(239, 68, 68, 0.08); border-left: 3px solid #ef4444; color: #f87171; }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+            <div class="quiz-badge">Module 1 // Assessment Layer</div>
+            <h1>Lecture 0: Self-Assessment Quiz</h1>
+        </header>
+
+        <!-- Question 1 -->
+        <div class="card">
+            <h2>1. What is the primary dual role of an operating system in a computer system?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Compiling code is the job of a compiler, and DNS routing belongs to the application layer network stacks.')">A) Compiling high-level programming languages and managing web server DNS routing</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! The OS abstracts messy hardware details into neat interfaces and arbitrates access to physical resources like the CPU, memory, and storage blocks.')">B) Acting as an extended machine (abstractions) and as a resource manager (allocation)</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. The OS utilizes the physical hardware rather than replacing processing units in software loops.')">C) Replacing the CPU\'s arithmetic logic unit and executing BIOS firmware updates</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="card">
+            <h2>2. In the classical Air Traffic Control (ATC) analogy, which component corresponds most directly to user-space applications?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Runways and taxiways correspond to the raw underlying physical hardware components.')">A) The physical concrete of the airport runways and taxiways</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. The central control tower corresponds directly to the core operating system kernel.')">B) The central control tower managing overall airspace scheduling and safety</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! Pilots correspond to individual user-space applications or threads requesting slots to execute operations.')">C) The individual airplane pilots flying their respective planes toward a destination</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="card">
+            <h2>3. Which of the following operations can be safely executed directly by a process running in standard user mode?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! Local computation and manipulation of data within a process\'s own virtual address space are permitted in user mode.')">A) Performing arithmetic calculations in its own allocated virtual memory stack</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Remapping or altering physical tables affects system-wide memory isolation, requiring Ring 0 authority.')">B) Directly remapping the physical page tables of another running process</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Direct hardware channel manipulation is a privileged instruction that always traps to the kernel.')">C) Issuing direct hardware register instructions to modify the physical disk controller</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Question 4 -->
+        <div class="card">
+            <h2>4. How does resource abstraction benefit application developers when interacting with hardware through an OS?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Abstraction hides device-specific metrics behind clean APIs instead of exposing raw mechanics.')">A) It forces the programmer to manually write device drivers for every attached peripheral</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! Abstraction hides low-level hardware complexity behind clean interfaces, like treating disk blocks as a simple file stream.')">B) It hides low-level hardware complexity behind clean, uniform interfaces like file streams</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Abstraction structures access safely through the kernel layers instead of bypassing them.')">C) It bypasses the kernel entirely to maximize raw unmitigated hardware clock speed</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Question 5 -->
+        <div class="card">
+            <h2>5. Which of the following options correctly identifies how the CPU and RAM are multiplexed by a typical operating system?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. This completely reverses the multiplexing strategies used by the kernel allocation engines.')">A) The CPU is space-multiplexed; RAM is time-multiplexed</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. A single CPU core cannot run separate processes at once without time-sharing slots.')">B) Both CPU and RAM are strictly space-multiplexed across the hardware matrix</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! The OS time-multiplexes the CPU core by switching between thread slices rapidly, and space-multiplexes RAM by dividing it concurrently.')">C) The CPU is time-multiplexed (time slices); RAM is space-multiplexed (partitioned blocks)</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+    </div>
+
+    <script>
+        function checkAns(btn, isCorrect, reason) {
+            const card = btn.closest('.card');
+            const feedback = card.querySelector('.feedback');
+            const siblings = card.querySelectorAll('.option-btn');
+            
+            siblings.forEach(s => s.style.opacity = "0.5");
+            btn.style.opacity = "1";
+            
+            if (isCorrect) {
+                feedback.className = "feedback correct";
+                feedback.innerText = "✓ " + reason;
+            } else {
+                feedback.className = "feedback incorrect";
+                feedback.innerText = "✗ " + reason;
+            }
+        }
+    </script>
+</body>
+</html>
