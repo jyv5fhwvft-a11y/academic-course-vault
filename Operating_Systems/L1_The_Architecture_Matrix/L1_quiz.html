@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>📝 L1: The Architecture Matrix // Self-Assessment Quiz</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --bg-base: #06080e;
+            --bg-card: #0b0f19;
+            --bg-hover: #161f30;
+            --stroke-glass: rgba(255, 255, 255, 0.08);
+            --ink-bright: #ffffff;
+            --ink-secondary: #e2e8f0;
+            --ink-muted: #64748b;
+            --neon-emerald: #50fa7b;
+            --neon-cyan: #8be9fd;
+            --neon-blue: #6366f1;
+            --font-sans: system-ui, -apple-system, sans-serif;
+            --font-mono: monospace;
+        }
+        body { background-color: var(--bg-base); color: var(--ink-secondary); font-family: var(--font-sans); padding: 40px 24px; line-height: 1.7; overflow-y: auto !important; -webkit-overflow-scrolling: touch !important; }
+        .wrapper { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 24px; }
+        header { border-bottom: 1px solid var(--stroke-glass); padding-bottom: 20px; margin-bottom: 10px; }
+        .quiz-badge { font-family: var(--font-mono); font-size: 0.75rem; color: var(--neon-cyan); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; }
+        h1 { color: var(--ink-bright); font-size: 1.8rem; font-weight: 800; margin-top: 6px; letter-spacing: -0.02em; }
+        .card { background: var(--bg-card); border: 1px solid var(--stroke-glass); border-radius: 12px; padding: 28px; display: flex; flex-direction: column; gap: 16px; margin-bottom: 8px; }
+        h2 { color: var(--ink-bright); font-size: 1.05rem; font-weight: 600; line-height: 1.5; }
+        .options-group { display: flex; flex-direction: column; gap: 10px; }
+        .option-btn { width: 100%; text-align: left; background: rgba(255,255,255,0.01); border: 1px solid var(--stroke-glass); border-radius: 8px; padding: 14px 18px; color: var(--ink-secondary); font-size: 0.9rem; cursor: pointer; transition: all 0.2s ease; }
+        .option-btn:hover { background: var(--bg-hover); border-color: var(--neon-cyan); color: var(--ink-bright); }
+        .feedback { display: none; font-size: 0.88rem; padding: 14px; border-radius: 6px; margin-top: 8px; font-family: var(--font-mono); line-height: 1.5; }
+        .feedback.correct { display: block; background: rgba(80, 250, 123, 0.08); border-left: 3px solid var(--neon-emerald); color: var(--neon-emerald); }
+        .feedback.incorrect { display: block; background: rgba(239, 68, 68, 0.08); border-left: 3px solid #ef4444; color: #f87171; }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+            <div class="quiz-badge">Module 1 // Assessment Layer</div>
+            <h1>Lecture 1: The Architecture Matrix Quiz</h1>
+        </header>
+
+        <!-- Question 1 -->
+        <div class="card">
+            <h2>1. Which architectural paradigm runs all core system capabilities (Scheduler, VFS, Memory Manager) inside a single shared address space at Ring 0?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! Monolithic kernels pack all core services into supervisor space to maximize performance via fast direct function calls.')">A) Monolithic Kernel Architecture</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Microkernels strip supervisor space down to bare essentials, pushing files and drivers into user space.')">B) Microkernel Design Architecture</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Layered architectures isolate tiers vertically behind strict API boundaries.')">C) Hierarchical Layered Architecture</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="card">
+            <h2>2. In a pure Microkernel design, what type of performance cost or tax is paid when user-space server processes exchange information?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Dynamic loading relates to linking kernel modules at runtime, not inter-process messaging.')">A) Dynamic Symbol Allocation Table Overhead</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! Microkernels must pass messages across isolation boundaries via IPC, forcing context-switching taxes on CPU cycles.')">B) Inter-Process Communication (IPC) Boundary Messaging Tax</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Page table walks relate to hardware virtual memory translations rather than messaging.')">C) Hardware Level Virtual Address Mapping Fault Penalty</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="card">
+            <h2>3. What is the core advantage of a Loadable Kernel Module (LKM) architecture compared to a rigid static compilation?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! LKMs allow you to dynamically link object files directly into Ring 0 kernel space at runtime without restarting the physical hardware.')">A) Extending kernel capabilities and device drivers on-the-fly with zero machine reboots</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. LKMs run inside Ring 0 with full privileges, meaning a faulty module can still crash the system.')">B) Bypassing supervisor status boundaries completely to insulate the core from driver errors</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. LKMs utilize traditional memory references rather than microkernel-style message queues.')">C) Offloading supervisor services onto asynchronous user-space microservices</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+              <!-- Question 4 -->
+        <div class="card">
+            <h2>4. How does a Hybrid Kernel design settle the classic corporate floorplan compromise?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Hybrid kernels retain supervisor mode elements rather than completely discarding them.')">A) By discarding Ring 0 entirely and executing all components over remote socket loops</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! Hybrid systems run performance-critical tasks inside supervisor space for speed, but isolate volatile diagnostics outside in user containers.')">B) By running speed-critical tasks inside supervisor space while isolating volatile services in user space</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Hybrid systems keep kernel boundaries structured rather than merging them indiscriminately.')">C) By merging user data structures directly into the physical CPU hardware register file arrays</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Question 5 -->
+        <div class="card">
+            <h2>5. If a device driver running inside a loadable module (LKM) undergoes an unhandled pointer exception in a monolithic kernel, what is the expected outcome?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Because the LKM executes inside shared Ring 0 memory space, its error cannot be sandboxed automatically.')">A) The single driver process stops operating cleanly while the core operating system stays stable</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! Any code executing inside Ring 0 supervisor space shares total hardware memory clearance, meaning a crash triggers a total system lockup or Kernel Panic.')">B) The fault triggers an immediate system-wide Kernel Panic or fatal crash</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Monolithic kernels do not pass module calculations onto user-space subsystem handlers.')">C) The core scheduler intercepts the exception and offloads it to a unprivileged user thread</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+    </div>
+
+    <script>
+        function checkAns(btn, isCorrect, reason) {
+            const card = btn.closest('.card');
+            const feedback = card.querySelector('.feedback');
+            const siblings = card.querySelectorAll('.option-btn');
+            
+            siblings.forEach(s => s.style.opacity = "0.5");
+            btn.style.opacity = "1";
+            
+            if (isCorrect) {
+                feedback.className = "feedback correct";
+                feedback.innerText = "✓ " + reason;
+            } else {
+                feedback.className = "feedback incorrect";
+                feedback.innerText = "✗ " + reason;
+            }
+        }
+    </script>
+</body>
+</html>
+
+      
