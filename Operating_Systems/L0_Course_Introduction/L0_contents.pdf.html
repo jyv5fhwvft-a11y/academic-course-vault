@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PDF EXPORT // CS 301 Lecture 0 Micro-Contents</title>
+    <style>
+        /* High-Contrast Stark Print Layout System */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { 
+            background: #ffffff; 
+            color: #000000; 
+            font-family: 'Times New Roman', Times, serif; 
+            padding: 1.5in 1in; 
+            line-height: 1.5; 
+            font-size: 11pt; 
+        }
+        
+        /* Strict Page-Break Formatting Controls for Clean Printing */
+        @media print {
+            body { padding: 0; }
+            .no-print { display: none; }
+            @page { size: letter; margin: 1in; }
+        }
+
+        header { 
+            border-bottom: 2px solid #000000; 
+            padding-bottom: 12px; 
+            margin-bottom: 24px; 
+        }
+        .meta-header { 
+            font-family: Arial, sans-serif; 
+            font-size: 9pt; 
+            text-transform: uppercase; 
+            letter-spacing: 1px; 
+            color: #555555; 
+        }
+        h1 { 
+            font-size: 20pt; 
+            font-weight: bold; 
+            margin-top: 6px; 
+        }
+
+        .section-block { 
+            margin-bottom: 20px; 
+            page-break-inside: avoid; 
+        }
+        h2 { 
+            font-family: Arial, sans-serif; 
+            font-size: 12pt; 
+            text-transform: uppercase; 
+            border-bottom: 1px solid #777777; 
+            padding-bottom: 4px; 
+            margin-bottom: 8px; 
+        }
+        
+        .code-container { 
+            font-family: 'Courier New', Courier, monospace; 
+            background: #f4f4f4; 
+            border: 1px solid #cccccc; 
+            padding: 12px; 
+            border-radius: 4px; 
+            font-size: 9.5pt; 
+            margin-top: 6px; 
+            white-space: pre-wrap; 
+        }
+        
+        .print-btn-banner {
+            background: #f1f5f9;
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid #cbd5e1;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            font-size: 9.5pt;
+        }
+        .print-btn {
+            background: #0f172a;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Interactive Export Assistant Banner -->
+    <div class="print-btn-banner no-print">
+        <span>📄 <strong>PDF Export Mode Active:</strong> Tap the action button to initialize your local system print utility and save this layout as a clean PDF document container.</span>
+        <button class="print-btn" onclick="window.print()">Print / Save PDF</button>
+    </div>
+
+    <header>
+        <div class="meta-header">CS 301: Operating Systems // Micro-Level Curriculum Ledger</div>
+        <h1>Lecture 00: Course Introduction Summary</h1>
+    </header>
+
+    <!-- 1. Objective -->
+    <div class="section-block">
+        <h2>1. Objective</h2>
+        <p>State in one clear sentence why an operating system exists, and name the core hardware resources it arbitrates.</p>
+    </div>
+
+    <!-- 2. Prerequisites -->
+    <div class="section-block">
+        <h2>2. Prerequisites</h2>
+        <p>Basic familiarity with running computer programs and typing basic keyboard commands.</p>
+    </div>
+
+    <!-- 3 & 4. Analogies -->
+    <div class="section-block">
+        <h2>3 & 4. Pedagogical Analogies</h2>
+        <p><strong>Analogy 1 (Everyday Life): The Air Traffic Control Tower</strong><br>
+        Imagine a busy international airport with fifty different pilots (User Programs) all trying to land their planes on a single concrete runway (The CPU) at the exact same microsecond. If every pilot acts selfishly, they will crash into each other. The Operating System is the air traffic controller sitting in the tower—it doesn't fly the planes, but it acts as an absolute referee, telling each pilot exactly when they are allowed to use the runway so nobody collides.</p>
+        <p style="margin-top: 10px;"><strong>Analogy 2 (Pure Technical): A Multi-Tenant Cloud Virtualization Hypervisor</strong><br>
+        An OS functions exactly like an unyielding infrastructure supervisor that isolates resource quotas so that an unhandled stack overflow in Tenant A cannot block or corrupt the physical hardware memory registers of Tenant B.</p>
+    </div>
+
+    <!-- 5. Cohesion -->
+    <div class="section-block">
+        <h2>5. System Cohesion Matrix</h2>
+        <p><strong>Feeds Into:</strong> All Future Modules — Establishes the foundational definition of a "Resource," which directly unlocks Module 2 (CPU Cycles), Module 3 (RAM), and Module 5 (Disk Blocks).</p>
+    </div>
+
+    <!-- 6. Core Breakdown -->
+    <div class="section-block">
+        <h2>6. Core Breakdown</h2>
+        <p>An operating system is primarily a resource manager and a hardware abstraction layer. It exists because physical hardware components (CPU cores, RAM chips, storage blocks) are scarce, while software applications are fundamentally selfish and written as if they own the entire machine.</p>
+        <p style="margin-top: 6px;">The history of OS design tracks a sequential path to eliminate resource waste: Batch Processing (fixing idle CPU time) → Multiprogramming (fixing idle I/O time) → Time-Sharing (fixing idle human wait time) → Modern Personal/Cloud Systems.</p>
+    </div>
+
+    <!-- 7. Lexicon -->
+    <div class="section-block">
+        <h2>7. Lexicon / Terms</h2>
+        <p>• <strong>Kernel:</strong> The core program of the operating system that runs with complete architectural privileges and remains resident in physical memory at all times.<br>
+        • <strong>Resource Manager:</strong> The internal role of the OS dedicated to allocating hardware fairly and efficiently among competing tasks.<br>
+        • <strong>Abstraction:</strong> Hiding complex, low-level hardware implementation details behind clean, universal software interfaces.</p>
+    </div>
+
+    <!-- 8. Practical Example -->
+    <div class="section-block">
+        <h2>8. Practical Example</h2>
+        <p><strong>1960s Batch Mainframe Job Queue:</strong> A user writes code onto physical cardboard punch cards, hands them to a human operator, and waits hours for the CPU to process that single task in complete isolation.<br>
+        <strong>Modern Linux Ecosystem:</strong> The kernel utilizes time-slicing to rotate thousands of independent instruction streams across CPU threads so rapidly that a human observer perceives them as executing simultaneously.</p>
+    </div>
+
+    <!-- 9. Classroom Activity -->
+    <div class="section-block">
+        <h2>9. Interactive Classroom Activity</h2>
+        <p><strong>The Live htop Inspection:</strong> Open up a live terminal in class running the top or htop system monitor utility. Point out to the students that even though the laptop only has 4 or 8 physical CPU cores, there are currently over 300 active processes running.</p>
+        <div class="code-container">$ htop
+Tasks: 312 total, 2 running...
+Cpu(s): 12.5%us,  4.2%sy...</div>
+    </div>
+
+</body>
+</html>
