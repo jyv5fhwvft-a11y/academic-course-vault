@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>📝 L7: CPU Scheduling I // Self-Assessment Quiz</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --bg-base: #06080e;
+            --bg-card: #0b0f19;
+            --bg-hover: #161f30;
+            --stroke-glass: rgba(255, 255, 255, 0.08);
+            --ink-bright: #ffffff;
+            --ink-secondary: #e2e8f0;
+            --ink-muted: #64748b;
+            --neon-emerald: #50fa7b;
+            --neon-cyan: #8be9fd;
+            --neon-blue: #6366f1;
+            --font-sans: system-ui, -apple-system, sans-serif;
+            --font-mono: monospace;
+        }
+        body { background-color: var(--bg-base); color: var(--ink-secondary); font-family: var(--font-sans); padding: 40px 24px; line-height: 1.7; overflow-y: auto !important; -webkit-overflow-scrolling: touch !important; }
+        .wrapper { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 24px; }
+        header { border-bottom: 1px solid var(--stroke-glass); padding-bottom: 20px; margin-bottom: 10px; }
+        .quiz-badge { font-family: var(--font-mono); font-size: 0.75rem; color: var(--neon-cyan); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; }
+        h1 { color: var(--ink-bright); font-size: 1.8rem; font-weight: 800; margin-top: 6px; letter-spacing: -0.02em; }
+        .card { background: var(--bg-card); border: 1px solid var(--stroke-glass); border-radius: 12px; padding: 28px; display: flex; flex-direction: column; gap: 16px; margin-bottom: 8px; }
+        h2 { color: var(--ink-bright); font-size: 1.05rem; font-weight: 600; line-height: 1.5; }
+        .options-group { display: flex; flex-direction: column; gap: 10px; }
+        .option-btn { width: 100%; text-align: left; background: rgba(255,255,255,0.01); border: 1px solid var(--stroke-glass); border-radius: 8px; padding: 14px 18px; color: var(--ink-secondary); font-size: 0.9rem; cursor: pointer; transition: all 0.2s ease; }
+        .option-btn:hover { background: var(--bg-hover); border-color: var(--neon-cyan); color: var(--ink-bright); }
+        .feedback { display: none; font-size: 0.88rem; padding: 14px; border-radius: 6px; margin-top: 8px; font-family: var(--font-mono); line-height: 1.5; }
+        .feedback.correct { display: block; background: rgba(80, 250, 123, 0.08); border-left: 3px solid var(--neon-emerald); color: var(--neon-emerald); }
+        .feedback.incorrect { display: block; background: rgba(239, 68, 68, 0.08); border-left: 3px solid #ef4444; color: #f87171; }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+            <div class="quiz-badge">Module 2 // Assessment Layer</div>
+            <h1>Lecture 7: CPU Scheduling I Quiz</h1>
+        </header>
+
+        <!-- Question 1 -->
+        <div class="card">
+            <h2>1. Which performance degradation scenario describes short processes waiting an excessive duration because a long, heavy process is monopolizing a non-preemptive CPU core?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Starvation describes tasks blocked indefinitely by incoming higher priority competitors rather than an allocation bottleneck.')">A) The Priority Starvation Multiplier</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! The Convoy Effect occurs under non-preemptive FCFS queues when tiny tasks get trapped behind a heavyweight workload, blowing out average waiting metrics.')">B) The Convoy Effect</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Thrashing relates to virtual memory page replacement breakdowns.')">C) System Memory Frame Thrashing</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="card">
+            <h2>2. Mathematically, which scheduling policy is proven to achieve the absolute minimum average waiting time vector for a fixed array of arriving tasks?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. FCFS preserves execution insertion orders but results in poorly optimized wait averages.')">A) First-Come, First-Served (FCFS)</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! Shortest Job First (SJF) minimizes average wait vectors perfectly by ordering execution based on the brevity of burst times.')">B) Shortest Job First (SJF)</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Round Robin focuses on time-sliced scheduling fairness rather than minimizing waiting averages.')">C) Round Robin (RR)</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="card">
+            <h2>3. What architectural outcome occurs if the Time Quantum parameter in a Round Robin scheduling queue is configured to be excessively large?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! If the quantum outlasts the longest process burst time, preemption never fires, meaning Round Robin degrades identically into an FCFS queue layout.')">A) The scheduling policy completely degrades into First-Come, First-Served (FCFS) behavior.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Excessively small slices increase context switches, not large slices.')">B) The core chip burns excessive cycles running administrative context switch tasks.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Quantum sizing scales CPU times slices without impacting memory page assignments.')">C) The kernel locks down page allocation parameters inside user space segments.</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+              <!-- Question 4 -->
+        <div class="card">
+            <h2>4. In the grocery store checkout lane analogy, what does forcing an uncompleted customer to roll their cart to the back of the line after a set timer represent?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Non-preemptive schemes let tasks run to completion without interruption.')">A) A non-preemptive Shortest-Job-First optimization step</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! This matches Round Robin preemption where hardware timers interrupt execution once a process crosses its assigned Time Quantum ceiling.')">B) Preemptive Round Robin scheduling governed by a Time Quantum</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Trapping hardware exceptions handles access violations, not scheduling cycles.')">C) A hardware exception trap handling a privilege boundary fault</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Question 5 -->
+        <div class="card">
+            <h2>5. Given three processes arriving simultaneously at time 0 with burst values of P1=24ms, P2=3ms, and P3=3ms, what is the exact reduction in Average Wait Time when transitioning from FCFS to SJF layout parameters?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Check your calculations: FCFS average wait is 17ms, while SJF yields a 3ms average waiting vector.')">A) An optimization reduction of 6.0ms</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! FCFS average wait is (0 + 24 + 27) / 3 = 17ms. SJF average wait is (0 + 3 + 6) / 3 = 3ms. The overall wait metric reduction is exactly 14.0ms.')">B) An optimization reduction of 14.0ms</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Ensure you compute the arithmetic means across all three task entities.')">C) An optimization reduction of 21.0ms</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+    </div>
+
+    <script>
+        function checkAns(btn, isCorrect, reason) {
+            const card = btn.closest('.card');
+            const feedback = card.querySelector('.feedback');
+            const siblings = card.querySelectorAll('.option-btn');
+            
+            siblings.forEach(s => s.style.opacity = "0.5");
+            btn.style.opacity = "1";
+            
+            if (isCorrect) {
+                feedback.className = "feedback correct";
+                feedback.innerText = "✓ " + reason;
+            } else {
+                feedback.className = "feedback incorrect";
+                feedback.innerText = "✗ " + reason;
+            }
+        }
+    </script>
+</body>
+</html>
+
+      
