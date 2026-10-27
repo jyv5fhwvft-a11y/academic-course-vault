@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PDF EXPORT // CS 301 Lecture 5 Micro-Contents</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { 
+            background: #ffffff; 
+            color: #000000; 
+            font-family: 'Times New Roman', Times, serif; 
+            padding: 1.5in 1in; 
+            line-height: 1.5; 
+            font-size: 11pt; 
+        }
+        @media print {
+            body { padding: 0; }
+            .no-print { display: none; }
+            @page { size: letter; margin: 1in; }
+        }
+        header { 
+            border-bottom: 2px solid #000000; 
+            padding-bottom: 12px; 
+            margin-bottom: 24px; 
+        }
+        .meta-header { 
+            font-family: Arial, sans-serif; 
+            font-size: 9pt; 
+            text-transform: uppercase; 
+            letter-spacing: 1px; 
+            color: #555555; 
+        }
+        h1 { 
+            font-size: 20pt; 
+            font-weight: bold; 
+            margin-top: 6px; 
+        }
+        .section-block { 
+            margin-bottom: 20px; 
+            page-break-inside: avoid; 
+        }
+        h2 { 
+            font-family: Arial, sans-serif; 
+            font-size: 12pt; 
+            text-transform: uppercase; 
+            border-bottom: 1px solid #777777; 
+            padding-bottom: 4px; 
+            margin-bottom: 8px; 
+        }
+        .code-container { 
+            font-family: 'Courier New', Courier, monospace; 
+            background: #f4f4f4; 
+            border: 1px solid #cccccc; 
+            padding: 12px; 
+            border-radius: 4px; 
+            font-size: 9.5pt; 
+            margin-top: 6px; 
+            white-space: pre-wrap; 
+        }
+        .print-btn-banner {
+            background: #f1f5f9;
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid #cbd5e1;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            font-size: 9.5pt;
+        }
+        .print-btn {
+            background: #0f172a;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="print-btn-banner no-print">
+        <span>📄 <strong>PDF Export Mode Active:</strong> Tap the action button to initialize your system print panel and export this file as an official academic PDF document.</span>
+        <button class="print-btn" onclick="window.print()">Print / Save PDF</button>
+    </div>
+    <header>
+        <div class="meta-header">CS 301: Operating Systems // Micro-Level Curriculum Ledger</div>
+        <h1>Lecture 05: Process Anatomy & The PCB Ledger Summary</h1>
+    </header>
+    <div class="section-block">
+        <h2>1. Objective</h2>
+        <p>Diagram the internal memory layout of a process and define every tracking metric stored inside the Process Control Block (PCB) kernel ledger.</p>
+    </div>
+
+    <div class="section-block">
+        <h2>2. Prerequisites</h2>
+        <p>Module 1 (All Lectures), C memory layout concepts (Stack vs. Heap).</p>
+    </div>
+
+    <div class="section-block">
+        <h2>3. Analogy 1 (Everyday Life): The Business Corporate Accountant</h2>
+        <p>Imagine a massive corporate office building where multiple completely different businesses (User Processes) share the same workspace. Each business thinks it is the only company there. To keep them organized, the building manager has a dedicated filing cabinet containing a thick ledger folder for every single business. This folder is the Process Control Block (PCB). Inside it, the manager writes down exactly how much money the business has (Registers), which office doors they have keys to (File Descriptors), and exactly what line of their contract they are currently reading (Program Counter). If a business leaves the room, the accountant reads this ledger to restore their exact state when they return.</p>
+    </div>
+
+    <div class="section-block">
+        <h2>4. Analogy 2 (Pure Technical): Container State Snapshot</h2>
+        <p>A process layout matches a sandboxed virtual container, where the underlying host kernel preserves a structured C struct (<code>struct task_struct</code> in Linux) to cache metadata boundaries that hardware registers must shift into during a context switch.</p>
+    </div>
+
+    <div class="section-block">
+        <h2>5. System Cohesion Matrix</h2>
+        <p>• <strong>Relies On:</strong> L02 (Dual-Mode Barrier) — Relies on Ring 0 privileges to protect the PCB arrays from being altered by unprivileged user application code.<br>
+        • <strong>Feeds Into:</strong> L06 (Execution Mechanics) — Modifying, cloning, or discarding a process lifecycle requires allocating or freeing a physical PCB block struct inside the kernel slab allocator.</p>
+    </div>
+
+    <div class="section-block">
+        <h2>6. Core Breakdown</h2>
+        <p>A process is a program in execution. It consists of more than just static machine code; it encompasses an active address space split into distinct regions: the Text Segment (compiled machine instructions), the Data Segment (global variables), the Heap (dynamically allocated memory), and the Stack (local variables and function parameters).</p>
+        <p style="margin-top: 6px;">To manage these active entities, the kernel maintains an array of Process Control Blocks. The PCB tracks vital metadata: Process ID (PID), Process State (Ready, Running, Blocked), Program Counter (PC register), CPU Register saves, Memory Management boundaries, and Open File Descriptor tables.</p>
+    </div>
+
+      <div class="section-block">
+        <h2>7. Lexicon / Terms</h2>
+        <p>• <strong>Process:</strong> An active instance of a running software application containing its own dedicated execution context and address boundaries.<br>
+        • <strong>Process Control Block (PCB):</strong> The definitive kernel data structure used to track, schedule, and preserve a process's metadata.<br>
+        • <strong>Program Counter (PC):</strong> A specialized physical CPU register that stores the memory address of the next instruction waiting to be executed.<br>
+        • <strong>Process States:</strong> The operational lifecycle flag of a task (New, Ready, Running, Waiting/Blocked, Terminated).</p>
+    </div>
+
+    <div class="section-block">
+        <h2>8. Practical Example</h2>
+        <div class="code-container">struct ProcessControlBlock {
+    int pid;                                // Unique Process Identifier
+    enum { READY, RUNNING, BLOCKED } state; // Current lifecycle tracker
+    unsigned long program_counter;          // Pointer to current assembly line
+    unsigned long registers[16];            // Array cache to save CPU state
+    int open_files_map[256];                // File descriptor mapping layout
+};</div>
+    </div>
+
+    <div class="section-block">
+        <h2>9. Interactive Classroom Activity</h2>
+        <p><strong>The Human PCB Blueprint Map:</strong> Draw a massive empty process memory map (Text, Data, Heap, Stack) on the classroom chalkboard. Hand four different students cards labeled "Global Int Variable," "Compiled Printf Instruction," "Malloc Address Pointer," and "Local Function Loop Index." Have them physically walk up to the board and stand in the exact segment zone where their asset belongs in a running process.</p>
+    </div>
+</body>
+</html>
+
+
+  
+  
