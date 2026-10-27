@@ -74,3 +74,49 @@
             </div>
             <div class="feedback"></div>
         </div>
+
+                <!-- Question 4 -->
+        <div class="card">
+            <h2>4. What specific tracking metric inside the PCB struct acts as a pointer storing the address of the next machine line waiting for CPU processing?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. The PID is a unique lookup key integer that distinguishes separate tenants across the operating loop.')">A) The Process Identifier Key (PID)</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! The Program Counter (PC) stores the precise memory address of the next sequential machine statement lined up for processing.')">B) The Program Counter Register Pointer (PC)</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. The File Descriptor table identifies active I/O links and storage maps allocated to the task.')">C) The open file descriptor map tracker</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Question 5 -->
+        <div class="card">
+            <h2>5. Why is a user-space application completely blocked from writing data directly into its own Process Control Block tracking folder metrics?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. The PCB is stored entirely within physical system RAM allocated inside protected kernel memory space lines.')">A) The PCB struct is physically stored inside hardware read-only motherboard ROM chips.</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! Allowing a user application to alter its own PCB would permit it to bypass hardware privilege rings, security checks, and resource quotas.')">B) It would break the isolation boundary, letting untrusted tasks modify their own privilege settings.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Modern systems routinely alter PCB metadata states to log active scheduling swaps across thread lines.')">C) Modern scheduling components can only append metrics upon initialization at cold boot.</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+    </div>
+
+    <script>
+        function checkAns(btn, isCorrect, reason) {
+            const card = btn.closest('.card');
+            const feedback = card.querySelector('.feedback');
+            const siblings = card.querySelectorAll('.option-btn');
+            
+            siblings.forEach(s => s.style.opacity = "0.5");
+            btn.style.opacity = "1";
+            
+            if (isCorrect) {
+                feedback.className = "feedback correct";
+                feedback.innerText = "✓ " + reason;
+            } else {
+                feedback.className = "feedback incorrect";
+                feedback.innerText = "✗ " + reason;
+            }
+        }
+    </script>
+</body>
+</html>
+
