@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>📝 L8: CPU Scheduling II // Self-Assessment Quiz</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --bg-base: #06080e;
+            --bg-card: #0b0f19;
+            --bg-hover: #161f30;
+            --stroke-glass: rgba(255, 255, 255, 0.08);
+            --ink-bright: #ffffff;
+            --ink-secondary: #e2e8f0;
+            --ink-muted: #64748b;
+            --neon-emerald: #50fa7b;
+            --neon-cyan: #8be9fd;
+            --neon-blue: #6366f1;
+            --font-sans: system-ui, -apple-system, sans-serif;
+            --font-mono: monospace;
+        }
+        body { background-color: var(--bg-base); color: var(--ink-secondary); font-family: var(--font-sans); padding: 40px 24px; line-height: 1.7; overflow-y: auto !important; -webkit-overflow-scrolling: touch !important; }
+        .wrapper { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 24px; }
+        header { border-bottom: 1px solid var(--stroke-glass); padding-bottom: 20px; margin-bottom: 10px; }
+        .quiz-badge { font-family: var(--font-mono); font-size: 0.75rem; color: var(--neon-cyan); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; }
+        h1 { color: var(--ink-bright); font-size: 1.8rem; font-weight: 800; margin-top: 6px; letter-spacing: -0.02em; }
+        .card { background: var(--bg-card); border: 1px solid var(--stroke-glass); border-radius: 12px; padding: 28px; display: flex; flex-direction: column; gap: 16px; margin-bottom: 8px; }
+        h2 { color: var(--ink-bright); font-size: 1.05rem; font-weight: 600; line-height: 1.5; }
+        .options-group { display: flex; flex-direction: column; gap: 10px; }
+        .option-btn { width: 100%; text-align: left; background: rgba(255,255,255,0.01); border: 1px solid var(--stroke-glass); border-radius: 8px; padding: 14px 18px; color: var(--ink-secondary); font-size: 0.9rem; cursor: pointer; transition: all 0.2s ease; }
+        .option-btn:hover { background: var(--bg-hover); border-color: var(--neon-cyan); color: var(--ink-bright); }
+        .feedback { display: none; font-size: 0.88rem; padding: 14px; border-radius: 6px; margin-top: 8px; font-family: var(--font-mono); line-height: 1.5; }
+        .feedback.correct { display: block; background: rgba(80, 250, 123, 0.08); border-left: 3px solid var(--neon-emerald); color: var(--neon-emerald); }
+        .feedback.incorrect { display: block; background: rgba(239, 68, 68, 0.08); border-left: 3px solid #ef4444; color: #f87171; }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+            <div class="quiz-badge">Module 2 // Advanced Scheduling Layer</div>
+            <h1>Lecture 8: CPU Scheduling II Quiz</h1>
+        </header>
+
+        <!-- Question 1 -->
+        <div class="card">
+            <h2>1. What core scheduling defect occurs when low-priority jobs sit indefinitely inside the ready state because a steady stream of higher-priority tasks keeps arriving?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! Starvation describes a scenario where low-priority tasks are completely starved of execution time due to constant higher-priority execution claims.')">A) Starvation</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Priority Inversion involves an intermediate priority task indirectly blocking a higher priority task due to resource locks.')">B) Priority Inversion</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Convoy effect relates specifically to FCFS size bottlenecks.')">C) The Convoy Effect Multiplier</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="card">
+            <h2>2. How does the kernel mitigation technique known as "Aging" prevent priority starvation traps?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Aging changes priority dynamic rankings over time rather than modifying task slice ceilings.')">A) By tracking the physical execution ages of CPU cores to reallocate memory space.</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! Aging gradually scales up the priority of an unexecuted process the longer it languishes inside the ready lines, ensuring it eventually runs.')">B) By gradually elevating a process\'s scheduling priority the longer it sits starved inside the ready queue.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. This describes the behavior of a standard round-robin preemption clock.')">C) By force-terminating tasks that exceed their assigned execution time quantum ceilings.</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="card">
+            <h2>3. In a Multi-Level Feedback Queue (MLFQ) setup, what structural penalty happens to a task that completely consumes its entire Time Quantum without yielding?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! MLFQ dynamically downgrades long, compute-bound background tasks to lower-tier rows with longer quantums, keeping quick interactive jobs at the top.')">A) It is dynamically downgraded to a lower-priority queue tier line.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Keeping tasks in the top tier would freeze responsiveness for short interactive items.')">B) It locks permanently into the top-tier row while receiving a shortened quantum buffer.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. MLFQ adjusts prioritization rankings dynamically rather than triggering exceptions.')">C) It triggers a hardware general protection exception fault to pause background threads.</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+              <!-- Question 4 -->
+        <div class="card">
+            <h2>4. What architectural anomaly occurred on the Mars Pathfinder rover where an intermediate-priority task indirectly paralyzed a critical high-priority task?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Standard starvation is a raw prioritization delay rather than an indirect lock chain dependency trap.')">A) A standard multi-level round robin memory allocation fault</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! Priority Inversion is the specific trap where a medium task preempts a low task holding a lock, preventing it from releasing the resource needed by a high task.')">B) Priority Inversion</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Firmware rom degradation is a physical hardware fault rather than a scheduling logic deadlock.')">C) Motherboard firmware storage sector bit rot breakdown</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Question 5 -->
+        <div class="card">
+            <h2>5. Under the Priority Inheritance protocol, how is a Priority Inversion trap resolved when a high-priority task blocks on a resource held by a low-priority task?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Force-killing the lock holder risks leaving critical shared resource data in an unstable, corrupted state.')">A) The kernel immediately force-kills the low-priority process to reclaim the resource lock container.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Dropping down high-priority threads fails to expedite the completion of the code section holding the lock.')">B) The high-priority process permanently degrades its priority vector to match the lowest tier.</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! Priority Inheritance forces the low-priority lock holder to temporarily inherit the high task\'s priority level, allowing it to bypass intermediate tasks and release the lock quickly.')">C) The low-priority process temporarily inherits the priority level of the blocked high-priority process to expedite lock release.</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+    </div>
+
+    <script>
+        function checkAns(btn, isCorrect, reason) {
+            const card = btn.closest('.card');
+            const feedback = card.querySelector('.feedback');
+            const siblings = card.querySelectorAll('.option-btn');
+            
+            siblings.forEach(s => s.style.opacity = "0.5");
+            btn.style.opacity = "1";
+            
+            if (isCorrect) {
+                feedback.className = "feedback correct";
+                feedback.innerText = "✓ " + reason;
+            } else {
+                feedback.className = "feedback incorrect";
+                feedback.innerText = "✗ " + reason;
+            }
+        }
+    </script>
+</body>
+</html>
+
+      
