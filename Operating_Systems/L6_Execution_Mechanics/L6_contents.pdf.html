@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PDF EXPORT // CS 301 Lecture 6 Micro-Contents</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { 
+            background: #ffffff; 
+            color: #000000; 
+            font-family: 'Times New Roman', Times, serif; 
+            padding: 1.5in 1in; 
+            line-height: 1.5; 
+            font-size: 11pt; 
+        }
+        @media print {
+            body { padding: 0; }
+            .no-print { display: none; }
+            @page { size: letter; margin: 1in; }
+        }
+        header { 
+            border-bottom: 2px solid #000000; 
+            padding-bottom: 12px; 
+            margin-bottom: 24px; 
+        }
+        .meta-header { 
+            font-family: Arial, sans-serif; 
+            font-size: 9pt; 
+            text-transform: uppercase; 
+            letter-spacing: 1px; 
+            color: #555555; 
+        }
+        h1 { 
+            font-size: 20pt; 
+            font-weight: bold; 
+            margin-top: 6px; 
+        }
+        .section-block { 
+            margin-bottom: 20px; 
+            page-break-inside: avoid; 
+        }
+        h2 { 
+            font-family: Arial, sans-serif; 
+            font-size: 12pt; 
+            text-transform: uppercase; 
+            border-bottom: 1px solid #777777; 
+            padding-bottom: 4px; 
+            margin-bottom: 8px; 
+        }
+        .code-container { 
+            font-family: 'Courier New', Courier, monospace; 
+            background: #f4f4f4; 
+            border: 1px solid #cccccc; 
+            padding: 12px; 
+            border-radius: 4px; 
+            font-size: 9.5pt; 
+            margin-top: 6px; 
+            white-space: pre-wrap; 
+        }
+        .print-btn-banner {
+            background: #f1f5f9;
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid #cbd5e1;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            font-size: 9.5pt;
+        }
+        .print-btn {
+            background: #0f172a;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="print-btn-banner no-print">
+        <span>📄 <strong>PDF Export Assistant Active:</strong> Tap the action button to initialize your system print panel and export this file as an official academic PDF document.</span>
+        <button class="print-btn" onclick="window.print()">Print / Save PDF</button>
+    </div>
+    <header>
+        <div class="meta-header">CS 301: Operating Systems // Micro-Level Curriculum Ledger</div>
+        <h1>Lecture 06: Process Execution Mechanics Summary</h1>
+    </header>
+    <div class="section-block">
+        <h2>1. Objective</h2>
+        <p>Explain the exact operational lifecycle difference between cloning an address space (fork) and overriding an address space (exec), and trace register states during a context switch.</p>
+    </div>
+
+    <div class="section-block">
+        <h2>2. Prerequisites</h2>
+        <p>L03 (Syscall Interface), L05 (Process Anatomy).</p>
+    </div>
+
+    <div class="section-block">
+        <h2>3 & 4. Pedagogical Analogies</h2>
+        <p><strong>Analogy 1 (Everyday Life): Swapping Runners Mid-Relay</strong><br>
+        Imagine a track-and-field relay race. Executing a fork() system call is like the current runner magically duplicating themselves into a perfect clone runner standing right next to them; both clones have the exact same muscle memory, are running at the exact same speed, and are looking at the exact same spot on the track. Executing an exec() call is like that runner keeping their physical body but instantly handing them an entirely new task script (e.g., throwing a javelin instead of running). A Context Switch is the referee pausing the race, carefully writing down exactly where the current runner stood on the track, making them step aside, and letting the next runner onto the track based on their previously recorded track position ledger.</p>
+        <p style="margin-top: 10px;"><strong>Analogy 2 (Pure Technical): Git Branching vs. Project Overwriting</strong><br>
+        A fork() system call is identical to a git branch command—it duplicates the exact state of the commit timeline into an isolated copy. An exec() system call is identical to deleting all code files inside a folder and cloning a completely different repository into that exact same directory path.</p>
+    </div>
+
+    <div class="section-block">
+        <h2>5. System Cohesion Matrix</h2>
+        <p>• <strong>Relies On:</strong> L03 (Gatekeeper Mechanism) — Relies on system traps to pass execution control securely to sys_fork and sys_execve routines.<br>
+        • <strong>Feeds Into:</strong> Module 4 (Memory Management) — Deeply ties into Virtual Memory optimization mechanisms like Copy-On-Write (COW) page table mirroring.</p>
+    </div>
+
+    <div class="section-block">
+        <h2>6. Core Breakdown</h2>
+        <p>In Unix-like systems, new processes are created via a two-step mechanism. The fork() system call clones the calling process, creating an identical child process. The child receives a unique PID, but copies the parent's file descriptors, environment, and address space. Crucially, fork() returns 0 inside the child process, but returns the child's real PID inside the parent process, allowing code to branch.</p>
+        <p style="margin-top: 6px;">The exec() family of calls overrides the current process image, wiping the stack, heap, and data segments to load a brand new executable binary file. A Context Switch occurs when the kernel scheduler shifts the CPU core from executing one process to another, requiring saving the active CPU registers into the outgoing process's PCB and restoring the register values from the incoming process's PCB.</p>
+    </div>
+
+      <div class="section-block">
+        <h2>7. Lexicon / Terms</h2>
+        <p>• <strong>fork():</strong> A system call that duplicates the current process to create an isolated, matching child process container.<br>
+        • <strong>exec():</strong> A system call that overrides the active process address space with a new executable binary program image.<br>
+        • <strong>Context Switch:</strong> The physical hardware/software process of saving the active CPU register state and restoring a different task context.<br>
+        • <strong>PCB Save/Restore:</strong> The computational steps during a context switch that copy registers to or from a task's PCB kernel cache.</p>
+    </div>
+
+    <div class="section-block">
+        <h2>8. Practical Example</h2>
+        <div class="code-container">#include &lt;unistd.h&gt;
+#include &lt;sys/types.h&gt;
+#include &lt;stdio.h&gt;
+
+int main() {
+    pid_t rc = fork();
+
+    if (rc &lt; 0) {
+        fprintf(stderr, "Fork failed\n");
+    } else if (rc == 0) {
+        printf("Child process (PID: %d) launching 'ls' command...\n", getpid());
+        char *args[] = {"/bin/ls", "-l", NULL};
+        execv(args[0], args);
+    } else {
+        wait(NULL);
+        printf("Parent process resumed execution line securely.\n");
+    }
+    return 0;
+}</div>
+    </div>
+
+    <div class="section-block">
+        <h2>9. Interactive Classroom Activity</h2>
+        <p><strong>The Live C Code Output Prediction Game:</strong> Type up a basic C file containing a nested loop and a raw fork() call on the projector screen. Before compiling or running it, pass sheets of paper out to students. Have them trace the execution timeline and predict the exact line-by-line terminal output layout. Run it live to see who predicted the overlapping interleaved child-parent print arrays correctly.</p>
+    </div>
+</body>
+</html>
+
+  
+
+  
