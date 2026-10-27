@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PDF EXPORT // CS 301 Lecture 8 Micro-Contents</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { 
+            background: #ffffff; 
+            color: #000000; 
+            font-family: 'Times New Roman', Times, serif; 
+            padding: 1.5in 1in; 
+            line-height: 1.5; 
+            font-size: 11pt; 
+        }
+        @media print {
+            body { padding: 0; }
+            .no-print { display: none; }
+            @page { size: letter; margin: 1in; }
+        }
+        header { 
+            border-bottom: 2px solid #000000; 
+            padding-bottom: 12px; 
+            margin-bottom: 24px; 
+        }
+        .meta-header { 
+            font-family: Arial, sans-serif; 
+            font-size: 9pt; 
+            text-transform: uppercase; 
+            letter-spacing: 1px; 
+            color: #555555; 
+        }
+        h1 { 
+            font-size: 20pt; 
+            font-weight: bold; 
+            margin-top: 6px; 
+        }
+        .section-block { 
+            margin-bottom: 20px; 
+            page-break-inside: avoid; 
+        }
+        h2 { 
+            font-family: Arial, sans-serif; 
+            font-size: 12pt; 
+            text-transform: uppercase; 
+            border-bottom: 1px solid #777777; 
+            padding-bottom: 4px; 
+            margin-bottom: 8px; 
+        }
+        .code-container { 
+            font-family: 'Courier New', Courier, monospace; 
+            background: #f4f4f4; 
+            border: 1px solid #cccccc; 
+            padding: 12px; 
+            border-radius: 4px; 
+            font-size: 9.5pt; 
+            margin-top: 6px; 
+            white-space: pre-wrap; 
+        }
+        .print-btn-banner {
+            background: #f1f5f9;
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid #cbd5e1;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            font-size: 9.5pt;
+        }
+        .print-btn {
+            background: #0f172a;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="print-btn-banner no-print">
+        <span>📄 <strong>PDF Export Assistant Active:</strong> Tap the action button to initialize your system print panel and export this file as an official academic PDF document.</span>
+        <button class="print-btn" onclick="window.print()">Print / Save PDF</button>
+    </div>
+    <header>
+        <div class="meta-header">CS 301: Operating Systems // Micro-Level Curriculum Ledger</div>
+        <h1>Lecture 08: CPU Scheduling II Summary</h1>
+    </header>
+    <div class="section-block">
+        <h2>1. Objective</h2>
+        <p>Construct a priority starvation scenario, calculate priority aging fixes, and diagnose the architectural trap of Priority Inversion.</p>
+    </div>
+
+    <div class="section-block">
+        <h2>2. Prerequisites</h2>
+        <p>L07 (CPU Scheduling I).</p>
+    </div>
+
+    <div class="section-block">
+        <h2>3 & 4. Pedagogical Analogies</h2>
+        <p><strong>Analogy 1 (Everyday Life): The Hospital Emergency Room Waiting Area</strong><br>
+        Imagine a hospital emergency room. A standard "first come first served" policy completely collapses the second an ambulance pulls up carrying someone bleeding out from an accident (Priority Scheduling). However, if the ER doctors only look at high-priority critical emergencies, a person sitting in the corner with a fractured arm might sit in the lobby waiting for three consecutive days without ever seeing a physician (Starvation). To solve this, the triage nurse uses Aging—every hour the patient sits in the waiting room, their priority level is boosted slightly until they eventually become the top-priority emergency.</p>
+        <p style="margin-top: 10px;"><strong>Analogy 2 (Pure Technical): Audio Buffering vs. Background Indexing</strong><br>
+        Advanced scheduling behaves identically to a media system packet network, routing a critical 4K live audio sample array ahead of a background backup agent daemon, while dynamically penalizing the background agent's scheduling frequency bounds to prevent UI lockups.</p>
+    </div>
+
+    <div class="section-block">
+        <h2>5. System Cohesion Matrix</h2>
+        <p>• <strong>Relies On:</strong> L07 (Scheduling Policies) — Builds upon basic queue structures by linking multiple preemptive tiers together.<br>
+        • <strong>Feeds Into:</strong> Module 5 (Process Synchronization) — Directly interacts with locking mechanics, where priority configurations can cause a low-priority thread holding a lock to block a high-priority thread (Priority Inversion).</p>
+    </div>
+
+    <div class="section-block">
+        <h2>6. Core Breakdown</h2>
+        <p>• <strong>Starvation Defect:</strong> Pure priority scheduling assigns every process a numeric value, always picking the task with the highest rating. This easily causes Starvation (low-priority jobs never execute).<br>
+        • <strong>Multi-Level Feedback Queue (MLFQ):</strong> Structures multiple distinct ready lines, each with varying priority tiers and time quantums. New tasks enter the top-tier queue with a short quantum. If they consume their entire time slice without yielding, MLFQ downgrades them to a lower-tier line with a longer quantum.<br>
+        • <strong>Dynamic Balance:</strong> This adaptation mechanism effectively separates quick, interactive, I/O-bound tasks from heavy, compute-bound background batch jobs without requiring manual parameter configuration adjustments.</p>
+    </div>
+
+      <div class="section-block">
+        <h2>7. Lexicon / Terms</h2>
+        <p>• <strong>Starvation:</strong> A scheduling defect where a process remains indefinitely delayed inside the ready state because higher-priority tasks keep seizing control.<br>
+        • <strong>Aging:</strong> A kernel mitigation technique that gradually elevates a process's scheduling priority the longer it sits starved inside the ready queue.<br>
+        • <strong>Multi-Level Feedback Queue (MLFQ):</strong> An adaptive CPU scheduling architecture that shifts tasks dynamically between historical execution runtime rows.<br>
+        • <strong>Priority Inversion:</strong> An operational trap where a low-priority thread holding a resource indirectly delays a high-priority thread due to an intermediate medium-priority thread preempting the resource holder.</p>
+    </div>
+
+    <div class="section-block">
+        <h2>8. Practical Example: The Mars Pathfinder Glitch Case Study</h2>
+        <p><strong>The Priority Inversion Scenario:</strong> High-priority task T<sub>H</sub> requires a shared lock held by low-priority task T<sub>L</sub>. Suddenly, a medium-priority task T<sub>M</sub> arrives that does not require the lock. T<sub>M</sub> preempts T<sub>L</sub> because its base priority rating is higher.</p>
+        <div class="code-container">------------------------------------------------=================
+CRITICAL REASONING CORE:
+Unresolved, T_L cannot execute to complete its scope and release the lock, 
+which indefinitely paralyzes the high-priority thread T_H from running.
+
+RESOLUTION SYSTEM: Priority Inheritance
+T_L temporarily inherits the priority level of T_H to rush out 
+of the critical section and release the shared lock.
+------------------------------------------------=================</div>
+    </div>
+
+    <div class="section-block">
+        <h2>9. Interactive Classroom Activity</h2>
+        <p><strong>The Mars Pathfinder Trap Roleplay:</strong> Appoint three students as T<sub>H</sub> (High Priority), T<sub>M</sub> (Medium Priority), and T<sub>L</sub> (Low Priority). Hand T<sub>L</sub> an item representing a locked resource (like a dry-erase marker). Run the execution simulation on the board to visually demonstrate to the class how T<sub>M</sub> can accidentally paralyze the system, and have students propose a solution before you name Priority Inheritance.</p>
+    </div>
+</body>
+</html>
+
+
+  
+  
