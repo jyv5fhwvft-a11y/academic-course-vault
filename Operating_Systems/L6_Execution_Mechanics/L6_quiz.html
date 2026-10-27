@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>📝 L6: Process Execution Mechanics // Self-Assessment Quiz</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --bg-base: #06080e;
+            --bg-card: #0b0f19;
+            --bg-hover: #161f30;
+            --stroke-glass: rgba(255, 255, 255, 0.08);
+            --ink-bright: #ffffff;
+            --ink-secondary: #e2e8f0;
+            --ink-muted: #64748b;
+            --neon-emerald: #50fa7b;
+            --neon-cyan: #8be9fd;
+            --neon-blue: #6366f1;
+            --font-sans: system-ui, -apple-system, sans-serif;
+            --font-mono: monospace;
+        }
+        body { background-color: var(--bg-base); color: var(--ink-secondary); font-family: var(--font-sans); padding: 40px 24px; line-height: 1.7; overflow-y: auto !important; -webkit-overflow-scrolling: touch !important; }
+        .wrapper { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 24px; }
+        header { border-bottom: 1px solid var(--stroke-glass); padding-bottom: 20px; margin-bottom: 10px; }
+        .quiz-badge { font-family: var(--font-mono); font-size: 0.75rem; color: var(--neon-cyan); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; }
+        h1 { color: var(--ink-bright); font-size: 1.8rem; font-weight: 800; margin-top: 6px; letter-spacing: -0.02em; }
+        .card { background: var(--bg-card); border: 1px solid var(--stroke-glass); border-radius: 12px; padding: 28px; display: flex; flex-direction: column; gap: 16px; margin-bottom: 8px; }
+        h2 { color: var(--ink-bright); font-size: 1.05rem; font-weight: 600; line-height: 1.5; }
+        .options-group { display: flex; flex-direction: column; gap: 10px; }
+        .option-btn { width: 100%; text-align: left; background: rgba(255,255,255,0.01); border: 1px solid var(--stroke-glass); border-radius: 8px; padding: 14px 18px; color: var(--ink-secondary); font-size: 0.9rem; cursor: pointer; transition: all 0.2s ease; }
+        .option-btn:hover { background: var(--bg-hover); border-color: var(--neon-cyan); color: var(--ink-bright); }
+        .feedback { display: none; font-size: 0.88rem; padding: 14px; border-radius: 6px; margin-top: 8px; font-family: var(--font-mono); line-height: 1.5; }
+        .feedback.correct { display: block; background: rgba(80, 250, 123, 0.08); border-left: 3px solid var(--neon-emerald); color: var(--neon-emerald); }
+        .feedback.incorrect { display: block; background: rgba(239, 68, 68, 0.08); border-left: 3px solid #ef4444; color: #f87171; }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+            <div class="quiz-badge">Module 2 // Assessment Layer</div>
+            <h1>Lecture 6: Process Execution Mechanics Quiz</h1>
+        </header>
+
+        <!-- Question 1 -->
+        <div class="card">
+            <h2>1. What is the fundamental operational difference between the return value of fork() in the parent process versus the child process?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Both execution branches receive distinct return codes to differentiate their execution path lanes.')">A) It returns 0 in the parent process and the real parent PID in the child branch process.</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! The fork() call returns 0 inside the child process, but returns the child\'s real PID inside the parent process context, allowing execution pathways to branch safely.')">B) It returns 0 inside the child process and the newly created child's real PID inside the parent process.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. fork() does not return identical positive tokens to both branches.')">C) It returns a uniform execution token of 1 to both process branches simultaneously.</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="card">
+            <h2>2. What happens to an active application's memory image structure (Stack, Heap, Data) when an exec() family system call invokes successfully?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Appending boundaries describes standard module dynamic insertion rather than address space overwriting.')">A) It preserves the active state segments intact and appends the new binary file as a modular user-space server thread container.</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! The exec() system call completely overrides the active process address boundaries, wiping the stack, heap, and data segments to load a brand new executable program binary image.')">B) It overrides the current process image, completely wiping the stack, heap, and data segments to load a new binary.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. exec() does not fork another child process loop; it overwrites the caller process context entirely.')">C) It duplicates the active memory structures into a second identical parent process thread workspace loop.</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="card">
+            <h2>3. In the track-and-field Relay Race analogy, which action matches an executive context switch sequence conducted by the core scheduler referee?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! A context switch requires saving the active register state of the outgoing process into its PCB and restoring the state parameters of the incoming task.')">A) Pausing a runner, recording their exact position ledger state, and restoring the next runner onto the track based on their previously cached ledger values.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Discarding running scripts to change operations describes an exec() memory image override.')">B) Ripping up a running script to instantly hand the current running athlete a completely different training manual.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Cloning athletes correlates directly to a fork() replication loop.')">C) Forcing a runner to duplicate themselves instantly into a separate matching twin clone running at the identical track speed.</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+              <!-- Question 4 -->
+        <div class="card">
+            <h2>4. What computational action occurs inside the CPU register file matrix when a hardware level Context Switch processes?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. CPU registers are completely overwritten with the incoming task parameters instead of blending context fields.')">A) The CPU flushes all hardware caches and merges the user-space stack configurations with the kernel supervisor tables.</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! The hardware/software context switch step saves active CPU register states directly into the outgoing process\'s PCB ledger block and restores register states from the incoming process\'s PCB matrix.')">B) The active register file properties copy directly into the outgoing process's PCB, and incoming PCB register values shift onto the copper lines.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Context switching alters active instruction flow vectors rather than modifying silicon frequency parameters.')">C) The processor chip automatically bypasses the privilege rings to double its layout instruction execution timeline parameters.</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Question 5 -->
+        <div class="card">
+            <h2>5. Which memory management optimization mechanism links the fork() cloning pipeline to layout table adjustments handled via virtual frames?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Flash memory updates relate to non-volatile motherboard firmware boot loops.')">A) The non-volatile flash page clearing loop used to reset system memory vectors during boot sequences.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Stack mapping limits track frame boundaries dynamically rather than managing shared page states.')">B) The strict vertical API layer bounding system used to map high-speed local variable configurations.</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! Copy-On-Write (COW) allows the parent and child to share the same physical memory pages after a fork() until one modifies the page frame, maximizing layout allocation performance.')">C) The Copy-On-Write (COW) page table mirroring technique used to optimize address space replication boundaries.</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+    </div>
+
+    <script>
+        function checkAns(btn, isCorrect, reason) {
+            const card = btn.closest('.card');
+            const feedback = card.querySelector('.feedback');
+            const siblings = card.querySelectorAll('.option-btn');
+            
+            siblings.forEach(s => s.style.opacity = "0.5");
+            btn.style.opacity = "1";
+            
+            if (isCorrect) {
+                feedback.className = "feedback correct";
+                feedback.innerText = "✓ " + reason;
+            } else {
+                feedback.className = "feedback incorrect";
+                feedback.innerText = "✗ " + reason;
+            }
+        }
+    </script>
+</body>
+</html>
+
