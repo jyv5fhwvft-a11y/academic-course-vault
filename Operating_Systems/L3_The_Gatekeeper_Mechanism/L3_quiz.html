@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>📝 L3: The Gatekeeper Mechanism // Self-Assessment Quiz</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --bg-base: #06080e;
+            --bg-card: #0b0f19;
+            --bg-hover: #161f30;
+            --stroke-glass: rgba(255, 255, 255, 0.08);
+            --ink-bright: #ffffff;
+            --ink-secondary: #e2e8f0;
+            --ink-muted: #64748b;
+            --neon-emerald: #50fa7b;
+            --neon-cyan: #8be9fd;
+            --neon-blue: #6366f1;
+            --font-sans: system-ui, -apple-system, sans-serif;
+            --font-mono: monospace;
+        }
+        body { background-color: var(--bg-base); color: var(--ink-secondary); font-family: var(--font-sans); padding: 40px 24px; line-height: 1.7; overflow-y: auto !important; -webkit-overflow-scrolling: touch !important; }
+        .wrapper { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 24px; }
+        header { border-bottom: 1px solid var(--stroke-glass); padding-bottom: 20px; margin-bottom: 10px; }
+        .quiz-badge { font-family: var(--font-mono); font-size: 0.75rem; color: var(--neon-cyan); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; }
+        h1 { color: var(--ink-bright); font-size: 1.8rem; font-weight: 800; margin-top: 6px; letter-spacing: -0.02em; }
+        .card { background: var(--bg-card); border: 1px solid var(--stroke-glass); border-radius: 12px; padding: 28px; display: flex; flex-direction: column; gap: 16px; margin-bottom: 8px; }
+        h2 { color: var(--ink-bright); font-size: 1.05rem; font-weight: 600; line-height: 1.5; }
+        .options-group { display: flex; flex-direction: column; gap: 10px; }
+        .option-btn { width: 100%; text-align: left; background: rgba(255,255,255,0.01); border: 1px solid var(--stroke-glass); border-radius: 8px; padding: 14px 18px; color: var(--ink-secondary); font-size: 0.9rem; cursor: pointer; transition: all 0.2s ease; }
+        .option-btn:hover { background: var(--bg-hover); border-color: var(--neon-cyan); color: var(--ink-bright); }
+        .feedback { display: none; font-size: 0.88rem; padding: 14px; border-radius: 6px; margin-top: 8px; font-family: var(--font-mono); line-height: 1.5; }
+        .feedback.correct { display: block; background: rgba(80, 250, 123, 0.08); border-left: 3px solid var(--neon-emerald); color: var(--neon-emerald); }
+        .feedback.incorrect { display: block; background: rgba(239, 68, 68, 0.08); border-left: 3px solid #ef4444; color: #f87171; }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+            <div class="quiz-badge">Module 1 // Assessment Layer</div>
+            <h1>Lecture 3: The Gatekeeper Mechanism Quiz</h1>
+        </header>
+
+        <!-- Question 1 -->
+        <div class="card">
+            <h2>1. Why are user-space application processes physically blocked from opening disk block tracks or network devices directly?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. High-level software functions are fully capable of formatting strings, but hardware security boundaries block direct execution loops.')">A) High-level languages are missing the assembly instruction sets necessary to generate memory strings.</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! To maintain system-wide safety and prevent selfish programs from destroying other tenants data, hardware control is sandboxed behind the system call referee barrier.')">B) User space operates inside a restricted sandbox environment (Ring 3) to prevent resource corruption.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Storage mediums utilize non-volatile sectors regardless of software execution privilege levels.')">C) Disk arrays and network chipsets completely turn off their internal clocks when user-space loops execute.</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="card">
+            <h2>2. In the context of a system call trap routing flow, which hardware processor register is traditionally loaded with the unique key integer ID on Linux x86_64 systems?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. The rdi register is used to pass the very first input parameter value to the kernel handler function, not the syscall selector index.')">A) The rdi parameter register</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! The rax register holds the explicit positive numeric syscall index key (e.g., #1 for write) that tells the vector router which system capability to invoke.')">B) The rax tracking register</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. The rdx register holds the third argument variable parameter data payload.')">C) The rdx buffer tracking register</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="card">
+            <h2>3. In the classical Bank Teller Counter analogy, which system design component corresponds directly to the bulletproof service window slot?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! The system call interface functions as a bulletproof service partition. It separates the untrusted client space from the raw inner resource vault slots.')">A) The System Call Interface boundary layer</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. The physical vaults map straight to raw disk tracks and RAM arrays, which are inaccessible to clients.')">B) The underlying hardware memory addresses on the silicon chips</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Bank guards mirror core MMU hardware protection exception loops.')">C) The physical security guards standing at the company entrance tracking badges</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+        <!-- Question 4 -->
+        <div class="card">
+            <h2>4. What structural transformation occurs to the CPU state when the software fires the `syscall` instruction?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. The system traps and halts normal user execution to resolve the privileged operation inside the kernel core instead.')">A) It duplicates the active application process thread across all available processor slots simultaneously.</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! The syscall instruction trips the hardware privilege status bit to Ring 0 (Supervisor Mode) and redirects execution to the Interrupt Vector Table.')">B) It flips the hardware privilege bit from Ring 3 to Ring 0 and jumps control to the Vector Table.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Modifying the clock speed does not alter execution privileges or software safety boundaries.')">C) It automatically doubles the physical clock frequency speed of the core processor matrix pins.</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Question 5 -->
+        <div class="card">
+            <h2>5. How does the operating system determine the exact kernel memory function address to jump to when an application generates a trap instruction?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Scanning files sequentially at runtime would cause severe latency, breaking system real-time boundaries.')">A) By scanning a text log configuration profile saved inside the user storage directories.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. High-level application spaces are completely blind to kernel runtime routing tables.')">B) By letting the calling application pass the raw memory destination pointer address inside the string array.</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! The kernel initializes the Interrupt Vector Table (IVT) during boot. The CPU reads this array to securely find function pointers matching the index loaded in rax.')">C) By checking the index number in the rax register against pointers mapped inside the Interrupt Vector Table.</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+    </div>
+
+    <script>
+        function checkAns(btn, isCorrect, reason) {
+            const card = btn.closest('.card');
+            const feedback = card.querySelector('.feedback');
+            const siblings = card.querySelectorAll('.option-btn');
+            
+            siblings.forEach(s => s.style.opacity = "0.5");
+            btn.style.opacity = "1";
+            
+            if (isCorrect) {
+                feedback.className = "feedback correct";
+                feedback.innerText = "✓ " + reason;
+            } else {
+                feedback.className = "feedback incorrect";
+                feedback.innerText = "✗ " + reason;
+            }
+        }
+    </script>
+</body>
+</html>
+
+
