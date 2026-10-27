@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>📝 L9: Threads & Concurrency Models // Self-Assessment Quiz</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --bg-base: #06080e;
+            --bg-card: #0b0f19;
+            --bg-hover: #161f30;
+            --stroke-glass: rgba(255, 255, 255, 0.08);
+            --ink-bright: #ffffff;
+            --ink-secondary: #e2e8f0;
+            --ink-muted: #64748b;
+            --neon-emerald: #50fa7b;
+            --neon-cyan: #8be9fd;
+            --neon-blue: #6366f1;
+            --font-sans: system-ui, -apple-system, sans-serif;
+            --font-mono: monospace;
+        }
+        body { background-color: var(--bg-base); color: var(--ink-secondary); font-family: var(--font-sans); padding: 40px 24px; line-height: 1.7; overflow-y: auto !important; -webkit-overflow-scrolling: touch !important; }
+        .wrapper { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 24px; }
+        header { border-bottom: 1px solid var(--stroke-glass); padding-bottom: 20px; margin-bottom: 10px; }
+        .quiz-badge { font-family: var(--font-mono); font-size: 0.75rem; color: var(--neon-cyan); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; }
+        h1 { color: var(--ink-bright); font-size: 1.8rem; font-weight: 800; margin-top: 6px; letter-spacing: -0.02em; }
+        .card { background: var(--bg-card); border: 1px solid var(--stroke-glass); border-radius: 12px; padding: 28px; display: flex; flex-direction: column; gap: 16px; margin-bottom: 8px; }
+        h2 { color: var(--ink-bright); font-size: 1.05rem; font-weight: 600; line-height: 1.5; }
+        .options-group { display: flex; flex-direction: column; gap: 10px; }
+        .option-btn { width: 100%; text-align: left; background: rgba(255,255,255,0.01); border: 1px solid var(--stroke-glass); border-radius: 8px; padding: 14px 18px; color: var(--ink-secondary); font-size: 0.9rem; cursor: pointer; transition: all 0.2s ease; }
+        .option-btn:hover { background: var(--bg-hover); border-color: var(--neon-cyan); color: var(--ink-bright); }
+        .feedback { display: none; font-size: 0.88rem; padding: 14px; border-radius: 6px; margin-top: 8px; font-family: var(--font-mono); line-height: 1.5; }
+        .feedback.correct { display: block; background: rgba(80, 250, 123, 0.08); border-left: 3px solid var(--neon-emerald); color: var(--neon-emerald); }
+        .feedback.incorrect { display: block; background: rgba(239, 68, 68, 0.08); border-left: 3px solid #ef4444; color: #f87171; }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+            <div class="quiz-badge">Module 2 // Concurrency Assessment Layer</div>
+            <h1>Lecture 9: Threads & Concurrency Models Quiz</h1>
+        </header>
+
+        <!-- Question 1 -->
+        <div class="card">
+            <h2>1. Which elements of an active system context are shared natively among all concurrent threads belonging to the same parent process?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Program counters, registers, and execution stacks are completely private to each individual thread.')">A) Program Counter values, CPU registers, and private stack variables.</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! Threads skip the heavy isolation boundaries of processes to share the exact same Text (Code), Data (Globals), and Heap regions belonging to the parent process.')">B) The compiled Text instructions, static global variables in the Data segment, and Heap buffers.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Separate execution threads cannot be completely isolated while running within the same parent context.')">C) Threads share absolutely no components and maintain total hardware address space isolation.</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="card">
+            <h2>2. What is the fundamental operational drawback of a Many-to-One threading architecture model?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Many-to-One architectures offer incredibly rapid context-switching loops because kernel space is not context-switched.')">A) User-space thread context switches become excessively slow and consume large amounts of CPU cycles.</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! Because the operating system is blind to user-space thread rows, if a single user thread performs a blocking system call (like reading a slow disk), the kernel puts the entire parent thread to sleep, paralyzing the application.')">B) If a single user-level thread blocks on an I/O operation, the entire parent process container freezes completely.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. True parallelism across hardware execution pins requires a One-to-One thread mapping scheme.')">C) It forces the CPU hardware to duplicate physical processor slots across all system buses simultaneously.</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="card">
+            <h2>3. In our theatrical Stage Actors analogy, what structural component corresponds directly to the shared props table and background scenery?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! The shared background scenery and props tables map directly to the process\'s shared address space, data buffers, and heap allocations.')">A) The process\'s shared address space containing the Heap and Data segments.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Script folders match private execution checkpoints, mapping to the thread stack.')">B) The private thread execution stack containing localized variable maps.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Mailing letters across town represents heavy Inter-Process Communication (IPC).')">C) The physical letter mail system used to trade data across distinct auditorium buildings.</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+              <!-- Question 4 -->
+        <div class="card">
+            <h2>4. What structural role does the `pthread_join()` function execute inside a multi-threaded POSIX execution program?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Swapping binary data structures over active execution addresses describes an exec() function mechanism.')">A) It clears the text instruction segment to load a completely separate application binary image.</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! The pthread_join() primitive is a synchronization routine that blocks the calling main thread until the target concurrent worker thread reaches completion.')">B) It force-pauses the main parent execution thread until a specific concurrent worker thread finishes its routine.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. fork() manages process replication, whereas pthreads allocate light worker points within a single shared space.')">C) It clones the parent process address lines to split code into an isolated child process container.</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Question 5 -->
+        <div class="card">
+            <h2>5. Which thread mapping model is actively utilized by modern desktop kernels (like Linux and Windows NT) to achieve authentic parallelism across multi-core chips?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Many-to-One restricts execution to a single core line, eliminating true parallel processing capability.')">A) The Many-to-One user-space execution library model.</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! Modern environments leverage the One-to-One model, binding every single user-space thread directly to a native kernel thread context that can be dispatched across independent physical CPU cores.')">B) The One-to-One kernel scheduling model.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Hierarchical layered models describe code vertical API separation structures rather than execution thread mappings.')">C) The strict vertical Many-to-Many vertical API layer model.</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+    </div>
+
+    <script>
+        function checkAns(btn, isCorrect, reason) {
+            const card = btn.closest('.card');
+            const feedback = card.querySelector('.feedback');
+            const siblings = card.querySelectorAll('.option-btn');
+            
+            siblings.forEach(s => s.style.opacity = "0.5");
+            btn.style.opacity = "1";
+            
+            if (isCorrect) {
+                feedback.className = "feedback correct";
+                feedback.innerText = "✓ " + reason;
+            } else {
+                feedback.className = "feedback incorrect";
+                feedback.innerText = "✗ " + reason;
+            }
+        }
+    </script>
+</body>
+</html>
+
+      
