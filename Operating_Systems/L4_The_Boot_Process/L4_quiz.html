@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>📝 L4: The Boot Process // Self-Assessment Quiz</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --bg-base: #06080e;
+            --bg-card: #0b0f19;
+            --bg-hover: #161f30;
+            --stroke-glass: rgba(255, 255, 255, 0.08);
+            --ink-bright: #ffffff;
+            --ink-secondary: #e2e8f0;
+            --ink-muted: #64748b;
+            --neon-emerald: #50fa7b;
+            --neon-cyan: #8be9fd;
+            --neon-blue: #6366f1;
+            --font-sans: system-ui, -apple-system, sans-serif;
+            --font-mono: monospace;
+        }
+        body { background-color: var(--bg-base); color: var(--ink-secondary); font-family: var(--font-sans); padding: 40px 24px; line-height: 1.7; overflow-y: auto !important; -webkit-overflow-scrolling: touch !important; }
+        .wrapper { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 24px; }
+        header { border-bottom: 1px solid var(--stroke-glass); padding-bottom: 20px; margin-bottom: 10px; }
+        .quiz-badge { font-family: var(--font-mono); font-size: 0.75rem; color: var(--neon-cyan); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; }
+        h1 { color: var(--ink-bright); font-size: 1.8rem; font-weight: 800; margin-top: 6px; letter-spacing: -0.02em; }
+        .card { background: var(--bg-card); border: 1px solid var(--stroke-glass); border-radius: 12px; padding: 28px; display: flex; flex-direction: column; gap: 16px; margin-bottom: 8px; }
+        h2 { color: var(--ink-bright); font-size: 1.05rem; font-weight: 600; line-height: 1.5; }
+        .options-group { display: flex; flex-direction: column; gap: 10px; }
+        .option-btn { width: 100%; text-align: left; background: rgba(255,255,255,0.01); border: 1px solid var(--stroke-glass); border-radius: 8px; padding: 14px 18px; color: var(--ink-secondary); font-size: 0.9rem; cursor: pointer; transition: all 0.2s ease; }
+        .option-btn:hover { background: var(--bg-hover); border-color: var(--neon-cyan); color: var(--ink-bright); }
+        .feedback { display: none; font-size: 0.88rem; padding: 14px; border-radius: 6px; margin-top: 8px; font-family: var(--font-mono); line-height: 1.5; }
+        .feedback.correct { display: block; background: rgba(80, 250, 123, 0.08); border-left: 3px solid var(--neon-emerald); color: var(--neon-emerald); }
+        .feedback.incorrect { display: block; background: rgba(239, 68, 68, 0.08); border-left: 3px solid #ef4444; color: #f87171; }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+            <div class="quiz-badge">Module 1 // Assessment Layer</div>
+            <h1>Lecture 4: The Boot Process Quiz</h1>
+        </header>
+
+        <!-- Question 1 -->
+        <div class="card">
+            <h2>1. Why is the central processing unit (CPU) physically unable to read a compiled kernel file structure immediately upon receiving electric current power-on?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Volatile cache arrays reset cleanly but do not prevent the implementation of hardcoded firmware routines.')">A) The CPU\'s layout register files must undergo mandatory diagnostic thermal cooling cycles first.</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! Upon power delivery, the CPU is blind to storage file systems. It must execute hardcoded instructions from a motherboard ROM chip to bootstrap device access.')">B) The hardware does not possess native file system primitives until storage driver layers are loaded into memory.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Operating modes are toggled via code execution transitions rather than clock speed multipliers.')">C) The hardware must switch its privilege ring to user space before read instructions can fire.</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="card">
+            <h2>2. In the chronological sequence of the bootstrap pipeline, what is the primary structural responsibility assigned to an intermediate bootloader like GRUB?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Running hardware verification self-tests (POST) is the exclusive capability of the motherboard firmware layer.')">A) Conducting the hardware Power-On Self-Test (POST) matrix routine across RAM pins.</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! The bootloader\'s sole job is to locate the compiled kernel binary image file on the disk, drop it into memory, and jump to its execution address.')">B) Locating the operating system kernel image binary on storage and loading it into RAM layout blocks.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Spawning the very first user-space process is the terminal handoff execution responsibility of the core kernel.')">C) Spawning the initial user-space process (PID 1) to create background daemon service containers.</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="card">
+            <h2>3. In the classical track-and-field Relay Race analogy, which critical boot sequence milestone matches a runner handing off the baton to wake up the heavyweight champion?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Motherboard firmware handoffs target the bootloader allocation track, not the kernel core.')">A) The motherboard UEFI firmware passing execution control parameters to the POST diagnostic framework.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. The initialization system opens up user spaces after the heavyweight champion finishes configuring the track.')">B) The kernel core loading the initialization system daemon environment registers.</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! The bootloader acts as the intermediate runner that pinpoints, loads, and passes execution authority directly to the kernel core binary.')">C) The intermediate bootloader passing execution authority to the core kernel binary entry point address.</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+        <!-- Question 4 -->
+        <div class="card">
+            <h2>4. What specific operational role does the process designated with Process ID 1 (PID 1) perform during system uptime?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Low-level driver configuration maps directly inside Ring 0 kernel supervisor space blocks.')">A) Managing privileged assembly command exception flags inside the core CPU registers.</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! Process ID 1 (init or systemd) is the primordial ancestor process that spawns and manages all subsequent user-space background services and shell daemons.')">B) Serving as the direct genetic ancestor process responsible for spawning all user-space background daemons.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. File descriptor definitions are handled natively inside VFS abstract table structures.')">C) Mapping file descriptor channels to the primary disk block interface partitions.</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Question 5 -->
+        <div class="card">
+            <h2>5. Which parameter configuration inside a GRUB bootloader script configuration tells the incoming kernel exactly how to mount the root file allocation partition?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. The set root option isolates the target storage hardware layout block for the bootloader itself.')">A) The "set root" hardware allocation target block identifier assignment.</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! The linux line isolates the kernel binary location and appends explicit operational command flags like root=/dev/sda1 to govern mounting mechanics.')">B) The "linux" path command accompanied by explicit mounting flags like root=/dev/sda1.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. The initrd option maps temporary filesystem storage driver configurations to support initial boot cycles.')">C) The "initrd" directory tracking path mapping parameter variables.</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+    </div>
+
+    <script>
+        function checkAns(btn, isCorrect, reason) {
+            const card = btn.closest('.card');
+            const feedback = card.querySelector('.feedback');
+            const siblings = card.querySelectorAll('.option-btn');
+            
+            siblings.forEach(s => s.style.opacity = "0.5");
+            btn.style.opacity = "1";
+            
+            if (isCorrect) {
+                feedback.className = "feedback correct";
+                feedback.innerText = "✓ " + reason;
+            } else {
+                feedback.className = "feedback incorrect";
+                feedback.innerText = "✗ " + reason;
+            }
+        }
+    </script>
+</body>
+</html>
+
+      
+      
