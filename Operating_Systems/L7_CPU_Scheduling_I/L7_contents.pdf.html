@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PDF EXPORT // CS 301 Lecture 7 Micro-Contents</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { 
+            background: #ffffff; 
+            color: #000000; 
+            font-family: 'Times New Roman', Times, serif; 
+            padding: 1.5in 1in; 
+            line-height: 1.5; 
+            font-size: 11pt; 
+        }
+        @media print {
+            body { padding: 0; }
+            .no-print { display: none; }
+            @page { size: letter; margin: 1in; }
+        }
+        header { 
+            border-bottom: 2px solid #000000; 
+            padding-bottom: 12px; 
+            margin-bottom: 24px; 
+        }
+        .meta-header { 
+            font-family: Arial, sans-serif; 
+            font-size: 9pt; 
+            text-transform: uppercase; 
+            letter-spacing: 1px; 
+            color: #555555; 
+        }
+        h1 { 
+            font-size: 20pt; 
+            font-weight: bold; 
+            margin-top: 6px; 
+        }
+        .section-block { 
+            margin-bottom: 20px; 
+            page-break-inside: avoid; 
+        }
+        h2 { 
+            font-family: Arial, sans-serif; 
+            font-size: 12pt; 
+            text-transform: uppercase; 
+            border-bottom: 1px solid #777777; 
+            padding-bottom: 4px; 
+            margin-bottom: 8px; 
+        }
+        .code-container { 
+            font-family: 'Courier New', Courier, monospace; 
+            background: #f4f4f4; 
+            border: 1px solid #cccccc; 
+            padding: 12px; 
+            border-radius: 4px; 
+            font-size: 9.5pt; 
+            margin-top: 6px; 
+            white-space: pre-wrap; 
+        }
+        .print-btn-banner {
+            background: #f1f5f9;
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid #cbd5e1;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            font-size: 9.5pt;
+        }
+        .print-btn {
+            background: #0f172a;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="print-btn-banner no-print">
+        <span>📄 <strong>PDF Export Assistant Active:</strong> Tap the action button to initialize your system print panel and export this file as an official academic PDF document.</span>
+        <button class="print-btn" onclick="window.print()">Print / Save PDF</button>
+    </div>
+    <header>
+        <div class="meta-header">CS 301: Operating Systems // Micro-Level Curriculum Ledger</div>
+        <h1>Lecture 07: CPU Scheduling I Summary</h1>
+    </header>
+      <div class="section-block">
+        <h2>1. Objective</h2>
+        <p>Manually compute turn-around time, response time, and average wait metrics for a given array of task vectors under FCFS, SJF, and Round Robin scheduling algorithms.</p>
+    </div>
+
+    <div class="section-block">
+        <h2>2. Prerequisites</h2>
+        <p>L05, L06, basic arithmetic.</p>
+    </div>
+
+    <div class="section-block">
+        <h2>3 & 4. Pedagogical Analogies</h2>
+        <p><strong>Analogy 1 (Everyday Life): The Grocery Store Checkout Line</strong><br>
+        Imagine a grocery store checkout lane with one single cashier (The CPU Core). First-Come-First-Served (FCFS) means checking people out based on when they joined the line; if a person with a massive cart full of items stands in front, a person buying a single pack of gum is trapped waiting forever (Convoy Effect). Shortest-Job-First (SJF) means sorting the line so the person with the single pack of gum goes first; this minimizes average wait times, but requires magically predicting how long someone will take to pay. Round Robin (RR) means the cashier spends exactly 30 seconds processing a customer's items, and if they aren't done, they are forced to walk to the very back of the line to wait for their next timed turn (Time Quantum fairness).</p>
+        <p style="margin-top: 10px;"><strong>Analogy 2 (Pure Technical): Network Packet Routing Ring Buffers</strong><br>
+        Scheduling policies match algorithmic traffic-shaping configurations inside local area network routers, sorting whether data frame chunks are dispatched via sequential queues, size metric predictions, or strict time-sliced round-robin rotations.</p>
+    </div>
+
+    <div class="section-block">
+        <h2>5. System Cohesion Matrix</h2>
+        <p>• <strong>Relies On:</strong> L06 (Context Switch Mechanics) — Round Robin requires firing hardware clock timer interrupts to force a context switch when a thread's time slice expires.<br>
+        • <strong>Feeds Into:</strong> L08 (Advanced Scheduling) — Forms the essential mathematical foundation needed to analyze Multi-Level Feedback Queues.</p>
+    </div>
+
+    <div class="section-block">
+        <h2>6. Core Breakdown</h2>
+        <p>• <strong>The Scheduling Domain:</strong> The CPU scheduler decides which process in the READY state gets to slide onto an active processor core next.<br>
+        • <strong>FCFS (First-Come, First-Served):</strong> Non-preemptive and algorithmically trivial but suffers from severe performance degradation under the Convoy Effect (short tasks trapped behind long execution workloads).<br>
+        • <strong>SJF (Shortest Job First):</strong> Minimizes average wait times mathematically but introduces starvation risks for large processes if small, rapid tasks constantly arrive in the queue.<br>
+        • <strong>Round Robin (RR):</strong> Introduces time-slice preemption using a Time Quantum. If the quantum is configured too large, Round Robin degrades into simple FCFS; if configured too small, the system burns excessive CPU cycles on context-switching overhead instead of real program execution.</p>
+    </div>
+
+      <div class="section-block">
+        <h2>7. Lexicon / Terms</h2>
+        <p>• <strong>Preemption:</strong> The ability of an operating system to forcefully pause a running process to hand the CPU core to a different task.<br>
+        • <strong>Time Quantum:</strong> The maximum continuous block of time a thread is permitted to run under a preemptive scheduling policy before being context-switched.<br>
+        • <strong>Convoy Effect:</strong> A system slowdown scenario where short processes wait a prolonged duration for a long, heavy process to vacate the CPU core.<br>
+        • <strong>Average Wait Time:</strong> The arithmetic mean of the total time processes spent sitting inside the READY queue waiting for execution access.</p>
+    </div>
+
+    <div class="section-block">
+        <h2>8. Practical Example Matrix</h2>
+        <p><strong>Gantt Chart Derivation Exercise:</strong> Given three processes arriving at time 0: P1 (Burst = 24), P2 (Burst = 3), P3 (Burst = 3).</p>
+        <div class="code-container">------------------------------------------------=================
+1. FCFS Scheduling Policy (Order: P1 -> P2 -> P3)
+   Wait Times: P1 = 0ms, P2 = 24ms, P3 = 27ms
+   Average Wait Time: (0 + 24 + 27) / 3 = 17.0ms
+
+2. SJF Scheduling Policy (Order: P2 -> P3 -> P1)
+   Wait Times: P2 = 0ms, P3 = 3ms, P1 = 6ms
+   Average Wait Time: (0 + 3 + 6) / 3 = 3.0ms
+------------------------------------------------=================</div>
+        <p style="margin-top: 6px;">This problem highlights the radical optimization efficiency achieved by prioritizing shortest-job metrics over insertion-order queues.</p>
+    </div>
+
+    <div class="section-block">
+        <h2>9. Interactive Classroom Activity</h2>
+        <p><strong>The Physical Checkout Lane Simulation:</strong> Line up five students at the front of the classroom. Assign them slips of paper detailing a technical task complexity weight (e.g., writing 2 sentences vs. writing 10 sentences on the board). Run the line live using FCFS first, then sort them by SJF, and finally run them with a 15-second Round Robin timer to physically map out how waiting metrics fluctuate for the students.</p>
+    </div>
+</body>
+</html>
+
+
