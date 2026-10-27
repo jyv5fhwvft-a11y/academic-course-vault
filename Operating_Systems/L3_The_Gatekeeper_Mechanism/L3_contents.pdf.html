@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PDF EXPORT // CS 301 Lecture 3 Micro-Contents</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { 
+            background: #ffffff; 
+            color: #000000; 
+            font-family: 'Times New Roman', Times, serif; 
+            padding: 1.5in 1in; 
+            line-height: 1.5; 
+            font-size: 11pt; 
+        }
+        @media print {
+            body { padding: 0; }
+            .no-print { display: none; }
+            @page { size: letter; margin: 1in; }
+        }
+        header { 
+            border-bottom: 2px solid #000000; 
+            padding-bottom: 12px; 
+            margin-bottom: 24px; 
+        }
+        .meta-header { 
+            font-family: Arial, sans-serif; 
+            font-size: 9pt; 
+            text-transform: uppercase; 
+            letter-spacing: 1px; 
+            color: #555555; 
+        }
+        h1 { 
+            font-size: 20pt; 
+            font-weight: bold; 
+            margin-top: 6px; 
+        }
+        .section-block { 
+            margin-bottom: 20px; 
+            page-break-inside: avoid; 
+        }
+        h2 { 
+            font-family: Arial, sans-serif; 
+            font-size: 12pt; 
+            text-transform: uppercase; 
+            border-bottom: 1px solid #777777; 
+            padding-bottom: 4px; 
+            margin-bottom: 8px; 
+        }
+        .code-container { 
+            font-family: 'Courier New', Courier, monospace; 
+            background: #f4f4f4; 
+            border: 1px solid #cccccc; 
+            padding: 12px; 
+            border-radius: 4px; 
+            font-size: 9.5pt; 
+            margin-top: 6px; 
+            white-space: pre-wrap; 
+        }
+        .print-btn-banner {
+            background: #f1f5f9;
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid #cbd5e1;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            font-size: 9.5pt;
+        }
+        .print-btn {
+            background: #0f172a;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="print-btn-banner no-print">
+        <span>📄 <strong>PDF Export Mode Active:</strong> Tap the action button to initialize your system print panel and export this file as an official academic PDF document.</span>
+        <button class="print-btn" onclick="window.print()">Print / Save PDF</button>
+    </div>
+    <header>
+        <div class="meta-header">CS 301: Operating Systems // Micro-Level Curriculum Ledger</div>
+        <h1>Lecture 03: The Gatekeeper Mechanism Summary</h1>
+    </header>
+    <div class="section-block">
+        <h2>1. Objective</h2>
+        <p>Trace a system call pathway from its user-space declaration down through hardware trap handling and kernel interrupt vector lookup.</p>
+    </div>
+
+    <div class="section-block">
+        <h2>2. Prerequisites</h2>
+        <p>L01, L02, assembly level registers (rax, rdi).</p>
+    </div>
+
+    <div class="section-block">
+        <h2>3 & 4. Pedagogical Analogies</h2>
+        <p><strong>Analogy 1 (Everyday Life): The Bank Teller Counter</strong><br>
+        Imagine you want to withdraw money from your savings account at a bank. Because of security protocols, you cannot simply walk past the security guards and open the steel vault yourself. Instead, you must approach a secure bulletproof teller window (The System Call Interface). You write down your specific request on an explicit deposit/withdrawal form (The Syscall Register Number) and hand it through a slot. The teller (Kernel Vector Handler) reads your slip, verifies your ID, opens the vault safely on your behalf, and passes back your cash.</p>
+        <p style="margin-top: 10px;"><strong>Analogy 2 (Pure Technical): Software API Routing via Hash Map Function Lookups</strong><br>
+        A system call behaves identically to a secure hash map router. The index key is a positive numeric ID (e.g., Syscall #1 for write). The value paired with that key is a strict pointer to a verified, compiled inner kernel function array location.</p>
+    </div>
+
+    <div class="section-block">
+        <h2>5. System Cohesion Matrix</h2>
+        <p>• <strong>Relies On: L02 (Dual-Mode Barrier)</strong> — Relies on hardware interrupt handling paths to shift the CPU from Ring 3 to Ring 0 securely.<br>
+        • <strong>Feeds Into: All Future Modules</strong> — Forms the structural pathway used to open files (sys_open), spin up child processes (sys_fork), and request memory buffers (sys_brk).</p>
+    </div>
+
+    <div class="section-block">
+        <h2>6. Core Breakdown</h2>
+        <p>Software applications cannot access storage or hardware drivers directly. When a program requests a system action, it places argument inputs into explicit data registers (rdi, rsi, rdx) along with a unique identifier number into the rax register.</p>
+        <p style="margin-top: 6px;">It then invokes a specific assembly trap instruction (syscall or int 0x80). This instruction changes the CPU mode bit to Ring 0, pauses execution, and redirects control straight to the Kernel Interrupt Vector Table, lookup array, and target supervisor handler.</p>
+    </div>
+
+      <div class="section-block">
+        <h2>7. Lexicon / Terms</h2>
+        <p>• <strong>System Call (Syscall):</strong> The programmatic interface used by applications to request core kernel services.<br>
+        • <strong>Hardware Trap:</strong> An exceptional condition generated by software that shifts control back to the operating system.<br>
+        • <strong>Interrupt Vector Table (IVT):</strong> A memory array holding code pointers to specialized driver and kernel function routines.<br>
+        • <strong>Syscall Register Number:</strong> The specific integer key loaded into the processor to tell the OS which system service to route to.</p>
+    </div>
+
+    <div class="section-block">
+        <h2>8. Practical Example Codes</h2>
+        <div class="code-container">#include &lt;unistd.h&gt;
+
+void main() {
+    char* msg = "Hello from a raw x86_64 system call!\n";
+
+    __asm__(
+        "movq $1, %%rax; \n"  // Syscall Number 1 is explicitly 'write' on Linux
+        "movq $1, %%rdi; \n"  // Argument 1: File descriptor stdout (1)
+        "movq %0, %%rsi; \n"  // Argument 2: Pointer allocation to char string
+        "movq $37, %%rdx; \n" // Argument 3: Strict length of the message array
+        "syscall; \n"         // Fire hardware trap to shift to Ring 0!
+        :
+        : "r"(msg)
+        : "%rax", "%rdi", "%rsi", "%rdx"
+    );
+}</div>
+    </div>
+
+    <div class="section-block">
+        <h2>9. Interactive Classroom Activity</h2>
+        <p><strong>The Human Syscall Dispatcher:</strong> Provide students with cards reading sys_read, sys_write, or sys_exit. Appoint one student as the "User App," another as the "CPU Syscall Router," and a third as the "Kernel Core." Have the User App student yell out a syscall number. Watch the CPU Router track that ID code against a chalkboard matrix table to direct the Kernel Core student to execute the proper task.</p>
+    </div>
+</body>
+</html>
+
+
+  
+  
