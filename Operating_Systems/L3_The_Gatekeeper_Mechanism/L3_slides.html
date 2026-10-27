@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>🎬 L3: The Gatekeeper Mechanism // Slides</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --bg-base: #06080e;
+            --bg-card: #0b0f19;
+            --bg-code: #020408;
+            --stroke-glass: rgba(255, 255, 255, 0.08);
+            --ink-bright: #ffffff;
+            --ink-secondary: #e2e8f0;
+            --ink-muted: #64748b;
+            --neon-emerald: #50fa7b;
+            --neon-cyan: #8be9fd;
+            --neon-blue: #6366f1;
+            --font-sans: system-ui, -apple-system, sans-serif;
+            --font-mono: monospace;
+        }
+        body { background-color: var(--bg-base); color: var(--ink-secondary); font-family: var(--font-sans); height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; overflow: hidden; }
+        .slide-stage { width: 90vw; max-width: 960px; height: 65vh; max-height: 600px; position: relative; }
+        .slide { position: absolute; inset: 0; background: var(--bg-card); border: 1px solid var(--stroke-glass); border-radius: 16px; padding: 48px; display: flex; flex-direction: column; justify-content: space-between; opacity: 0; visibility: hidden; transform: scale(0.98); transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); box-shadow: 0 30px 60px rgba(0,0,0,0.4); }
+        .slide.active { opacity: 1; visibility: visible; transform: scale(1); }
+        .slide-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--stroke-glass); padding-bottom: 16px; }
+        .slide-badge { font-family: var(--font-mono); font-size: 0.75rem; color: var(--neon-cyan); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; }
+        .slide-counter { font-family: var(--font-mono); font-size: 0.8rem; color: var(--ink-muted); }
+        .slide-body { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 16px; padding: 24px 0; }
+        .slide-title { color: var(--ink-bright); font-size: 1.8rem; font-weight: 800; letter-spacing: -0.02em; }
+        .slide-desc { font-size: 1.05rem; line-height: 1.6; color: var(--ink-secondary); }
+        .highlight-box { background: rgba(80, 250, 123, 0.04); border-left: 3px solid var(--neon-emerald); padding: 14px; border-radius: 4px; margin-top: 8px; }
+        .code-box { background: var(--bg-code); border: 1px solid var(--stroke-glass); padding: 14px; border-radius: 6px; font-family: var(--font-mono); font-size: 0.82rem; color: #a5b4fc; }
+        .control-bar { margin-top: 32px; display: flex; gap: 16px; align-items: center; z-index: 10; }
+        .btn { background: rgba(255,255,255,0.02); border: 1px solid var(--stroke-glass); color: var(--ink-secondary); font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; padding: 10px 20px; border-radius: 6px; cursor: pointer; transition: all 0.2s ease; }
+        .btn:hover { border-color: var(--neon-cyan); color: var(--neon-cyan); background: rgba(139, 233, 253, 0.05); }
+    </style>
+</head>
+<body>
+    <div class="slide-stage">
+
+              <!-- Slide 1 -->
+        <div class="slide active">
+            <div class="slide-header"><span class="slide-badge">CS 301 // L03</span><span class="slide-counter">01 / 04</span></div>
+            <div class="slide-body">
+                <h2 class="slide-title">The Gatekeeper Mechanism</h2>
+                <p class="slide-desc" style="font-size:1.3rem; color:var(--neon-emerald);">Lecture 3: System Calls & Routing Table Primitives</p>
+                <p class="slide-desc">Tracing the precise low-level programmatic execution path from an unprivileged software request down to hardware vector traps.</p>
+            </div>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="slide">
+            <div class="slide-header"><span class="slide-badge">🎪 Bulletproof Windows</span><span class="slide-counter">02 / 04</span></div>
+            <div class="slide-body">
+                <h2 class="slide-title">The Bank Teller Counter Analogy</h2>
+                <p class="slide-desc">You cannot simply walk past security guards and pull gold bricks directly out of a vault. You must step up to a bulletproof window (The Syscall Interface), write down your target operation code on a ticket (The Register Key), and hand it over.</p>
+                <div class="highlight-box">
+                    <p class="slide-desc" style="color: #fff; font-weight:600;">The teller (Kernel Interrupt Table Router) verifies your ID permissions, manipulates the raw machinery on your behalf, and passes back your data.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="slide">
+            <div class="slide-header"><span class="slide-badge">🔍 Interrupt Vectors</span><span class="slide-counter">03 / 04</span></div>
+            <div class="slide-body">
+                <h2 class="slide-title">The Assembly Level Interface</h2>
+                <p class="slide-desc">When software calls a system task, it loads input parameters into standard processor hardware registers (<code>rdi</code>, <code>rsi</code>, <code>rdx</code>) and drops the core command identifier index key into the <code>rax</code> tracking slot.</p>
+                <p class="slide-desc" style="margin-top:6px;">Firing the assembly <code>syscall</code> command toggles the silicon status bit to Ring 0 and jumps execution to the **Interrupt Vector Table (IVT)** mapping array.</p>
+            </div>
+        </div>
+
+              <!-- Slide 4 -->
+        <div class="slide">
+            <div class="slide-header"><span class="slide-badge">🛠️ Low Level Execution</span><span class="slide-counter">04 / 04</span></div>
+            <div class="slide-body">
+                <h2 class="slide-title">Raw Linux x86_64 Write Routine</h2>
+                <p class="slide-desc">Bypassing standard high-level C library wrapper streams to run raw hardware vector trapping:</p>
+                <div class="code-box">__asm__(
+    "movq $1, %%rax; \n"  // Key ID Index 1 = 'write' on Linux platforms
+    "movq $1, %%rdi; \n"  // Param 1: Target terminal stdout file descriptor
+    "movq %0, %%rsi; \n"  // Param 2: Allocation pointer string reference
+    "syscall; \n"         // Fire electronic hardware trap boundary switch
+);</div>
+            </div>
+        </div>
+
+    </div>
+    <div class="control-bar">
+        <button class="btn" onclick="moveSlide(-1)">Prev</button>
+        <button class="btn" onclick="moveSlide(1)" style="border-color: var(--neon-blue); color:#fff;">Next Slide</button>
+    </div>
+    <script>
+        let currentIdx = 0;
+        const slides = document.querySelectorAll('.slide');
+        function showSlide(idx) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            if (idx >= slides.length) currentIdx = 0;
+            else if (idx < 0) currentIdx = slides.length - 1;
+            else currentIdx = idx;
+            slides[currentIdx].classList.add('active');
+        }
+        function moveSlide(direction) {
+            currentIdx += direction;
+            showSlide(currentIdx);
+        }
+        document.addEventListener('keydown', (e) => {
+            if (e.code === 'Space' || e.code === 'ArrowRight') moveSlide(1);
+            if (e.code === 'ArrowLeft') moveSlide(-1);
+        });
+    </script>
+</body>
+</html>
+
+
+
+      
