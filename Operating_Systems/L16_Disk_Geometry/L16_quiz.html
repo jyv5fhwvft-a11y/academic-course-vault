@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>📝 L16: Disk Geometry // Self-Assessment Quiz</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --bg-base: #06080e;
+            --bg-card: #0b0f19;
+            --bg-hover: #161f30;
+            --stroke-glass: rgba(255, 255, 255, 0.08);
+            --ink-bright: #ffffff;
+            --ink-secondary: #e2e8f0;
+            --ink-muted: #64748b;
+            --neon-emerald: #50fa7b;
+            --neon-cyan: #8be9fd;
+            --neon-blue: #6366f1;
+            --font-sans: system-ui, -apple-system, sans-serif;
+            --font-mono: monospace;
+        }
+        body { background-color: var(--bg-base); color: var(--ink-secondary); font-family: var(--font-sans); padding: 40px 24px; line-height: 1.7; overflow-y: auto !important; -webkit-overflow-scrolling: touch !important; }
+        .wrapper { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 24px; }
+        header { border-bottom: 1px solid var(--stroke-glass); padding-bottom: 20px; margin-bottom: 10px; }
+        .quiz-badge { font-family: var(--font-mono); font-size: 0.75rem; color: var(--neon-cyan); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; }
+        h1 { color: var(--ink-bright); font-size: 1.8rem; font-weight: 800; margin-top: 6px; letter-spacing: -0.02em; }
+        .card { background: var(--bg-card); border: 1px solid var(--stroke-glass); border-radius: 12px; padding: 28px; display: flex; flex-direction: column; gap: 16px; margin-bottom: 8px; }
+        h2 { color: var(--ink-bright); font-size: 1.05rem; font-weight: 600; line-height: 1.5; }
+        .options-group { display: flex; flex-direction: column; gap: 10px; }
+        .option-btn { width: 100%; text-align: left; background: rgba(255,255,255,0.01); border: 1px solid var(--stroke-glass); border-radius: 8px; padding: 14px 18px; color: var(--ink-secondary); font-size: 0.9rem; cursor: pointer; transition: all 0.2s ease; }
+        .option-btn:hover { background: var(--bg-hover); border-color: var(--neon-cyan); color: var(--ink-bright); }
+        .feedback { display: none; font-size: 0.88rem; padding: 14px; border-radius: 6px; margin-top: 8px; font-family: var(--font-mono); line-height: 1.5; }
+        .feedback.correct { display: block; background: rgba(80, 250, 123, 0.08); border-left: 3px solid var(--neon-emerald); color: var(--neon-emerald); }
+        .feedback.incorrect { display: block; background: rgba(239, 68, 68, 0.08); border-left: 3px solid #ef4444; color: #f87171; }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+            <div class="quiz-badge">Module 5 // Storage Subsystem Evaluation Layer</div>
+            <h1>Lecture 16: Disk Geometry & Physical Storage Realities Quiz</h1>
+        </header>
+
+        <!-- Question 1 -->
+        <div class="card">
+            <h2>1. Which mechanical latency metric represents the physical time cost required for a hard disk drive's mechanical read/write arm to sweep and lock onto a target cylinder track?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! Seek time is the physical latency cost spent running the magnetic read/write assembly across tracks.')">A) Seek Time</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Rotational latency tracks the duration spent waiting for a target sector to spin underneath the head.')">B) Rotational Latency</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Wear leveling is an SSD algorithm that remaps logical writes.')">C) Wear Leveling latency</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="card">
+            <h2>2. What asymmetric structural boundary restriction exists inside solid-state drive NAND flash cells when performing modification versus removal operations?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Solid-state structures feature high-speed page writes and slower chunk erasures.')">A) Data can only be written in massive Block sets but deleted at a fine Page level configuration footprint.</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! SSD NAND flash structures permit reading and writing data at a granular Page footprint layer, but cell erasure can only happen in coarse, massive Block tiers.')">B) Data can be written at a granular Page level, but can only be erased in massive, coarse Block clusters.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Page sizes and block fields scale completely independent of system register boundaries.')">C) Data writes require a privileged Ring 0 instruction trap while erasures are fully unprivileged.</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="card">
+            <h2>3. In the record player vs. light switch analogy, what specific subsystem acts as the building manager responsible for rotating which switches are flipped to protect them from burning out?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. The MMU handles page translation walks across primary system RAM.')">A) The hardware Memory Management Unit (MMU) tracking page table walks.</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! The Flash Translation Layer (FTL) controller firmware acts as the master referee, running wear-leveling algorithms to rotate writes and prolong cell lifespans.')">B) The embedded Flash Translation Layer (FTL) controller firmware running Wear Leveling.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Hardware elevator components optimize HDD cylinder scheduling lines.')">C) The physical mechanical elevator arm assembly prioritizing mechanical seek sweeps.</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+        <!-- Question 4 -->
+        <div class="card">
+            <h2>4. A spinning mechanical HDD rotates at 7200 RPM, has an average seek time of 4ms, and a transfer rate of 100MB/s. What is the calculated average total access time paid to retrieve a single 512-byte sector block?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Remember to compute the average rotational delay, which accounts for half a full spin (4.17ms).')">A) Exactly 4.005ms</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! Total Access Time = Seek (4.0ms) + Average Rotation (4.17ms) + Transfer (0.005ms) = 8.175ms.')">B) Exactly 8.175ms</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Review your calculation loop steps: 7200 RPM costs 8.33ms per full single rotation.')">C) Exactly 12.335ms</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Question 5 -->
+        <div class="card">
+            <h2>5. Why do uncoordinated random small read requests paralyze mechanical drive performance, whereas silicon flash drives scale through them effortlessly?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Mechanical platters rely entirely on spinning magnetic tracks.')">A) Mechanical disks feature lower internal bus bandwidth limits than flash cells.</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! Random lookups on an HDD force the physical read/write head assembly to continuously swing back and forth across tracks, spending 99% of time fighting mechanical inertia rather than transferring bytes.')">B) HDD random reads force slow, repetitive mechanical arm seek sweeps, while SSD silicon addresses cells instantly without moving parts.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Internal fragmentation measures space waste boundaries inside fixed units.')">C) Disks suffer from severe internal page fragmentation that bottlenecks hardware data transmission line parameters.</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+    </div>
+
+    <script>
+        function checkAns(btn, isCorrect, reason) {
+            const card = btn.closest('.card');
+            const feedback = card.querySelector('.feedback');
+            const siblings = card.querySelectorAll('.option-btn');
+            
+            siblings.forEach(s => s.style.opacity = "0.5");
+            btn.style.opacity = "1";
+            
+            if (isCorrect) {
+                feedback.className = "feedback correct";
+                feedback.innerText = "✓ " + reason;
+            } else {
+                feedback.className = "feedback incorrect";
+                feedback.innerText = "✗ " + reason;
+            }
+        }
+    </script>
+</body>
+</html>
+
+      
+      
