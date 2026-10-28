@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>📝 L28: Grand Retrospective // Self-Assessment Quiz</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --bg-base: #06080e;
+            --bg-card: #0b0f19;
+            --bg-hover: #161f30;
+            --stroke-glass: rgba(255, 255, 255, 0.08);
+            --ink-bright: #ffffff;
+            --ink-secondary: #e2e8f0;
+            --ink-muted: #64748b;
+            --neon-emerald: #50fa7b;
+            --neon-cyan: #8be9fd;
+            --neon-blue: #6366f1;
+            --font-sans: system-ui, -apple-system, sans-serif;
+            --font-mono: monospace;
+        }
+        body { background-color: var(--bg-base); color: var(--ink-secondary); font-family: var(--font-sans); padding: 40px 24px; line-height: 1.7; overflow-y: auto !important; -webkit-overflow-scrolling: touch !important; }
+        .wrapper { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 24px; }
+        header { border-bottom: 1px solid var(--stroke-glass); padding-bottom: 20px; margin-bottom: 10px; }
+        .quiz-badge { font-family: var(--font-mono); font-size: 0.75rem; color: var(--neon-cyan); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; }
+        h1 { color: var(--ink-bright); font-size: 1.8rem; font-weight: 800; margin-top: 6px; letter-spacing: -0.02em; }
+        .card { background: var(--bg-card); border: 1px solid var(--stroke-glass); border-radius: 12px; padding: 28px; display: flex; flex-direction: column; gap: 16px; margin-bottom: 8px; }
+        h2 { color: var(--ink-bright); font-size: 1.05rem; font-weight: 600; line-height: 1.5; }
+        .options-group { display: flex; flex-direction: column; gap: 10px; }
+        .option-btn { width: 100%; text-align: left; background: rgba(255,255,255,0.01); border: 1px solid var(--stroke-glass); border-radius: 8px; padding: 14px 18px; color: var(--ink-secondary); font-size: 0.9rem; cursor: pointer; transition: all 0.2s ease; }
+        .option-btn:hover { background: var(--bg-hover); border-color: var(--neon-cyan); color: var(--ink-bright); }
+        .feedback { display: none; font-size: 0.88rem; padding: 14px; border-radius: 6px; margin-top: 8px; font-family: var(--font-mono); line-height: 1.5; }
+        .feedback.correct { display: block; background: rgba(80, 250, 123, 0.08); border-left: 3px solid var(--neon-emerald); color: var(--neon-emerald); }
+        .feedback.incorrect { display: block; background: rgba(239, 68, 68, 0.08); border-left: 3px solid #ef4444; color: #f87171; }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+            <div class="quiz-badge">Module 7 // System Synthesis Retrospective Matrix</div>
+            <h1>Lecture 28: Grand Course Retrospective Quiz</h1>
+        </header>
+
+        <!-- Question 1 -->
+        <div class="card">
+            <h2>1. When a user double-clicks an icon to run an application, what core system sub-manager intercepts the initial physical hardware execution event?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. The virtual memory manager allocates physical page frames following a thread page fault exception trap.')">A) The Virtual Memory Page Fault Manager (Module 3).</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! Physical mouse and keyboard actions emit electronic signals caught natively as interrupts by low-level hardware device driver queues inside the I/O sub-system.')">B) The low-level I/O Subsystem &amp; Device Driver Framework (Module 6).</button>
+                C) The security Access Control List verification ring (Module 7).</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="card">
+            <h2>2. In our strace telemetry trace study, which standard low-level system call is executed to parse the absolute directory topology path and fetch the target file\'s direct inode pointer?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. execve is invoked to initialize and map a fresh process address space segment layout.')">A) The process layout expansion primitive `execve()`.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. brk dynamically shifts heap memory breaks to expand active page pools.')">B) The virtual heap memory break tracking manager `brk()`.</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! The `openat()` system call instructs the kernel file manager to sequence directory entries and locate the target node\'s numeric inode vector pointer.')">C) The file directory traversal primitive `openat()`.</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="card">
+            <h2>3. Why must an application initialization thread trigger a "Page Fault" exception immediately upon launch?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! Modern systems employ lazy loading; text segments are not staged in RAM in advance. Hitting an unmapped address fires a page fault exception, prompting the virtual memory manager to allocate physical frames.')">A) Because modern systems use lazy loading; the process code blocks must be pulled dynamically from disk into main RAM frames when an unmapped address is touched.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Page faults resolve address map omissions rather than parsing security bits.')">B) To verify that user space variables have not overflowed past the runtime stack canary boundary.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Write barriers flush blocks to persistent storage channels.')">C) To force the file system driver to instantly execute a write barrier commit to the journal tract.</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+              <!-- Question 4 -->
+        <div class="card">
+            <h2>4. In our clockwork symphony retrospective model, what precise operational boundary isolates human-readable filing names from the raw multi-block pointer allocation trees?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. This describes process namespace visibility filters.')">A) The container virtualization line using `CLONE_NEWPID` visibility flags.</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! Fixed-size inodes exclude names entirely to preserve storage. Filenames match unique strings mapped exclusively inside column-oriented directory tables.')">B) The metadata partition wall that strips filenames out of the fixed inode structure and stores them inside directory lists.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. This is the dual-mode hardware ring protection layer.')">C) The hardware privilege ring barrier distinguishing User Mode from Supervisor Mode.</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Question 5 -->
+        <div class="card">
+            <h2>5. When the user space shell intercepts a hardware interrupt signal and invokes `fork()`, what primary structural data element does the kernel instantiate inside privileged supervisor memory?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. File descriptors are thread-localized index pointers to session lookup paths.')">A) A non-negative file descriptor index integer session reference token.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. SHA-256 hashes track credential authentication matrices.')">B) A randomized cryptographic salted hash output signature block.</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! The `fork()` call creates a new execution context tracked inside supervisor memory by a dedicated Process Control Block (PCB).')">C) A fresh Process Control Block (PCB) entry containing state, stack pointers, and scheduler registers.</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+    </div>
+
+    <script>
+        function checkAns(btn, isCorrect, reason) {
+            const card = btn.closest('.card');
+            const feedback = card.querySelector('.feedback');
+            const siblings = card.querySelectorAll('.option-btn');
+            
+            siblings.forEach(s => s.style.opacity = "0.5");
+            btn.style.opacity = "1";
+            
+            if (isCorrect) {
+                feedback.className = "feedback correct";
+                feedback.innerText = "✓ " + reason;
+            } else {
+                feedback.className = "feedback incorrect";
+                feedback.innerText = "✗ " + reason;
+            }
+        }
+    </script>
+</body>
+</html>
+
