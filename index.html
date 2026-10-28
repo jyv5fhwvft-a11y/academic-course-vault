@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>🎓 CS 301: Advanced Operating Systems // Master Vault</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --bg-base: #06080e;
+            --bg-card: #0b0f19;
+            --bg-hover: #16222f;
+            --bg-code: #020408;
+            --stroke-glass: rgba(255, 255, 255, 0.08);
+            --ink-bright: #ffffff;
+            --ink-secondary: #e2e8f0;
+            --ink-muted: #64748b;
+            --neon-emerald: #50fa7b;
+            --neon-cyan: #8be9fd;
+            --neon-blue: #6366f1;
+            --font-sans: system-ui, -apple-system, sans-serif;
+            --font-mono: monospace;
+        }
+        body { 
+            background-color: var(--bg-base); 
+            color: var(--ink-secondary); 
+            font-family: var(--font-sans); 
+            padding: 40px 24px; 
+            line-height: 1.6;
+            overflow-y: auto !important;
+            -webkit-overflow-scrolling: touch;
+        }
+        .wrapper { max-width: 1000px; margin: 0 auto; display: flex; flex-direction: column; gap: 32px; }
+        header { border-bottom: 1px solid var(--stroke-glass); padding-bottom: 24px; }
+        .vault-badge { font-family: var(--font-mono); font-size: 0.75rem; color: var(--neon-cyan); text-transform: uppercase; letter-spacing: 0.15em; font-weight: 700; display: inline-block; margin-bottom: 8px; }
+        h1 { color: var(--ink-bright); font-size: 2.2rem; font-weight: 800; letter-spacing: -0.03em; }
+        .course-desc { color: var(--ink-muted); margin-top: 8px; font-size: 1.05rem; max-width: 700px; }
+        .module-section { display: flex; flex-direction: column; gap: 16px; }
+        .module-title { font-family: var(--font-mono); color: var(--neon-emerald); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 1px solid rgba(80, 250, 123, 0.15); padding-bottom: 6px; margin-top: 12px; }
+        .lecture-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+        @media(min-width: 768px) { .lecture-grid { grid-template-columns: 1fr 1fr; } }
+        .lecture-card { background: var(--bg-card); border: 1px solid var(--stroke-glass); border-radius: 12px; padding: 20px; display: flex; flex-direction: column; justify-content: space-between; gap: 16px; transition: border-color 0.2s ease; }
+        .lecture-card:hover { border-color: var(--neon-cyan); }
+        .card-header { display: flex; flex-direction: column; gap: 4px; }
+        .lecture-id { font-family: var(--font-mono); font-size: 0.7rem; color: var(--neon-cyan); font-weight: 700; text-transform: uppercase; }
+        .lecture-name { color: var(--ink-bright); font-size: 1.1rem; font-weight: 600; letter-spacing: -0.01em; }
+        .asset-links-container { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-family: var(--font-mono); font-size: 0.75rem; }
+        .asset-link { background: rgba(255,255,255,0.02); border: 1px solid var(--stroke-glass); color: var(--ink-secondary); padding: 8px 12px; border-radius: 6px; text-decoration: none; display: flex; align-items: center; gap: 6px; transition: all 0.2s ease; white-space: nowrap; word-break: break-all; }
+        .asset-link:hover { background: var(--bg-hover); border-color: var(--neon-cyan); color: var(--ink-bright); }
+        .lab-link { grid-column: span 2; border-color: rgba(99, 102, 241, 0.3); color: #cbd5e1; }
+        .lab-link:hover { border-color: var(--neon-blue); }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+            <div class="vault-badge">🔐 LIVE CURRICULUM VAULT ENVIRONMENT</div>
+            <h1>CS 301: Advanced Operating Systems</h1>
+            <p class="course-desc">Polymorphic educational framework mapping cross-functional kernel management subsystems, hardware abstractions, and runtime system containment boundaries.</p>
+        </header>
+
+              <!-- ==================== MODULE 5 ==================== -->
+        <div class="module-section">
+            <h2 class="module-title">💾 Module 5: Storage Abstraction &amp; File Systems</h2>
+            <div class="lecture-grid">
+
+                <!-- Lecture 17 -->
+                <div class="lecture-card">
+                    <div class="card-header">
+                        <span class="lecture-id">Lecture 17</span>
+                        <h3 class="lecture-name">File Abstraction &amp; Directory Topology</h3>
+                    </div>
+                    <div class="asset-links-container">
+                        <a class="asset-link" href="https://github.io">📖 Guide</a>
+                        <a class="asset-link" href="https://github.io">📄 Print</a>
+                        <a class="asset-link" href="https://github.io">🎬 Slides</a>
+                        <a class="asset-link" href="https://github.io">📝 Quiz</a>
+                        <a class="asset-link lab-link" href="https://github.com">🔬 Lab Manual (.md)</a>
+                    </div>
+                </div>
+
+                <!-- Lecture 18 -->
+                <div class="lecture-card">
+                    <div class="card-header">
+                        <span class="lecture-id">Lecture 18</span>
+                        <h3 class="lecture-name">Inode Architecture &amp; File System Layouts</h3>
+                    </div>
+                    <div class="asset-links-container">
+                        <a class="asset-link" href="https://github.io">📖 Guide</a>
+                        <a class="asset-link" href="https://github.io">📄 Print</a>
+                        <a class="asset-link" href="https://github.io">🎬 Slides</a>
+                        <a class="asset-link" href="https://github.io">📝 Quiz</a>
+                        <a class="asset-link lab-link" href="https://github.com">🔬 Lab Manual (.md)</a>
+                    </div>
+                </div>
+
+                <!-- Lecture 19 -->
+                <div class="lecture-card">
+                    <div class="card-header">
+                        <span class="lecture-id">Lecture 19</span>
+                        <h3 class="lecture-name">Crash Consistency &amp; The Journaling Engine</h3>
+                    </div>
+                    <div class="asset-links-container">
+                        <a class="asset-link" href="https://github.io">📖 Guide</a>
+                        <a class="asset-link" href="https://github.io">📄 Print</a>
+                        <a class="asset-link" href="https://github.io">🎬 Slides</a>
+                        <a class="asset-link" href="https://github.io">📝 Quiz</a>
+                        <a class="asset-link lab-link" href="https://github.com">🔬 Lab Manual (.md)</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+              <!-- ==================== MODULE 6 ==================== -->
+        <div class="module-section">
+            <h2 class="module-title">📊 Module 6: I/O Device Management</h2>
+            <div class="lecture-grid">
+
+                <!-- Lecture 20 -->
+                <div class="lecture-card">
+                    <div class="card-header">
+                        <span class="lecture-id">Lecture 20</span>
+                        <h3 class="lecture-name">The I/O Communication Matrix (Polling, Interrupts, DMA)</h3>
+                    </div>
+                    <div class="asset-links-container">
+                        <a class="asset-link" href="https://github.io">📖 Guide</a>
+                        <a class="asset-link" href="https://github.io">📄 Print</a>
+                        <a class="asset-link" href="https://github.io">🎬 Slides</a>
+                        <a class="asset-link" href="https://github.io">📝 Quiz</a>
+                        <a class="asset-link lab-link" href="https://github.com">🔬 Lab Manual (.md)</a>
+                    </div>
+                </div>
+
+                <!-- Lecture 21 -->
+                <div class="lecture-card">
+                    <div class="card-header">
+                        <span class="lecture-id">Lecture 21</span>
+                        <h3 class="lecture-name">Uniform Device Drivers &amp; The Linux /dev Abstraction</h3>
+                    </div>
+                    <div class="asset-links-container">
+                        <a class="asset-link" href="https://github.io">📖 Guide</a>
+                        <a class="asset-link" href="https://github.io">📄 Print</a>
+                        <a class="asset-link" href="https://github.io">🎬 Slides</a>
+                        <a class="asset-link" href="https://github.io">📝 Quiz</a>
+                        <a class="asset-link lab-link" href="https://github.com">🔬 Lab Manual (.md)</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ==================== MODULE 7 (PART 1) ==================== -->
+        <div class="module-section">
+            <h2 class="module-title">🛡️ Module 7: Advanced Architectures &amp; Systems Security (Part 1)</h2>
+            <div class="lecture-grid">
+
+                <!-- Lecture 22 -->
+                <div class="lecture-card">
+                    <div class="card-header">
+                        <span class="lecture-id">Lecture 22</span>
+                        <h3 class="lecture-name">Access Control (Matrices, ACLs, and Capabilities)</h3>
+                    </div>
+                    <div class="asset-links-container">
+                        <a class="asset-link" href="https://github.io">📖 Guide</a>
+                        <a class="asset-link" href="https://github.io">📄 Print</a>
+                        <a class="asset-link" href="https://github.io">🎬 Slides</a>
+                        <a class="asset-link" href="https://github.io">📝 Quiz</a>
+                        <a class="asset-link lab-link" href="https://github.com">🔬 Lab Manual (.md)</a>
+                    </div>
+                </div>
+
+                <!-- Lecture 23 -->
+                <div class="lecture-card">
+                    <div class="card-header">
+                        <span class="lecture-id">Lecture 23</span>
+                        <h3 class="lecture-name">Authentication &amp; Cryptographic Identity Factor Models</h3>
+                    </div>
+                    <div class="asset-links-container">
+                        <a class="asset-link" href="https://github.io">📖 Guide</a>
+                        <a class="asset-link" href="https://github.io">📄 Print</a>
+                        <a class="asset-link" href="https://github.io">🎬 Slides</a>
+                        <a class="asset-link" href="https://github.io">📝 Quiz</a>
+                        <a class="asset-link lab-link" href="https://github.com">🔬 Lab Manual (.md)</a>
+                    </div>
+                </div>
+
+                <!-- Lecture 24 -->
+                <div class="lecture-card">
+                    <div class="card-header">
+                        <span class="lecture-id">Lecture 24</span>
+                        <h3 class="lecture-name">Program Exploits &amp; Stack Buffer Overflow Defenses</h3>
+                    </div>
+                    <div class="asset-links-container">
+                        <a class="asset-link" href="https://github.io">📖 Guide</a>
+                        <a class="asset-link" href="https://github.io">📄 Print</a>
+                        <a class="asset-link" href="https://github.io">🎬 Slides</a>
+                        <a class="asset-link" href="https://github.io">📝 Quiz</a>
+                        <a class="asset-link lab-link" href="https://github.com">🔬 Lab Manual (.md)</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+              <!-- ==================== MODULE 7 (PART 2) ==================== -->
+        <div class="module-section">
+            <h2 class="module-title">⚙️ Module 7: Advanced Architectures &amp; Systems Security (Part 2)</h2>
+            <div class="lecture-grid">
+
+                <!-- Lecture 25 -->
+                <div class="lecture-card">
+                    <div class="card-header">
+                        <span class="lecture-id">Lecture 25</span>
+                        <h3 class="lecture-name">Encryption Fundamentals (Symmetric vs. Asymmetric)</h3>
+                    </div>
+                    <div class="asset-links-container">
+                        <a class="asset-link" href="https://github.io">📖 Guide</a>
+                        <a class="asset-link" href="https://github.io">📄 Print</a>
+                        <a class="asset-link" href="https://github.io">🎬 Slides</a>
+                        <a class="asset-link" href="https://github.io">📝 Quiz</a>
+                        <a class="asset-link lab-link" href="https://github.com">🔬 Lab Manual (.md)</a>
+                    </div>
+                </div>
+
+                <!-- Lecture 26 -->
+                <div class="lecture-card">
+                    <div class="card-header">
+                        <span class="lecture-id">Lecture 26</span>
+                        <h3 class="lecture-name">Firewalls &amp; Intrusion Detection Systems</h3>
+                    </div>
+                    <div class="asset-links-container">
+                        <a class="asset-link" href="https://github.io">📖 Guide</a>
+                        <a class="asset-link" href="https://github.io">📄 Print</a>
+                        <a class="asset-link" href="https://github.io">🎬 Slides</a>
+                        <a class="asset-link" href="https://github.io">📝 Quiz</a>
+                        <a class="asset-link lab-link" href="https://github.com">🔬 Lab Manual (.md)</a>
+                    </div>
+                </div>
+
+                <!-- Lecture 27 -->
+                <div class="lecture-card">
+                    <div class="card-header">
+                        <span class="lecture-id">Lecture 27</span>
+                        <h3 class="lecture-name">Modern Isolation Paradigms (Namespaces &amp; cgroups)</h3>
+                    </div>
+                    <div class="asset-links-container">
+                        <a class="asset-link" href="https://github.io">📖 Guide</a>
+                        <a class="asset-link" href="https://github.io">📄 Print</a>
+                        <a class="asset-link" href="https://github.io">🎬 Slides</a>
+                        <a class="asset-link" href="https://github.io">📝 Quiz</a>
+                        <a class="asset-link lab-link" href="https://github.com">🔬 Lab Manual (.md)</a>
+                    </div>
+                </div>
+
+                <!-- Lecture 28 -->
+                <div class="lecture-card">
+                    <div class="card-header">
+                        <span class="lecture-id">Lecture 28</span>
+                        <h3 class="lecture-name">Grand Course Retrospective &amp; Subsystem Synthesis</h3>
+                    </div>
+                    <div class="asset-links-container">
+                        <a class="asset-link" href="https://github.io">📖 Guide</a>
+                        <a class="asset-link" href="https://github.io">📄 Print</a>
+                        <a class="asset-link" href="https://jyv5fhwvft-a11y.github.io/academic-course-vault/L28_slides.html">🎬 Slides</a>
+                        <a class="asset-link" href="https://github.io">📝 Quiz</a>
+                        <a class="asset-link lab-link" href="https://github.com">🔬 Lab Manual (.md)</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- ==================== END OF CURRICULUM GRID ==================== -->
+
+    </div>
+</body>
+</html>
+
+
+      
