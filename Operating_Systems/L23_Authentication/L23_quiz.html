@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>📝 L23: Authentication // Self-Assessment Quiz</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --bg-base: #06080e;
+            --bg-card: #0b0f19;
+            --bg-hover: #161f30;
+            --stroke-glass: rgba(255, 255, 255, 0.08);
+            --ink-bright: #ffffff;
+            --ink-secondary: #e2e8f0;
+            --ink-muted: #64748b;
+            --neon-emerald: #50fa7b;
+            --neon-cyan: #8be9fd;
+            --neon-blue: #6366f1;
+            --font-sans: system-ui, -apple-system, sans-serif;
+            --font-mono: monospace;
+        }
+        body { background-color: var(--bg-base); color: var(--ink-secondary); font-family: var(--font-sans); padding: 40px 24px; line-height: 1.7; overflow-y: auto !important; -webkit-overflow-scrolling: touch !important; }
+        .wrapper { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 24px; }
+        header { border-bottom: 1px solid var(--stroke-glass); padding-bottom: 20px; margin-bottom: 10px; }
+        .quiz-badge { font-family: var(--font-mono); font-size: 0.75rem; color: var(--neon-cyan); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; }
+        h1 { color: var(--ink-bright); font-size: 1.8rem; font-weight: 800; margin-top: 6px; letter-spacing: -0.02em; }
+        .card { background: var(--bg-card); border: 1px solid var(--stroke-glass); border-radius: 12px; padding: 28px; display: flex; flex-direction: column; gap: 16px; margin-bottom: 8px; }
+        h2 { color: var(--ink-bright); font-size: 1.05rem; font-weight: 600; line-height: 1.5; }
+        .options-group { display: flex; flex-direction: column; gap: 10px; }
+        .option-btn { width: 100%; text-align: left; background: rgba(255,255,255,0.01); border: 1px solid var(--stroke-glass); border-radius: 8px; padding: 14px 18px; color: var(--ink-secondary); font-size: 0.9rem; cursor: pointer; transition: all 0.2s ease; }
+        .option-btn:hover { background: var(--bg-hover); border-color: var(--neon-cyan); color: var(--ink-bright); }
+        .feedback { display: none; font-size: 0.88rem; padding: 14px; border-radius: 6px; margin-top: 8px; font-family: var(--font-mono); line-height: 1.5; }
+        .feedback.correct { display: block; background: rgba(80, 250, 123, 0.08); border-left: 3px solid var(--neon-emerald); color: var(--neon-emerald); }
+        .feedback.incorrect { display: block; background: rgba(239, 68, 68, 0.08); border-left: 3px solid #ef4444; color: #f87171; }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+            <div class="quiz-badge">Module 7 // Identity Security Evaluation Layer</div>
+            <h1>Lecture 23: Authentication Quiz</h1>
+        </header>
+
+        <!-- Question 1 -->
+        <div class="card">
+            <h2>1. Proving digital identity based on a typed passphrase or a pinned combination sequence belongs to which authentication factor group?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! Passwords, passphrases, and PINs represent \'something you know\' and fall under the Knowledge factor category.')">A) Something You Know (Knowledge Factor).</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Possession factors encompass physical objects like hardware security keys or smart fobs.')">B) Something You Have (Possession Factor).</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Inherence factors span organic biometric properties like retinal or fingerprint scans.')">C) Something You Are (Inherence Factor).</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="card">
+            <h2>2. What structural security improvement is achieved by mixing a randomized string sequence ("Salt") into a user\'s password before executing a cryptographic hash?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Salting cannot alter an application\'s context-switching scheduling latencies.')">A) It lowers the execution context-switch time tax of user threads inside scheduler queues.</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! Salting makes identical passwords hash to completely unique string outputs, neutralizing pre-computed rainbow table or dictionary lookup exploits.')">B) It ensures identical passwords produce distinct hash values, completely neutralizing pre-computed lookup or rainbow table attacks.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Access permission bit parsing is managed independently via vertical column ACL structures.')">C) It compresses the size of directory tables inside the `/dev` filesystem abstraction block.</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="card">
+            <h2>3. What is the fundamental, unalterable systemic vulnerability embedded within all biometric authentication design profiles?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! Unlike compromised passphrases, you cannot change your organic anatomy. If a biometric vector signature leaks, that credential path is permanently compromised.')">A) Biometric parameters are unalterable features of inherence; if a signature leaks, it can never be revoked, reset, or changed.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. This describes weaknesses common to predictable knowledge strings.')">B) They have exceptionally low entropy limits that make them trivial to exploit with dictionary guessing tools.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Biometric capture devices utilize high-speed data stream loops.')">C) They force processors to drop memory management page tables during verification cycles.</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+              <!-- Question 4 -->
+        <div class="card">
+            <h2>4. What architectural approach does a system like Windows Hello use to protect a user\'s raw biometric traits from leaking into standard storage channels?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Streaming raw organic imagery to secondary files poses a high exposure risk.')">A) It flushes raw image byte arrays sequentially onto non-volatile disk sectors inside the `/dev` tree.</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! Windows Hello transforms analog scanner input into a localized, hardware-locked cryptographic signature, keeping raw biometric imagery isolated from storage channels.')">B) It converts analog scans into a localized, hardware-locked cryptographic signature, keeping raw imagery isolated from primary disk storage.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Access matrices map permissions horizontally and vertically rather than validating credential streams.')">C) It maps biometric data blocks onto a column-oriented sparse Access Control Matrix grid.</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Question 5 -->
+        <div class="card">
+            <h2>5. Requiring an identity to validate a knowledge element (like a PIN) alongside a separate possession item (like an access fob) before granting clearance is an example of what security technique?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Symmetric cryptography uses uniform shared keys to encrypt payload byte data blocks.')">A) Single-tier Symmetric Data Cryptography.</button>
+                B) Multi-layered Protection Domain relocation loops.</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! Combining two or more independent credential domains—such as knowledge and possession—implements Multi-Factor Authentication (MFA).')">C) Multi-Factor Authentication (MFA).</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+    </div>
+
+    <script>
+        function checkAns(btn, isCorrect, reason) {
+            const card = btn.closest('.card');
+            const feedback = card.querySelector('.feedback');
+            const siblings = card.querySelectorAll('.option-btn');
+            
+            siblings.forEach(s => s.style.opacity = "0.5");
+            btn.style.opacity = "1";
+            
+            if (isCorrect) {
+                feedback.className = "feedback correct";
+                feedback.innerText = "✓ " + reason;
+            } else {
+                feedback.className = "feedback incorrect";
+                feedback.innerText = "✗ " + reason;
+            }
+        }
+    </script>
+</body>
+</html>
+
