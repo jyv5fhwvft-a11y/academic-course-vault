@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>📚 L25: Encryption Fundamentals // Micro-Contents</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --bg-base: #06080e;
+            --bg-card: #0b0f19;
+            --bg-code: #020408;
+            --stroke-glass: rgba(255, 255, 255, 0.08);
+            --ink-bright: #ffffff;
+            --ink-secondary: #e2e8f0;
+            --ink-muted: #64748b;
+            --neon-emerald: #50fa7b;
+            --neon-cyan: #8be9fd;
+            --neon-blue: #627bfd;
+            --font-sans: system-ui, -apple-system, sans-serif;
+            --font-mono: monospace;
+        }
+        body { background-color: var(--bg-base); color: var(--ink-secondary); font-family: var(--font-sans); padding: 40px 24px; line-height: 1.7; overflow-y: auto !important; -webkit-overflow-scrolling: touch !important; }
+        .wrapper { max-width: 1000px; margin: 0 auto; display: flex; flex-direction: column; gap: 24px; }
+        header { border-bottom: 1px solid var(--stroke-glass); padding-bottom: 20px; margin-bottom: 10px; }
+        .lecture-badge { font-family: var(--font-mono); font-size: 0.75rem; color: var(--neon-cyan); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; }
+        h1 { color: var(--ink-bright); font-size: 1.8rem; font-weight: 800; margin-top: 6px; letter-spacing: -0.02em; }
+        .card { background: var(--bg-card); border: 1px solid var(--stroke-glass); border-radius: 8px; padding: 24px; }
+        h2 { color: var(--neon-cyan); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px; font-family: var(--font-mono); }
+        .objective-text { font-size: 1.1rem; color: var(--ink-bright); font-weight: 500; }
+        .analogy-title { color: var(--ink-bright); font-weight: 600; margin-bottom: 6px; font-size: 0.95rem; }
+        .lexicon-list { list-style: none; display: flex; flex-direction: column; gap: 16px; }
+        .term-name { color: var(--neon-emerald); font-family: var(--font-mono); font-weight: 700; font-size: 0.9rem; background: rgba(80, 250, 123, 0.08); padding: 2px 8px; border-radius: 4px; display: inline-block; margin-bottom: 4px; }
+        .code-block { background: var(--bg-code); border: 1px solid var(--stroke-glass); padding: 16px; border-radius: 6px; font-family: var(--font-mono); font-size: 0.85rem; color: #a5b4fc; margin-top: 8px; white-space: pre-wrap; word-break: break-all; }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+            <div class="lecture-badge">Module 7: Advanced Architectures &amp; Systems Security // Lecture 25</div>
+            <h1>Lecture 25: Encryption Fundamentals</h1>
+        </header>
+
+              <div class="card">
+            <h2>🎯 1. Objective</h2>
+            <p class="objective-text">Distinguish symmetric from asymmetric encryption architectures and name where each shows up in modern computer networks.</p>
+        </div>
+
+        <div class="card">
+            <h2>🛑 2. Prerequisites</h2>
+            <p>Module 6 (Network Data Streams).</p>
+        </div>
+
+        <div class="card">
+            <h2>🎪 3 & 4. Pedagogical Analogies</h2>
+            <div style="margin-bottom: 18px;">
+                <div class="analogy-title">Analogy 1 (Everyday Life): The Shared House Key vs. The Mailbox Slot</div>
+                <p>Symmetric Encryption behaves exactly like a shared house key—one single key locks the front door and unlocks the front door. It is incredibly fast, but requires securely sharing that secret key in advance. Asymmetric Encryption behaves exactly like a street-side mailbox slot. Anyone passing by can drop a letter through the open slot (The Public Key), but they cannot reach inside to steal anything back out. Only the key-holder holding the master back panel key can open it to retrieve the mail (The Private Key).</p>
+            </div>
+            <div>
+                <div class="analogy-title">Analogy 2 (Pure Technical): Shared Private Cipher Strings vs. Public/Private Mathematical Prime Coordinate Pairs</div>
+                <p>Symmetric cryptography processes data using high-speed block bit-shifting ciphers, while asymmetric cryptography executes large modular exponentiation loops.</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>🔗 5. System Cohesion Matrix</h2>
+            <p><strong>Feeds Into:</strong> L26 (Firewalls &amp; IDS) — High-strength hybrid encryption masks data payloads, forcing modern Intrusion Detection Systems to evaluate traffic metadata shapes instead of raw string keywords.</p>
+        </div>
+
+        <div class="card">
+            <h2>🔍 6. Core Breakdown</h2>
+            <p style="margin-bottom: 12px;">Operating systems must protect data privacy across non-volatile disks and network links. Symmetric Encryption (e.g., AES) utilizes a single secret key shared between parties to execute both encryption and decryption loops; it is computationally fast but suffers from key distribution scaling issues.</p>
+            <p>Asymmetric Encryption (e.g., RSA) uses a mathematically bound key pair: a public key to encrypt and a private key to decrypt. Because asymmetric math is too slow for heavy block streams, real production environments implement Hybrid Encryption: asymmetric crypto securely handles the initial handshake key exchange, and then both nodes shift down to high-speed symmetric ciphers to process bulk data.</p>
+        </div>
+        <div class="card">
+            <h2>🏷️ 7. Lexicon / Terms</h2>
+            <ul class="lexicon-list">
+                <li><span class="term-name">Symmetric Encryption (AES)</span> A cryptographic model where a single, identical secret key handles both data scrambling and unscrambling pipelines.</li>
+                <li><span class="term-name">Asymmetric Encryption (RSA)</span> A dual-key architecture where data locked by a public key can only be unlocked by a matching private key.</li>
+                <li><span class="term-name">Key Exchange</span> The structural protocol dance where two distant computing systems securely establish a shared secret token over an insecure channel.</li>
+                <li><span class="term-name">Hybrid Encryption</span> Combining asymmetric cryptography (for secure key exchange) with symmetric cryptography (for fast data stream processing).</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>🛠️ 8. Practical Example: HTTPS/TLS Connection Architecture</h2>
+            <p>How production environments orchestrate hybrid security pipelines across insecure network layers:</p>
+            <div class="code-block">------------------------------------------------=================
+Phase A: Asymmetric Handshake
+         The client requests an absolute secure session token. The server presents
+         its RSA Asymmetric Public Key. The client encrypts a random pre-master secret
+         and flashes it back. Only the server's matching private key can unlock it.
+
+Phase B: Symmetric Payload Streaming
+         Once the shared secret is established, the connection switches completely.
+         The asymmetric primitives yield context scope, and all subsequent web content
+         bytes stream inside high-speed AES Symmetric block ciphers to minimize CPU load.
+------------------------------------------------=================</div>
+        </div>
+
+        <div class="card">
+            <h2>🎯 9. Interactive Classroom Activity</h2>
+            <p><strong>The Handshake Mapping Race:</strong> Draw the chronological vertical lines of a network TLS handshake on the whiteboard.</p>
+            <p style="margin-top: 8px;">Have students step up with markers to label exactly which step of the negotiation is driven by asymmetric algorithms (RSA Key Exchange) and where the pipeline transitions to symmetric cryptography (AES Payload Stream).</p>
+        </div>
+
+        <div class="card">
+            <h2>🌿 10 & 11. Topology Map Node</h2>
+            <p style="font-family: var(--font-mono); font-size: 0.85rem;">Module 7 -> L25: Encryption Fundamentals -> Symmetric (AES) vs Asymmetric (RSA) -> Hybrid HTTPS Handshakes.</p>
+        </div>
+    </div>
+</body>
+</html>
+
+      
+
