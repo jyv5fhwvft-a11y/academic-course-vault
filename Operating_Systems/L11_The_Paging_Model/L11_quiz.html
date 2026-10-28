@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>📝 L11: The Paging Model // Self-Assessment Quiz</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --bg-base: #06080e;
+            --bg-card: #0b0f19;
+            --bg-hover: #161f30;
+            --stroke-glass: rgba(255, 255, 255, 0.08);
+            --ink-bright: #ffffff;
+            --ink-secondary: #e2e8f0;
+            --ink-muted: #64748b;
+            --neon-emerald: #50fa7b;
+            --neon-cyan: #8be9fd;
+            --neon-blue: #6366f1;
+            --font-sans: system-ui, -apple-system, sans-serif;
+            --font-mono: monospace;
+        }
+        body { background-color: var(--bg-base); color: var(--ink-secondary); font-family: var(--font-sans); padding: 40px 24px; line-height: 1.7; overflow-y: auto !important; -webkit-overflow-scrolling: touch !important; }
+        .wrapper { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 24px; }
+        header { border-bottom: 1px solid var(--stroke-glass); padding-bottom: 20px; margin-bottom: 10px; }
+        .quiz-badge { font-family: var(--font-mono); font-size: 0.75rem; color: var(--neon-cyan); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; }
+        h1 { color: var(--ink-bright); font-size: 1.8rem; font-weight: 800; margin-top: 6px; letter-spacing: -0.02em; }
+        .card { background: var(--bg-card); border: 1px solid var(--stroke-glass); border-radius: 12px; padding: 28px; display: flex; flex-direction: column; gap: 16px; margin-bottom: 8px; }
+        h2 { color: var(--ink-bright); font-size: 1.05rem; font-weight: 600; line-height: 1.5; }
+        .options-group { display: flex; flex-direction: column; gap: 10px; }
+        .option-btn { width: 100%; text-align: left; background: rgba(255,255,255,0.01); border: 1px solid var(--stroke-glass); border-radius: 8px; padding: 14px 18px; color: var(--ink-secondary); font-size: 0.9rem; cursor: pointer; transition: all 0.2s ease; }
+        .option-btn:hover { background: var(--bg-hover); border-color: var(--neon-cyan); color: var(--ink-bright); }
+        .feedback { display: none; font-size: 0.88rem; padding: 14px; border-radius: 6px; margin-top: 8px; font-family: var(--font-mono); line-height: 1.5; }
+        .feedback.correct { display: block; background: rgba(80, 250, 123, 0.08); border-left: 3px solid var(--neon-emerald); color: var(--neon-emerald); }
+        .feedback.incorrect { display: block; background: rgba(239, 68, 68, 0.08); border-left: 3px solid #ef4444; color: #f87171; }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+            <div class="quiz-badge">Module 3 // Fixed-Size Translation Matrix Layer</div>
+            <h1>Lecture 11: The Paging Model Quiz</h1>
+        </header>
+
+        <!-- Question 1 -->
+        <div class="card">
+            <h2>1. What primary architectural defect of variable contiguous relocation blocks (like Base-and-Bound systems) driven the operating system pivot toward fixed-size paging?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Internal fragmentation occurs inside fixed-size pages when allocations don\'t fill out the block, which is a downside of paging.')">A) Excessive internal fragmentation caused by function stack growth bounds.</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! Contiguous variable-sized memory allocations leave shattered fragments of unusable space between program blocks over time, known as severe External Fragmentation.')">B) Severe external fragmentation that leaves physical RAM riddled with unusable gaps between memory blocks.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Interrupt vector routing latency handles system traps rather than space allocation fragmentation.')">C) The interrupt vector table lookup routing tax fired by multi-threaded task switches.</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="card">
+            <h2>2. In a standard paging model translation step, what exact transformation occurs to the virtual address stream's low-order "Offset" bits?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! The Memory Management Unit (MMU) only modifies the Page Number bits during translation; the low-order Offset bits pass through completely unchanged to preserve byte indexes within the page frame.')">A) They pass through the Memory Management Unit (MMU) completely unchanged.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Only the high-order bits are indexed against the table to extract frame positions.')">B) They are added directly to the Base Register tracking value to derive frame offsets.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Inversion maps apply to lock synchronization paradigms, not bitwise data parsing.')">C) They are dynamically inverted to match the secondary level page directory indexes.</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="card">
+            <h2>3. In our encyclopedic book index analogy, what structural system element maps directly to the loose paper sheets scattered randomly across storage drawers?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. The single index card cheat-sheet maps straight to the Page Table mapping structure.')">A) The single index card cheat-sheet used to maintain chronological book ordering parameters.</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! The loose paper sheets scattered across separate storage locations are analog clean representations of physical memory frames or virtual page blocks distributed non-contiguously throughout hardware RAM arrays.')">B) The non-contiguous fixed-size pages or frame blocks distributed throughout physical RAM.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Central lockers or corporate vaults denote process sandbox context configurations.')">C) The central corporate vault structure containing absolute hardware base register configurations.</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+              <!-- Question 4 -->
+        <div class="card">
+            <h2>4. What specific memory inefficiency classification describes the wasted space inside a fixed-size page block when a process requests a data buffer that does not perfectly fill the page bounds?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. External fragmentation denotes unusable gaps *between* contiguous variable allocations.')">A) Severe External Fragmentation</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! Internal Fragmentation occurs when an allocated fixed-size page block has leftover, unused space inside its boundaries because the requested data footprint is smaller than the fixed page capacity.')">B) Internal Fragmentation</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Convoy bottlenecks track non-preemptive CPU scheduling line delays.')">C) The FCFS Queue Convoy Bottleneck</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Question 5 -->
+        <div class="card">
+            <h2>5. Consider a 4-bit binary address system utilizing 4-byte pages where Page Table array index mappings map Page 3 straight to Frame 5 (Binary: 101). What is the physical translation address result for binary virtual input stream `1101`?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Remember to isolate the 2-bit offset token and append it right to the extracted 3-bit frame block.')">A) Binary physical destination stream `10100` (Decimal address 20)</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! High-order bits `11` specify Page 3, which maps to Frame `101`. Appending the unchanged low-order offset bits `01` yields physical binary output stream `10101` (Decimal address 21).')">B) Binary physical destination stream `10101` (Decimal address 21)</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Double-check your bit concatenation mapping sequence.')">C) Binary physical destination stream `11101` (Decimal address 29)</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+    </div>
+
+    <script>
+        function checkAns(btn, isCorrect, reason) {
+            const card = btn.closest('.card');
+            const feedback = card.querySelector('.feedback');
+            const siblings = card.querySelectorAll('.option-btn');
+            
+            siblings.forEach(s => s.style.opacity = "0.5");
+            btn.style.opacity = "1";
+            
+            if (isCorrect) {
+                feedback.className = "feedback correct";
+                feedback.innerText = "✓ " + reason;
+            } else {
+                feedback.className = "feedback incorrect";
+                feedback.innerText = "✗ " + reason;
+            }
+        }
+    </script>
+</body>
+</html>
+
+
+      
