@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>📝 L21: Uniform Device Drivers // Self-Assessment Quiz</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --bg-base: #06080e;
+            --bg-card: #0b0f19;
+            --bg-hover: #161f30;
+            --stroke-glass: rgba(255, 255, 255, 0.08);
+            --ink-bright: #ffffff;
+            --ink-secondary: #e2e8f0;
+            --ink-muted: #64748b;
+            --neon-emerald: #50fa7b;
+            --neon-cyan: #8be9fd;
+            --neon-blue: #6366f1;
+            --font-sans: system-ui, -apple-system, sans-serif;
+            --font-mono: monospace;
+        }
+        body { background-color: var(--bg-base); color: var(--ink-secondary); font-family: var(--font-sans); padding: 40px 24px; line-height: 1.7; overflow-y: auto !important; -webkit-overflow-scrolling: touch !important; }
+        .wrapper { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 24px; }
+        header { border-bottom: 1px solid var(--stroke-glass); padding-bottom: 20px; margin-bottom: 10px; }
+        .quiz-badge { font-family: var(--font-mono); font-size: 0.75rem; color: var(--neon-cyan); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; }
+        h1 { color: var(--ink-bright); font-size: 1.8rem; font-weight: 800; margin-top: 6px; letter-spacing: -0.02em; }
+        .card { background: var(--bg-card); border: 1px solid var(--stroke-glass); border-radius: 12px; padding: 28px; display: flex; flex-direction: column; gap: 16px; margin-bottom: 8px; }
+        h2 { color: var(--ink-bright); font-size: 1.05rem; font-weight: 600; line-height: 1.5; }
+        .options-group { display: flex; flex-direction: column; gap: 10px; }
+        .option-btn { width: 100%; text-align: left; background: rgba(255,255,255,0.01); border: 1px solid var(--stroke-glass); border-radius: 8px; padding: 14px 18px; color: var(--ink-secondary); font-size: 0.9rem; cursor: pointer; transition: all 0.2s ease; }
+        .option-btn:hover { background: var(--bg-hover); border-color: var(--neon-cyan); color: var(--ink-bright); }
+        .feedback { display: none; font-size: 0.88rem; padding: 14px; border-radius: 6px; margin-top: 8px; font-family: var(--font-mono); line-height: 1.5; }
+        .feedback.correct { display: block; background: rgba(80, 250, 123, 0.08); border-left: 3px solid var(--neon-emerald); color: var(--neon-emerald); }
+        .feedback.incorrect { display: block; background: rgba(239, 68, 68, 0.08); border-left: 3px solid #ef4444; color: #f87171; }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+            <div class="quiz-badge">Module 6 // Device Abstraction Evaluation Layer</div>
+            <h1>Lecture 21: Uniform Device Drivers &amp; /dev Abstraction Quiz</h1>
+        </header>
+
+        <!-- Question 1 -->
+        <div class="card">
+            <h2>1. Which architectural hardware classification characterizes a device that delivers data exclusively as an un-cached, sequential linear stream of individual bytes without random seek properties?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Block devices explicitly process fixed-size addressable blocks and rely heavily on caching.')">A) A standard Block Device interface module.</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! Character devices stream bytes sequentially without caching layers or direct seek parameters (e.g., keyboards or serial mice).')">B) A Character Device.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Network devices bypass VFS file primitives entirely to route data packets through sockets.')">C) A socket-based Network Device subsystem adapter.</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="card">
+            <h2>2. What definitive structural registry table contains the polymorphic array of function pointers used by the kernel to bind user-space system calls directly to driver functions?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! The `file_operations` structure acts as a jump matrix holding function pointers that redirect system actions straight into driver subroutines.')">A) The Virtual File System `file_operations` structure.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. The Process Control Block tracks task contexts within the CPU scheduler lines.')">B) The per-thread Process Control Block table descriptor map.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. The Flash Translation Layer is an embedded firmware mapping controller localized to SSD storage devices.')">C) The hardware embedded Flash Translation Layer register grid.</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="card">
+            <h2>3. In our universal wall adapter analogy, what exact role matches the adapter plug that converts standard wall socket slots into the custom charging pins of a specific machine?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Standard wall slots correspond to generic VFS abstractions.')">A) The open generic VFS system call interface definitions.</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! The adapter device itself acts exactly like a specialized Device Driver, isolating the custom hardware mechanics from the generic system standard.')">B) The localized Device Driver software module module.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Hardware memory management units map virtual addresses to physical RAM frames.')">C) The physical memory management unit processing page tables.</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+              <!-- Question 4 -->
+        <div class="card">
+            <h2>4. When executing system command `ls -l /dev`, what indicator token flag displayed at the very start of the permission column identifies a device node file as a raw Block asset?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! The character flag `b` denotes an addressable block device node, while character flag `c` identifies streaming character device profiles.')">A) The character flag letter entry token `b`.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Flag token `c` explicitly designates streaming character devices.')">B) The character flag letter entry token `c`.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Dash flags specify standard baseline files inside standard directory loops.')">C) A standard dash token ` - ` matching baseline storage files.</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Question 5 -->
+        <div class="card">
+            <h2>5. How does mapping hardware devices directly as file system nodes inside the `/dev` tree enhance operating system security and access control features?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Device operations still map across physical bus routing networks.')">A) It completely bypasses hardware electrical signal lines to encrypt bytes inside RAM tracks.</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! By translating peripherals into classic file system objects, the operating system can leverage its existing file access permission bits (chmod) to restrict or grant device clearance safely.')">B) It allows the kernel to enforce access security simply by wrapping standard file permission bits around physical components.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Minor device identifiers route traffic inside drivers without managing access verification gates.')">C) It forces the system to automatically load minor identifier metadata files onto flash memory sectors.</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+    </div>
+
+    <script>
+        function checkAns(btn, isCorrect, reason) {
+            const card = btn.closest('.card');
+            const feedback = card.querySelector('.feedback');
+            const siblings = card.querySelectorAll('.option-btn');
+            
+            siblings.forEach(s => s.style.opacity = "0.5");
+            btn.style.opacity = "1";
+            
+            if (isCorrect) {
+                feedback.className = "feedback correct";
+                feedback.innerText = "✓ " + reason;
+            } else {
+                feedback.className = "feedback incorrect";
+                feedback.innerText = "✗ " + reason;
+            }
+        }
+    </script>
+</body>
+</html>
+
