@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>📝 L15: Classic Synchronization Problems // Self-Assessment Quiz</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --bg-base: #06080e;
+            --bg-card: #0b0f19;
+            --bg-hover: #161f30;
+            --stroke-glass: rgba(255, 255, 255, 0.08);
+            --ink-bright: #ffffff;
+            --ink-secondary: #e2e8f0;
+            --ink-muted: #64748b;
+            --neon-emerald: #50fa7b;
+            --neon-cyan: #8be9fd;
+            --neon-blue: #6366f1;
+            --font-sans: system-ui, -apple-system, sans-serif;
+            --font-mono: monospace;
+        }
+        body { background-color: var(--bg-base); color: var(--ink-secondary); font-family: var(--font-sans); padding: 40px 24px; line-height: 1.7; overflow-y: auto !important; -webkit-overflow-scrolling: touch !important; }
+        .wrapper { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 24px; }
+        header { border-bottom: 1px solid var(--stroke-glass); padding-bottom: 20px; margin-bottom: 10px; }
+        .quiz-badge { font-family: var(--font-mono); font-size: 0.75rem; color: var(--neon-cyan); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; }
+        h1 { color: var(--ink-bright); font-size: 1.8rem; font-weight: 800; margin-top: 6px; letter-spacing: -0.02em; }
+        .card { background: var(--bg-card); border: 1px solid var(--stroke-glass); border-radius: 12px; padding: 28px; display: flex; flex-direction: column; gap: 16px; margin-bottom: 8px; }
+        h2 { color: var(--ink-bright); font-size: 1.05rem; font-weight: 600; line-height: 1.5; }
+        .options-group { display: flex; flex-direction: column; gap: 10px; }
+        .option-btn { width: 100%; text-align: left; background: rgba(255,255,255,0.01); border: 1px solid var(--stroke-glass); border-radius: 8px; padding: 14px 18px; color: var(--ink-secondary); font-size: 0.9rem; cursor: pointer; transition: all 0.2s ease; }
+        .option-btn:hover { background: var(--bg-hover); border-color: var(--neon-cyan); color: var(--ink-bright); }
+        .feedback { display: none; font-size: 0.88rem; padding: 14px; border-radius: 6px; margin-top: 8px; font-family: var(--font-mono); line-height: 1.5; }
+        .feedback.correct { display: block; background: rgba(80, 250, 123, 0.08); border-left: 3px solid var(--neon-emerald); color: var(--neon-emerald); }
+        .feedback.incorrect { display: block; background: rgba(239, 68, 68, 0.08); border-left: 3px solid #ef4444; color: #f87171; }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+            <div class="quiz-badge">Module 4 // Deadlock Topology Assessment Layer</div>
+            <h1>Lecture 15: Classic Synchronization Problems Quiz</h1>
+        </header>
+
+        <!-- Question 1 -->
+        <div class="card">
+            <h2>1. How many of the four Coffman Conditions must hold true simultaneously for a system deadlock to manifest?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Dropping even one condition breaks the deadlock gridlock immediately.')">A) Only one single arbitrary condition needs to hold true.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Any subset short of the total four allows the loop to clear.')">B) Exactly two conditions must activate at the same time.</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! All four Coffman Conditions—Mutual Exclusion, Hold-and-Wait, No Preemption, and Circular Wait—must hold true simultaneously for a deadlock gridlock state to manifest.')">C) All four conditions must hold true simultaneously without exception.</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="card">
+            <h2>2. Which Coffman condition describes a process thread keeping an already acquired resource lock while simultaneously waiting to claim a different resource held by a separate task?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Mutual exclusion describes the exclusive, unshareable nature of the lock itself.')">A) Mutual Exclusion.</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! The Hold-and-Wait condition describes a thread holding onto its current exclusive resource allocations while waiting inside a queue to claim additional competitor allocations.')">B) Hold-and-Wait.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Circular wait represents a closed ring chain of dependencies.')">C) Circular Wait.</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="card">
+            <h2>3. In the Dining Philosophers Dilemma, what action corresponds directly to the system-level strategy of breaking the "Circular Wait" condition?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! Forcing an asymmetric acquisition sequence (like forcing one thinker to grab their right fork first) breaks the cyclic closed ring dependency chain, eliminating the deadlock.')">A) Changing the acquisition ordering hierarchy so one specific philosopher picks up their right fork first.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Stealing forks by force corresponds straight to breaking No Preemption.')">B) Allowing philosophers to forcefully rip forks away from their neighboring colleagues.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Merging resources violates the mutual exclusion requirement.')">C) Merging all forks into a single un-lockable shared asset table pool.</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+              <!-- Question 4 -->
+        <div class="card">
+            <h2>4. What structural mitigation technique is standard in software engineering to prevent a cross-account deadlock loop when multiple locks must be acquired by separate threads?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Sleeping threads delays the gridlock window but does not eliminate the architectural flaw.')">A) Adding randomized sleep delays to entry paths to stagger execution threads.</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! Enforcing a strict, global lock acquisition ordering hierarchy ensures that if Thread 1 and Thread 2 both need Lock A and Lock B, they must acquire them in the exact same index order, completely preventing any circular wait rings.')">B) Enforcing a strict, global lock acquisition ordering hierarchy across all threads.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Deleting data variables changes memory state properties without correcting lock dependencies.')">C) Forcing user space applications to flush their global variables upon thread preemption.</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Question 5 -->
+        <div class="card">
+            <h2>5. When analyzing a Resource Allocation Graph (RAG) tracking system states, what geometric topological feature indicates a definite deadlock condition in an environment with single-unit resource nodes?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Linear branch lines show independent dependencies that eventually resolve.')">A) A perfectly linear progression chain of dependency lines ending at a zero sink node.</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! In a graph tracking single-unit resources, the presence of a closed cyclic loop chain represents the exact manifestation of a Circular Wait condition, proving a deadlock freeze exists.')">B) A closed, cyclic loop chain of directional allocation and request arrows.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Multi-layered trees denote fork patterns rather than frozen loop deadlocks.')">C) A multi-layered hierarchical tree network branching toward alternative system targets.</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+    </div>
+
+    <script>
+        function checkAns(btn, isCorrect, reason) {
+            const card = btn.closest('.card');
+            const feedback = card.querySelector('.feedback');
+            const siblings = card.querySelectorAll('.option-btn');
+            
+            siblings.forEach(s => s.style.opacity = "0.5");
+            btn.style.opacity = "1";
+            
+            if (isCorrect) {
+                feedback.className = "feedback correct";
+                feedback.innerText = "✓ " + reason;
+            } else {
+                feedback.className = "feedback incorrect";
+                feedback.innerText = "✗ " + reason;
+            }
+        }
+    </script>
+</body>
+</html>
+
+      
