@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>🎬 L17: File Abstraction & Directory Topology // Slides</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --bg-base: #06080e;
+            --bg-card: #0b0f19;
+            --bg-code: #020408;
+            --stroke-glass: rgba(255, 255, 255, 0.08);
+            --ink-bright: #ffffff;
+            --ink-secondary: #e2e8f0;
+            --ink-muted: #64748b;
+            --neon-emerald: #50fa7b;
+            --neon-cyan: #8be9fd;
+            --neon-blue: #6366f1;
+            --font-sans: system-ui, -apple-system, sans-serif;
+            --font-mono: monospace;
+        }
+        body { background-color: var(--bg-base); color: var(--ink-secondary); font-family: var(--font-sans); height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; overflow: hidden; }
+        .slide-stage { width: 90vw; max-width: 960px; height: 65vh; max-height: 600px; position: relative; }
+        .slide { position: absolute; inset: 0; background: var(--bg-card); border: 1px solid var(--stroke-glass); border-radius: 16px; padding: 48px; display: flex; flex-direction: column; justify-content: space-between; opacity: 0; visibility: hidden; transform: scale(0.98); transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); box-shadow: 0 30px 60px rgba(0,0,0,0.4); }
+        .slide.active { opacity: 1; visibility: visible; transform: scale(1); }
+        .slide-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--stroke-glass); padding-bottom: 16px; }
+        .slide-badge { font-family: var(--font-mono); font-size: 0.75rem; color: var(--neon-cyan); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; }
+        .slide-counter { font-family: var(--font-mono); font-size: 0.8rem; color: var(--ink-muted); }
+        .slide-body { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 16px; padding: 24px 0; }
+        .slide-title { color: var(--ink-bright); font-size: 1.8rem; font-weight: 800; letter-spacing: -0.02em; }
+        .slide-desc { font-size: 1.05rem; line-height: 1.6; color: var(--ink-secondary); }
+        .highlight-box { background: rgba(80, 250, 123, 0.04); border-left: 3px solid var(--neon-emerald); padding: 14px; border-radius: 4px; margin-top: 8px; }
+        .code-box { background: var(--bg-code); border: 1px solid var(--stroke-glass); padding: 14px; border-radius: 6px; font-family: var(--font-mono); font-size: 0.82rem; color: #a5b4fc; }
+        .control-bar { margin-top: 32px; display: flex; gap: 16px; align-items: center; z-index: 10; }
+        .btn { background: rgba(255,255,255,0.02); border: 1px solid var(--stroke-glass); color: var(--ink-secondary); font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; padding: 10px 20px; border-radius: 6px; cursor: pointer; transition: all 0.2s ease; }
+        .btn:hover { border-color: var(--neon-cyan); color: var(--neon-cyan); background: rgba(139, 233, 253, 0.05); }
+    </style>
+</head>
+<body>
+    <div class="slide-stage">
+
+              <!-- Slide 1 -->
+        <div class="slide active">
+            <div class="slide-header"><span class="slide-badge">CS 301 // L17</span><span class="slide-counter">01 / 04</span></div>
+            <div class="slide-body">
+                <h2 class="slide-title">File Abstraction &amp; Directory Topology</h2>
+                <p class="slide-desc" style="font-size:1.3rem; color:var(--neon-emerald);">Lecture 17: Virtual Path Traversal and Name Mappings</p>
+                <p class="slide-desc">Investigating hierarchical layout resolution loops, directory maps, hard vs. symbolic links, and open file session structures.</p>
+            </div>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="slide">
+            <div class="slide-header"><span class="slide-badge">🎪 Nested Boxes</span><span class="slide-counter">02 / 04</span></div>
+            <div class="slide-body">
+                <h2 class="slide-title">The Nested Treasure Chest Analogy</h2>
+                <p class="slide-desc">A file path like <code>/home/user/resume.pdf</code> is not a singular physical address; it is a nested set of instruction keys.</p>
+                <div class="highlight-box">
+                    <p class="slide-desc" style="color: #fff; font-weight:600;">The root <code>/</code> is the master chest. Open it, read the directory file list, and find a pointer to the <code>home</code> box. Open <code>home</code> to find a link to <code>user</code>. A directory is simply a specialized map folder connecting strings to index keys.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="slide">
+            <div class="slide-header"><span class="slide-badge">🔍 Path Parsing</span><span class="slide-counter">03 / 04</span></div>
+            <div class="slide-body">
+                <h2 class="slide-title">Links and Directory Architecture</h2>
+                <p class="slide-desc">How structural shortcuts map across the file system tree geometry:</p>
+                <p class="slide-desc" style="margin-top:4px;">• <strong>Hard Link:</strong> An additional string entry name inside a directory pointing straight to an existing, shared historical Inode block.</p>
+                <p class="slide-desc" style="margin-top:4px;">• <strong>Soft (Symbolic) Link:</strong> A standalone text file holding an absolute string path redirecting down to an entirely separate node destination completely.</p>
+            </div>
+        </div>
+
+              <!-- Slide 4 -->
+        <div class="slide">
+            <div class="slide-header"><span class="slide-badge">🛠️ Path Walk</span><span class="slide-counter">04 / 04</span></div>
+            <div class="slide-body">
+                <h2 class="slide-title">Trace Stream Path Resolution Walkthrough</h2>
+                <p class="slide-desc">Tracing VFS resolution steps when a system runs <code>cat /var/log/sys.log</code>:</p>
+                <div class="code-box">Step 1: Fetch Inode #2 (Hardcoded Root directory block location).
+Step 2: Parse Inode #2 text contents. Locate row "var" -> Points to Inode #45.
+Step 3: Parse Inode #45 folder text data. Locate row "log" -> Points to Inode #812.
+Step 4: Parse Inode #812 index entries. Locate row "sys.log" -> Lands on final target 
+        file Inode #9042, unlocking block byte streams.</div>
+            </div>
+        </div>
+
+    </div>
+    <div class="control-bar">
+        <button class="btn" onclick="moveSlide(-1)">Prev</button>
+        <button class="btn" onclick="moveSlide(1)" style="border-color: var(--neon-blue); color:#fff;">Next Slide</button>
+    </div>
+    <script>
+        let currentIdx = 0;
+        const slides = document.querySelectorAll('.slide');
+        function showSlide(idx) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            if (idx >= slides.length) currentIdx = 0;
+            else if (idx < 0) currentIdx = slides.length - 1;
+            else currentIdx = idx;
+            slides[currentIdx].classList.add('active');
+        }
+        function moveSlide(direction) {
+            currentIdx += direction;
+            showSlide(currentIdx);
+        }
+        document.addEventListener('keydown', (e) => {
+            if (e.code === 'Space' || e.code === 'ArrowRight') moveSlide(1);
+            if (e.code === 'ArrowLeft') moveSlide(-1);
+        });
+    </script>
+</body>
+</html>
+
+
