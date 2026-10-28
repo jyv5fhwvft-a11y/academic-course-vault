@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>📝 L17: File Abstraction // Self-Assessment Quiz</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --bg-base: #06080e;
+            --bg-card: #0b0f19;
+            --bg-hover: #161f30;
+            --stroke-glass: rgba(255, 255, 255, 0.08);
+            --ink-bright: #ffffff;
+            --ink-secondary: #e2e8f0;
+            --ink-muted: #64748b;
+            --neon-emerald: #50fa7b;
+            --neon-cyan: #8be9fd;
+            --neon-blue: #6366f1;
+            --font-sans: system-ui, -apple-system, sans-serif;
+            --font-mono: monospace;
+        }
+        body { background-color: var(--bg-base); color: var(--ink-secondary); font-family: var(--font-sans); padding: 40px 24px; line-height: 1.7; overflow-y: auto !important; -webkit-overflow-scrolling: touch !important; }
+        .wrapper { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 24px; }
+        header { border-bottom: 1px solid var(--stroke-glass); padding-bottom: 20px; margin-bottom: 10px; }
+        .quiz-badge { font-family: var(--font-mono); font-size: 0.75rem; color: var(--neon-cyan); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; }
+        h1 { color: var(--ink-bright); font-size: 1.8rem; font-weight: 800; margin-top: 6px; letter-spacing: -0.02em; }
+        .card { background: var(--bg-card); border: 1px solid var(--stroke-glass); border-radius: 12px; padding: 28px; display: flex; flex-direction: column; gap: 16px; margin-bottom: 8px; }
+        h2 { color: var(--ink-bright); font-size: 1.05rem; font-weight: 600; line-height: 1.5; }
+        .options-group { display: flex; flex-direction: column; gap: 10px; }
+        .option-btn { width: 100%; text-align: left; background: rgba(255,255,255,0.01); border: 1px solid var(--stroke-glass); border-radius: 8px; padding: 14px 18px; color: var(--ink-secondary); font-size: 0.9rem; cursor: pointer; transition: all 0.2s ease; }
+        .option-btn:hover { background: var(--bg-hover); border-color: var(--neon-cyan); color: var(--ink-bright); }
+        .feedback { display: none; font-size: 0.88rem; padding: 14px; border-radius: 6px; margin-top: 8px; font-family: var(--font-mono); line-height: 1.5; }
+        .feedback.correct { display: block; background: rgba(80, 250, 123, 0.08); border-left: 3px solid var(--neon-emerald); color: var(--neon-emerald); }
+        .feedback.incorrect { display: block; background: rgba(239, 68, 68, 0.08); border-left: 3px solid #ef4444; color: #f87171; }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+            <div class="quiz-badge">Module 5 // Storage Abstraction Evaluation Layer</div>
+            <h1>Lecture 17: File Abstraction & Directory Topology Quiz</h1>
+        </header>
+
+        <!-- Question 1 -->
+        <div class="card">
+            <h2>1. What type of file is a "Directory" under the hood in a traditional UNIX-like file system architecture?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Directories do not contain raw binary hardware assembly streams.')">A) A binary hardware execution stream protected by system privilege rings.</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! Internally, a directory is simply a specialized structured file containing an array list that maps human-readable filename strings to internal system Inode numbers.')">B) A specialized file containing an ordered ledger linking text name strings to unique inode numbers.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Disk partition blocks represent raw sectors rather than filesystem namespace objects.')">C) A physical raw storage partition block dedicated to hardware cache address lookups.</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="card">
+            <h2>2. In our nested box analogy, what specific file system element acts as the master chest sitting on the floor that must be opened first during any path resolution walk?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. The home directory is a sub-box nested inside the master root container.')">A) The active process home user path string container configuration.</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! Every absolute path walk begins at the root directory `/`. The operating system kernel reads a hardcoded boot location block to find the root inode to start the sequential parsing walk.')">B) The Root Directory (`/`), mapped to a hardcoded standard Inode entry pointer.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. File descriptors are process session tokens rather than directory lookup nodes.')">C) The first open session key token indexed inside the active file descriptor table.</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="card">
+            <h2>3. What is the fundamental difference between a Hard Link and a Soft (Symbolic) Link inside a file directory namespace?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! A hard link maps a filename directly to an existing inode number block, sharing the resource directly. A soft link is an independent pointer file that simply stores a text string path to a completely separate destination.')">A) A hard link maps a text string directly to an existing inode, while a soft link is a distinct file storing a path string.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Hard links do not involve encryption mechanisms; both are managed by the VFS namespace.')">B) A hard link encrypts data blocks natively, whereas soft links bypass the virtual file system layer loops.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Links deal with file system namespaces rather than memory page frame boundaries.')">C) Hard links reside entirely inside RAM segments, while soft links exist within physical drive sector maps.</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+              <!-- Question 4 -->
+        <div class="card">
+            <h2>4. What secure per-process asset token does the operating system return to user space when an application successfully invokes an `open()` system call?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. PIDs track independent running tasks inside the scheduler lines, not open files.')">A) A unique Process Identifier integer key (PID).</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! The `open()` call adds a session reference to the process open file matrix and returns a small, non-negative index integer called a File Descriptor.')">B) A small, non-negative index integer known as a File Descriptor.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Virtual page directory offsets map address spaces across MMU hardware chips.')">C) A virtual page directory offset value tracking memory segment frames.</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Question 5 -->
+        <div class="card">
+            <h2>5. When a kernel resolves path string `/var/log/sys.log`, what structural event happens immediately after it reads the entry name match "log" inside folder Inode #45?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. The VFS loops continue walking directories sequentially until the final target element maps.')">A) It breaks out of the file layout loop instantly and throws a segmentation fault exception trap.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Wear-leveling updates are handled entirely under the hood by internal SSD FTL firmware controller chips.')">B) It invokes the SSD Flash Translation Layer firmware to refresh wear leveling cell arrays.</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! Locating the "log" entry inside Inode #45 returns its paired number Inode #812. The kernel then opens and parses the index data blocks of Inode #812 to look for the next path segment.')">C) It retrieves paired index Inode #812, then opens and scans its data blocks to search for the string "sys.log".</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+    </div>
+
+    <script>
+        function checkAns(btn, isCorrect, reason) {
+            const card = btn.closest('.card');
+            const feedback = card.querySelector('.feedback');
+            const siblings = card.querySelectorAll('.option-btn');
+            
+            siblings.forEach(s => s.style.opacity = "0.5");
+            btn.style.opacity = "1";
+            
+            if (isCorrect) {
+                feedback.className = "feedback correct";
+                feedback.innerText = "✓ " + reason;
+            } else {
+                feedback.className = "feedback incorrect";
+                feedback.innerText = "✗ " + reason;
+            }
+        }
+    </script>
+</body>
+</html>
+
