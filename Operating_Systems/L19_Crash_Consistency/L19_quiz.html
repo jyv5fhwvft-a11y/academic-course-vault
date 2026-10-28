@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>📝 L19: Crash Consistency // Self-Assessment Quiz</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --bg-base: #06080e;
+            --bg-card: #0b0f19;
+            --bg-hover: #161f30;
+            --stroke-glass: rgba(255, 255, 255, 0.08);
+            --ink-bright: #ffffff;
+            --ink-secondary: #e2e8f0;
+            --ink-muted: #64748b;
+            --neon-emerald: #50fa7b;
+            --neon-cyan: #8be9fd;
+            --neon-blue: #6366f1;
+            --font-sans: system-ui, -apple-system, sans-serif;
+            --font-mono: monospace;
+        }
+        body { background-color: var(--bg-base); color: var(--ink-secondary); font-family: var(--font-sans); padding: 40px 24px; line-height: 1.7; overflow-y: auto !important; -webkit-overflow-scrolling: touch !important; }
+        .wrapper { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 24px; }
+        header { border-bottom: 1px solid var(--stroke-glass); padding-bottom: 20px; margin-bottom: 10px; }
+        .quiz-badge { font-family: var(--font-mono); font-size: 0.75rem; color: var(--neon-cyan); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; }
+        h1 { color: var(--ink-bright); font-size: 1.8rem; font-weight: 800; margin-top: 6px; letter-spacing: -0.02em; }
+        .card { background: var(--bg-card); border: 1px solid var(--stroke-glass); border-radius: 12px; padding: 28px; display: flex; flex-direction: column; gap: 16px; margin-bottom: 8px; }
+        h2 { color: var(--ink-bright); font-size: 1.05rem; font-weight: 600; line-height: 1.5; }
+        .options-group { display: flex; flex-direction: column; gap: 10px; }
+        .option-btn { width: 100%; text-align: left; background: rgba(255,255,255,0.01); border: 1px solid var(--stroke-glass); border-radius: 8px; padding: 14px 18px; color: var(--ink-secondary); font-size: 0.9rem; cursor: pointer; transition: all 0.2s ease; }
+        .option-btn:hover { background: var(--bg-hover); border-color: var(--neon-cyan); color: var(--ink-bright); }
+        .feedback { display: none; font-size: 0.88rem; padding: 14px; border-radius: 6px; margin-top: 8px; font-family: var(--font-mono); line-height: 1.5; }
+        .feedback.correct { display: block; background: rgba(80, 250, 123, 0.08); border-left: 3px solid var(--neon-emerald); color: var(--neon-emerald); }
+        .feedback.incorrect { display: block; background: rgba(239, 68, 68, 0.08); border-left: 3px solid #ef4444; color: #f87171; }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+            <div class="quiz-badge">Module 5 // Crash Integrity Evaluation Layer</div>
+            <h1>Lecture 19: Crash Consistency &amp; Journaling Quiz</h1>
+        </header>
+
+        <!-- Question 1 -->
+        <div class="card">
+            <h2>1. Why does a multi-block file update (like appending data) create a severe "crash consistency nightmare" if power cuts out mid-write without journaling?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Disk controllers do not experience bit rot solely from sudden power failures.')">A) The hardware disk controller encounters immediate sector bit rot across cold sectors.</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! Because writing to the bitmap, inode, and data blocks happens sequentially, a sudden crash mid-write can leave some blocks updated and others unchanged, destroying metadata integrity.')">B) The multi-block write sequence is non-atomic, meaning partial writes leave the file system in an inconsistent or corrupted state.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. CPU privilege domains remain isolated; this is an asynchronous storage serialization bottleneck.')">C) The processor permanently leaks user-space thread memory into core Ring 0 kernel pages.</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="card">
+            <h2>2. What specific operation defines the "Checkpointing" phase inside a Write-Ahead Logging (WAL) storage protocol?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. This describes the initialization phase of a transaction write block.')">A) Allocating an isolated ring-buffer cache sector to cache raw file byte streams inside user space.</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! Checkpointing is the vital cycle step where the file system engine reads confirmed updates out of the journal log and writes them permanently into primary disk blocks.')">B) Asynchronously migrating confirmed transaction updates out of the journal log and writing them to main file system structures.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. The reboot scanner executes a playback scan after an unclean shutdown occurs.')">C) Running a verification loop upon a clean reboot to discard completed historical entries.</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="card">
+            <h2>3. In our financial check analogy, what structural system layout parameter maps straight to writing down your full intent in ink inside a chained desk notebook first?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! The inked notebook intent record maps directly to writing and committing a full transaction to the isolated Journal zone on disk before altering the primary data ledger.')">A) Committing a complete transaction intent entry to the isolated Journal zone on disk.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Modifying files directly without log locks leads to uncoordinated corruption failures.')">B) Writing data blocks straight to raw disk sectors without utilizing data bitmaps.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Defragmentation aligns file chunks rather than tracking write intents.')">C) Actively launching a disk defragmentation script to bundle block clusters.</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+              <!-- Question 4 -->
+        <div class="card">
+            <h2>4. What structural data layout optimization occurs when an operating system runs under Metadata Journaling mode?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Metadata journaling isolates layout blocks while sending payload bytes straight to data sectors.')">A) Both the raw file contents and the structural metadata blocks are duplicated across independent log lines.</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! Metadata journaling reduces performance costs by exclusively logging structural changes (inodes, bitmaps) to the journal, allowing heavy user content bytes to stream straight to primary data sectors.')">B) Only structural layout mutations (inodes, bitmaps) are logged into the journal, while raw content bytes bypass the log.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Journaling choices are transparent to user application privilege domains.')">C) Directory tables are completely cleared out of flash matrices to increase file descriptor cache pools.</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Question 5 -->
+        <div class="card">
+            <h2>5. If power fails completely AFTER a write transaction has been successfully sealed with a `[TX Commit]` block in the journal, but BEFORE checkpointing completes, how does the system recover upon reboot?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Because the transaction log is complete and verified, discarding it would mean losing a completed operation unnecessarily.')">A) The reboot recovery scanner marks the transaction log entry as unstable and drops it completely.</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! Since the transaction was securely sealed with a commit block, the recovery engine simply reads the complete log entry and replays the blocks into main structures, guaranteeing absolute consistency.')">B) The recovery engine reads the completed journal transaction and replays it to finalize the main structures safely.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Reformatting is a last-resort failure recovery outcome that occurs when file system metadata structures breakdown completely.')">C) The system locks execution loops and prompts the user to reformat the primary storage layout.</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+    </div>
+
+    <script>
+        function checkAns(btn, isCorrect, reason) {
+            const card = btn.closest('.card');
+            const feedback = card.querySelector('.feedback');
+            const siblings = card.querySelectorAll('.option-btn');
+            
+            siblings.forEach(s => s.style.opacity = "0.5");
+            btn.style.opacity = "1";
+            
+            if (isCorrect) {
+                feedback.className = "feedback correct";
+                feedback.innerText = "✓ " + reason;
+            } else {
+                feedback.className = "feedback incorrect";
+                feedback.innerText = "✗ " + reason;
+            }
+        }
+    </script>
+</body>
+</html>
+
