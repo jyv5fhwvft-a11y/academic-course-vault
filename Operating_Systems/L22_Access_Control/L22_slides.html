@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>🎬 L22: Access Control // Slides</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --bg-base: #06080e;
+            --bg-card: #0b0f19;
+            --bg-code: #020408;
+            --stroke-glass: rgba(255, 255, 255, 0.08);
+            --ink-bright: #ffffff;
+            --ink-secondary: #e2e8f0;
+            --ink-muted: #64748b;
+            --neon-emerald: #50fa7b;
+            --neon-cyan: #8be9fd;
+            --neon-blue: #6366f1;
+            --font-sans: system-ui, -apple-system, sans-serif;
+            --font-mono: monospace;
+        }
+        body { background-color: var(--bg-base); color: var(--ink-secondary); font-family: var(--font-sans); height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; overflow: hidden; }
+        .slide-stage { width: 90vw; max-width: 960px; height: 65vh; max-height: 600px; position: relative; }
+        .slide { position: absolute; inset: 0; background: var(--bg-card); border: 1px solid var(--stroke-glass); border-radius: 16px; padding: 48px; display: flex; flex-direction: column; justify-content: space-between; opacity: 0; visibility: hidden; transform: scale(0.98); transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); box-shadow: 0 30px 60px rgba(0,0,0,0.4); }
+        .slide.active { opacity: 1; visibility: visible; transform: scale(1); }
+        .slide-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--stroke-glass); padding-bottom: 16px; }
+        .slide-badge { font-family: var(--font-mono); font-size: 0.75rem; color: var(--neon-cyan); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; }
+        .slide-counter { font-family: var(--font-mono); font-size: 0.8rem; color: var(--ink-muted); }
+        .slide-body { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 16px; padding: 24px 0; }
+        .slide-title { color: var(--ink-bright); font-size: 1.8rem; font-weight: 800; letter-spacing: -0.02em; }
+        .slide-desc { font-size: 1.05rem; line-height: 1.6; color: var(--ink-secondary); }
+        .highlight-box { background: rgba(80, 250, 123, 0.04); border-left: 3px solid var(--neon-emerald); padding: 14px; border-radius: 4px; margin-top: 8px; }
+        .code-box { background: var(--bg-code); border: 1px solid var(--stroke-glass); padding: 14px; border-radius: 6px; font-family: var(--font-mono); font-size: 0.82rem; color: #a5b4fc; }
+        .control-bar { margin-top: 32px; display: flex; gap: 16px; align-items: center; z-index: 10; }
+        .btn { background: rgba(255,255,255,0.02); border: 1px solid var(--stroke-glass); color: var(--ink-secondary); font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; padding: 10px 20px; border-radius: 6px; cursor: pointer; transition: all 0.2s ease; }
+        .btn:hover { border-color: var(--neon-cyan); color: var(--neon-cyan); background: rgba(139, 233, 253, 0.05); }
+    </style>
+</head>
+<body>
+    <div class="slide-stage">
+
+              <!-- Slide 1 -->
+        <div class="slide active">
+            <div class="slide-header"><span class="slide-badge">CS 301 // L22</span><span class="slide-counter">01 / 04</span></div>
+            <div class="slide-body">
+                <h2 class="slide-title">Access Control</h2>
+                <p class="slide-desc" style="font-size:1.3rem; color:var(--neon-emerald);">Lecture 22: Access Matrices, ACLs, and Capability Tokens</p>
+                <p class="slide-desc">Investigating protection domains, column-oriented vs. row-oriented storage optimizations, and standard Unix permission bits.</p>
+            </div>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="slide">
+            <div class="slide-header"><span class="slide-badge">🎪 Ledgers vs Keys</span><span class="slide-counter">02 / 04</span></div>
+            <div class="slide-body">
+                <h2 class="slide-title">The Hotel Security Framework Analogy</h2>
+                <p class="slide-desc">Managing permission domains across large systems matches two competing tracking paradigms:</p>
+                <div class="highlight-box">
+                    <p class="slide-desc" style="color: #fff; font-weight:600;">• <strong>Access Control List (ACL):</strong> A checklist clipped straight onto the door frame: "Who is allowed into Room 204?" It is resource-centric.<br>
+                    • <strong>Capability Token:</strong> An unforgeable electronic keycard handed to the guest context. The door doesn't care who you are; it opens instantly if your token fits. It is user-centric.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="slide">
+            <div class="slide-header"><span class="slide-badge">🔍 Matrix Slicing</span><span class="slide-counter">03 / 04</span></div>
+            <div class="slide-body">
+                <h2 class="slide-title">Decomposing the Security Matrix</h2>
+                <p class="slide-desc">The master <strong>Access Control Matrix</strong> maps subjects (rows) against objects (columns). Because matrices are massive and sparse, production kernels optimize them:</p>
+                <p class="slide-desc" style="margin-top:4px;">• <strong>ACLs (Columns):</strong> Slice the grid vertically. The permission ledger is tied right onto the resource asset container (e.g., standard files).</p>
+                <p class="slide-desc" style="margin-top:4px;">• <strong>Capabilities (Rows):</strong> Slice the grid horizontally. Unforgeable tokens are distributed directly into process task blocks.</p>
+            </div>
+        </div>
+
+              <!-- Slide 4 -->
+        <div class="slide">
+            <div class="slide-header"><span class="slide-badge">🛠️ Unix Permissions</span><span class="slide-counter">04 / 04</span></div>
+            <div class="slide-body">
+                <h2 class="slide-title">Bitwise UNIX Permissions Vector</h2>
+                <p class="slide-desc">Deconstructing standard 9-bit packed compact ACL implementations:</p>
+                <div class="code-box">Target Vector Footprint: rwxr-xr--
+
+1. User (Owner) Bits:  'rwx' ➔ Full Read, Write, and Execute rights.
+2. Group Bits:         'r-x' ➔ Group members can Read and Execute only.
+3. Others Bits:        'r--' ➔ World callers can strictly read.
+Optimization: High-speed hardware bitmask checks protect core file nodes.</div>
+            </div>
+        </div>
+
+    </div>
+    <div class="control-bar">
+        <button class="btn" onclick="moveSlide(-1)">Prev</button>
+        <button class="btn" onclick="moveSlide(1)" style="border-color: var(--neon-blue); color:#fff;">Next Slide</button>
+    </div>
+    <script>
+        let currentIdx = 0;
+        const slides = document.querySelectorAll('.slide');
+        function showSlide(idx) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            if (idx >= slides.length) currentIdx = 0;
+            else if (idx < 0) currentIdx = slides.length - 1;
+            else currentIdx = idx;
+            slides[currentIdx].classList.add('active');
+        }
+        function moveSlide(direction) {
+            currentIdx += direction;
+            showSlide(currentIdx);
+        }
+        document.addEventListener('keydown', (e) => {
+            if (e.code === 'Space' || e.code === 'ArrowRight') moveSlide(1);
+            if (e.code === 'ArrowLeft') moveSlide(-1);
+        });
+    </script>
+</body>
+</html>
+
+
