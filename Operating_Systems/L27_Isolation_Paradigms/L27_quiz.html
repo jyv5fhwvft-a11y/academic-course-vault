@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>📝 L27: Modern Isolation Paradigms // Self-Assessment Quiz</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --bg-base: #06080e;
+            --bg-card: #0b0f19;
+            --bg-hover: #161f30;
+            --stroke-glass: rgba(255, 255, 255, 0.08);
+            --ink-bright: #ffffff;
+            --ink-secondary: #e2e8f0;
+            --ink-muted: #64748b;
+            --neon-emerald: #50fa7b;
+            --neon-cyan: #8be9fd;
+            --neon-blue: #6366f1;
+            --font-sans: system-ui, -apple-system, sans-serif;
+            --font-mono: monospace;
+        }
+        body { background-color: var(--bg-base); color: var(--ink-secondary); font-family: var(--font-sans); padding: 40px 24px; line-height: 1.7; overflow-y: auto !important; -webkit-overflow-scrolling: touch !important; }
+        .wrapper { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 24px; }
+        header { border-bottom: 1px solid var(--stroke-glass); padding-bottom: 20px; margin-bottom: 10px; }
+        .quiz-badge { font-family: var(--font-mono); font-size: 0.75rem; color: var(--neon-cyan); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; }
+        h1 { color: var(--ink-bright); font-size: 1.8rem; font-weight: 800; margin-top: 6px; letter-spacing: -0.02em; }
+        .card { background: var(--bg-card); border: 1px solid var(--stroke-glass); border-radius: 12px; padding: 28px; display: flex; flex-direction: column; gap: 16px; margin-bottom: 8px; }
+        h2 { color: var(--ink-bright); font-size: 1.05rem; font-weight: 600; line-height: 1.5; }
+        .options-group { display: flex; flex-direction: column; gap: 10px; }
+        .option-btn { width: 100%; text-align: left; background: rgba(255,255,255,0.01); border: 1px solid var(--stroke-glass); border-radius: 8px; padding: 14px 18px; color: var(--ink-secondary); font-size: 0.9rem; cursor: pointer; transition: all 0.2s ease; }
+        .option-btn:hover { background: var(--bg-hover); border-color: var(--neon-cyan); color: var(--ink-bright); }
+        .feedback { display: none; font-size: 0.88rem; padding: 14px; border-radius: 6px; margin-top: 8px; font-family: var(--font-mono); line-height: 1.5; }
+        .feedback.correct { display: block; background: rgba(80, 250, 123, 0.08); border-left: 3px solid var(--neon-emerald); color: var(--neon-emerald); }
+        .feedback.incorrect { display: block; background: rgba(239, 68, 68, 0.08); border-left: 3px solid #ef4444; color: #f87171; }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+            <div class="quiz-badge">Module 7 // Isolation Security Evaluation Layer</div>
+            <h1>Lecture 27: Modern Isolation Paradigms Quiz</h1>
+        </header>
+
+        <!-- Question 1 -->
+        <div class="card">
+            <h2>1. What fundamental architectural characteristic distinguishes container isolation models from full hardware hypervisor virtualization?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Hypervisors are the tools that emulate hardware to support full guest OS runtimes.')">A) Containers require a dedicated hypervisor translation chip to emulate physical motherboard circuitry in user space.</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! Containers execute application binary code natively on the shared host operating system kernel, entirely avoiding the resource-heavy tax of running a separate guest kernel.')">B) Containers execute application code natively directly on the shared host kernel, bypassing the need to boot an independent guest operating system.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Containers run inside native unprivileged ring configurations while relying on host boundaries.')">C) Containers modify core CPU execution privilege pathways to execute instructions completely inside Ring -1 fields.</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="card">
+            <h2>2. In our building apartment analogy, what native kernel feature behaves like the interior partition walls that prevent tenants from peering into each other\'s private living rooms?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! Namespaces act as the visibility filters within the kernel, partitioning system resource layouts so that process trees remain hidden from outside groups.')">A) Kernel Namespaces (Visibility Filters).</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Control groups meter physical hardware resource quotas rather than adjusting workspace visibility.')">B) Control Groups / cgroups (Resource Meters).</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Inodes cache storage layout properties and attributes inside the VFS tree.')">C) The virtual file system asymmetric index Inode table array pointers.</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="card">
+            <h2>3. Which kernel mechanism is explicitly responsible for metering and capping resource allocation quotas—such as pinning maximum RAM consumption limits or throttling CPU time slices?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Sandboxing isolates system call interfaces rather than tracking physical multi-block resource quotas.')">A) Application system call sandboxing loops.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Network socket subsystems wrap data inside transmission packets.')">B) The standalone network socket subsystem driver array.</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! Control Groups (cgroups) are the kernel tracking primitives that actively throttle and meter hardware resource allocation bounds (CPU, RAM, storage I/O).')">C) Control Groups (cgroups).</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+        <!-- Question 4 -->
+        <div class="card">
+            <h2>4. What specific process creation flag vector is passed to the Linux `clone()` system call primitive to completely break and isolate a container\'s process tree from the host system visibility?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! Passing the `CLONE_NEWPID` flag creates a localized process namespace tier, initializing process tracking graphs inside that domain back down to a virtual PID 1.')">A) The process tracking vector flag `CLONE_NEWPID`.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Open flags determine VFS session capabilities rather than isolating active scheduler nodes.')">B) The unprivileged VFS flag parameter `O_WRONLY`.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Slicing vertically is the strategy used to build column-oriented access control list check vectors.')">C) The vertical matrix optimization flag `ACL_COLUMN_SLICE`.</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Question 5 -->
+        <div class="card">
+            <h2>5. Why do containers boot and initialize applications in milliseconds, whereas full hardware virtual machines take seconds or minutes to establish a workspace?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Encryption states are independent of container platform instantiation loops.')">A) Containers encrypt their local code segments using fast symmetric AES session ciphers.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Both tools can run memory-unsafe code routines unless protections are injected via compiler filters.')">B) Containers bypass the kernel completely to execute instructions inside hardware-isolated TPM chips.</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! Virtual machines must initialize virtual bios parameters, replicate hardware circuits, and boot a massive separate kernel instance. Containers leverage the host kernel that is already up and running.')">C) Containers instantly hook into the host kernel that is already running, avoiding the overhead of booting an independent guest kernel and emulating virtual hardware.</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+    </div>
+
+    <script>
+        function checkAns(btn, isCorrect, reason) {
+            const card = btn.closest('.card');
+            const feedback = card.querySelector('.feedback');
+            const siblings = card.querySelectorAll('.option-btn');
+            
+            siblings.forEach(s => s.style.opacity = "0.5");
+            btn.style.opacity = "1";
+            
+            if (isCorrect) {
+                feedback.className = "feedback correct";
+                feedback.innerText = "✓ " + reason;
+            } else {
+                feedback.className = "feedback incorrect";
+                feedback.innerText = "✗ " + reason;
+            }
+        }
+    </script>
+</body>
+</html>
+
+      
+      
