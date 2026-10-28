@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>📝 L12: TLB Acceleration // Self-Assessment Quiz</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --bg-base: #06080e;
+            --bg-card: #0b0f19;
+            --bg-hover: #161f30;
+            --stroke-glass: rgba(255, 255, 255, 0.08);
+            --ink-bright: #ffffff;
+            --ink-secondary: #e2e8f0;
+            --ink-muted: #64748b;
+            --neon-emerald: #50fa7b;
+            --neon-cyan: #8be9fd;
+            --neon-blue: #6366f1;
+            --font-sans: system-ui, -apple-system, sans-serif;
+            --font-mono: monospace;
+        }
+        body { background-color: var(--bg-base); color: var(--ink-secondary); font-family: var(--font-sans); padding: 40px 24px; line-height: 1.7; overflow-y: auto !important; -webkit-overflow-scrolling: touch !important; }
+        .wrapper { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 24px; }
+        header { border-bottom: 1px solid var(--stroke-glass); padding-bottom: 20px; margin-bottom: 10px; }
+        .quiz-badge { font-family: var(--font-mono); font-size: 0.75rem; color: var(--neon-cyan); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; }
+        h1 { color: var(--ink-bright); font-size: 1.8rem; font-weight: 800; margin-top: 6px; letter-spacing: -0.02em; }
+        .card { background: var(--bg-card); border: 1px solid var(--stroke-glass); border-radius: 12px; padding: 28px; display: flex; flex-direction: column; gap: 16px; margin-bottom: 8px; }
+        h2 { color: var(--ink-bright); font-size: 1.05rem; font-weight: 600; line-height: 1.5; }
+        .options-group { display: flex; flex-direction: column; gap: 10px; }
+        .option-btn { width: 100%; text-align: left; background: rgba(255,255,255,0.01); border: 1px solid var(--stroke-glass); border-radius: 8px; padding: 14px 18px; color: var(--ink-secondary); font-size: 0.9rem; cursor: pointer; transition: all 0.2s ease; }
+        .option-btn:hover { background: var(--bg-hover); border-color: var(--neon-cyan); color: var(--ink-bright); }
+        .feedback { display: none; font-size: 0.88rem; padding: 14px; border-radius: 6px; margin-top: 8px; font-family: var(--font-mono); line-height: 1.5; }
+        .feedback.correct { display: block; background: rgba(80, 250, 123, 0.08); border-left: 3px solid var(--neon-emerald); color: var(--neon-emerald); }
+        .feedback.incorrect { display: block; background: rgba(239, 68, 68, 0.08); border-left: 3px solid #ef4444; color: #f87171; }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+            <div class="quiz-badge">Module 3 // Cache Acceleration Layer</div>
+            <h1>Lecture 12: TLB Acceleration & Caching Math Quiz</h1>
+        </header>
+
+        <!-- Question 1 -->
+        <div class="card">
+            <h2>1. Why does standard unaccelerated paging cause a severe 50% performance penalty on memory access?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Disk swapping handles page faults, not normal paging lookups.')">A) It requires the CPU chip to run a disk search loop to load text strings into memory.</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! Without acceleration, every single data request requires two separate trips to main RAM: one to look up the physical frame translation inside the page table, and a second trip to read or write the actual data byte.')">B) Every memory access forces a double trip to RAM: one to walk the page table and one to fetch the actual target data byte.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Unaccelerated paging does not alter physical bus clock rates.')">C) It force-pauses the clock pins on the processor matrix lines to clear out cache states.</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="card">
+            <h2>2. Where is the Translation Lookaside Buffer (TLB) hardware cache physically embedded within the system architecture?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! The TLB is integrated right inside the physical Memory Management Unit (MMU) chip on the CPU silicon substrate to intercept virtual memory addresses in parallel.')">A) Directly embedded into the silicon substrate of the CPU\'s Memory Management Unit (MMU).</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Main RAM holds the complete page tables but does not house the fast associative TLB registers.')">B) On the physical motherboard storage module pins holding the primary RAM array blocks.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Non-volatile ROM chips preserve boot microcode parameters.')">C) Inside the non-volatile read-only flash chip containing the system boot microcode layout.</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="card">
+            <h2>3. In the monitor sticky note analogy, what critical hardware event corresponds directly to looking at the note, finding the entry missing, and being forced to walk across the room to read the directory?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Finding an entry instantly on the sticky note represents a TLB Hit.')">A) A TLB Hit exception resolving address offsets instantly.</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! A TLB Miss occurs when a virtual address is absent from the fast cache registers, forcing the MMU to take the slow walk across main memory lines to look up the page table row entry.')">B) A TLB Miss, forcing a multi-step page table walk across main RAM.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Bounds traps catch dynamic relocation violations, not cache missing paths.')">C) A hardware bounds exception trap dropping control control down to Ring 0.</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+              <!-- Question 4 -->
+        <div class="card">
+            <h2>4. Given a system configuration where RAM latency is 100ns, a hardware TLB cache lookup costs 1ns, and the current workload achieves a 90% Hit Rate, what is the exact calculated Effective Access Time (EAT)?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Review the algebra: 0.90*(1+100) + 0.10*(1+100+100) yields a completely different latency total.')">A) A total latency projection of 101.0ns</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! EAT = (0.90 * 101ns) + (0.10 * 201ns) = 90.9ns + 20.1ns = 111.0ns.')">B) A total latency projection of 111.0ns</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. 201ns represents the worst-case penalty delay paid only when a TLB Miss fires.')">C) A total latency projection of 201.0ns</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Question 5 -->
+        <div class="card">
+            <h2>5. What structural failure mode happens to Effective Access Time when an application loops through an array in a non-contiguous, cache-unfriendly layout index manner?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Cache-unfriendly strides destroy spatial locality, driving hit rates down, not up.')">A) The TLB Hit Rate dynamically scales to 99% due to temporal spatial tracking loops.</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! Cache-unfriendly memory access patterns break spatial and temporal locality, causing the TLB Hit Rate to tank. This forces constant slow page table walks, causing the EAT to balloon toward the maximum 200ns+ double-trip penalty block.')">B) The TLB Hit Rate tanks, forcing constant page table walks that push EAT close to the maximum double-trip penalty block.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Internal fragmentation measures wasted space inside fixed page frames and is blind to execution tracking latencies.')">C) Wasted space inside fixed-size pages triggers memory page fragmentation updates.</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+    </div>
+
+    <script>
+        function checkAns(btn, isCorrect, reason) {
+            const card = btn.closest('.card');
+            const feedback = card.querySelector('.feedback');
+            const siblings = card.querySelectorAll('.option-btn');
+            
+            siblings.forEach(s => s.style.opacity = "0.5");
+            btn.style.opacity = "1";
+            
+            if (isCorrect) {
+                feedback.className = "feedback correct";
+                feedback.innerText = "✓ " + reason;
+            } else {
+                feedback.className = "feedback incorrect";
+                feedback.innerText = "✗ " + reason;
+            }
+        }
+    </script>
+</body>
+</html>
+
+      
