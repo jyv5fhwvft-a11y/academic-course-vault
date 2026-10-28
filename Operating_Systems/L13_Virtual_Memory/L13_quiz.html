@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>📝 L13: Virtual Memory // Self-Assessment Quiz</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --bg-base: #06080e;
+            --bg-card: #0b0f19;
+            --bg-hover: #161f30;
+            --stroke-glass: rgba(255, 255, 255, 0.08);
+            --ink-bright: #ffffff;
+            --ink-secondary: #e2e8f0;
+            --ink-muted: #64748b;
+            --neon-emerald: #50fa7b;
+            --neon-cyan: #8be9fd;
+            --neon-blue: #6366f1;
+            --font-sans: system-ui, -apple-system, sans-serif;
+            --font-mono: monospace;
+        }
+        body { background-color: var(--bg-base); color: var(--ink-secondary); font-family: var(--font-sans); padding: 40px 24px; line-height: 1.7; overflow-y: auto !important; -webkit-overflow-scrolling: touch !important; }
+        .wrapper { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 24px; }
+        header { border-bottom: 1px solid var(--stroke-glass); padding-bottom: 20px; margin-bottom: 10px; }
+        .quiz-badge { font-family: var(--font-mono); font-size: 0.75rem; color: var(--neon-cyan); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; }
+        h1 { color: var(--ink-bright); font-size: 1.8rem; font-weight: 800; margin-top: 6px; letter-spacing: -0.02em; }
+        .card { background: var(--bg-card); border: 1px solid var(--stroke-glass); border-radius: 12px; padding: 28px; display: flex; flex-direction: column; gap: 16px; margin-bottom: 8px; }
+        h2 { color: var(--ink-bright); font-size: 1.05rem; font-weight: 600; line-height: 1.5; }
+        .options-group { display: flex; flex-direction: column; gap: 10px; }
+        .option-btn { width: 100%; text-align: left; background: rgba(255,255,255,0.01); border: 1px solid var(--stroke-glass); border-radius: 8px; padding: 14px 18px; color: var(--ink-secondary); font-size: 0.9rem; cursor: pointer; transition: all 0.2s ease; }
+        .option-btn:hover { background: var(--bg-hover); border-color: var(--neon-cyan); color: var(--ink-bright); }
+        .feedback { display: none; font-size: 0.88rem; padding: 14px; border-radius: 6px; margin-top: 8px; font-family: var(--font-mono); line-height: 1.5; }
+        .feedback.correct { display: block; background: rgba(80, 250, 123, 0.08); border-left: 3px solid var(--neon-emerald); color: var(--neon-emerald); }
+        .feedback.incorrect { display: block; background: rgba(239, 68, 68, 0.08); border-left: 3px solid #ef4444; color: #f87171; }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+            <div class="quiz-badge">Module 3 // Demand Paging Evaluation Layer</div>
+            <h1>Lecture 13: Virtual Memory & Demand Paging Quiz</h1>
+        </header>
+
+        <!-- Question 1 -->
+        <div class="card">
+            <h2>1. What bit setting within a process's page table entry is checked by the MMU hardware to verify if a requested virtual block resides in physical RAM?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. The dirty bit tracks whether a page has been modified by a write operation.')">A) The Modified / Dirty operational status bit.</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! The Present/Absent bit indicates whether a virtual page is mapped into a physical frame. A check on an absent page trips a page fault exception.')">B) The Present / Absent tracking primitive bit.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. The privilege ring identifier governs ring boundaries, not page allocation presence.')">C) The Supervisor Ring Privilege tracking execution identifier bit.</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="card">
+            <h2>2. In a demand-paged architecture, what sequence of actions does the kernel perform the exact millisecond a hardware Page Fault exception interrupt triggers?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. A page fault is an expected exception that allows pages to load dynamically, not a fatal program termination crash.')">A) It immediately terminates the calling process with a memory segmentation violation kernel error.</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! The kernel halts the faulting thread, retrieves the missing block from the secondary swap sector, places it into an empty physical RAM frame, updates the page table, and rewinds the CPU to retry the command.')">B) It pauses the execution thread, fetches the missing page from disk swap space, maps it to a vacant RAM frame, updates the table, and retries the instruction.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Resetting the Base register would scramble memory layout addresses across all current process blocks.')">C) It resets the CPU hardware Base Register offset back to the zero memory marker lines.</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="card">
+            <h2>3. In our university library study desk analogy, what structural infrastructure element corresponds straight to the raw storage Swap Space partition?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! The library deep basement storage stacks house books that cannot fit onto the limited desk, perfectly mirroring hard disk or SSD swap spaces.')">A) The deep basement storage stacks where unplaced book copies are cached away.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Study desk surfaces mirror physical RAM page frame footprints.')">B) The limited space surface on top of the study desk workspace.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Research manuals mirror page tables or directories.')">C) The index research manual containing chronological references.</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+              <!-- Question 4 -->
+        <div class="card">
+            <h2>4. What critical system breakdown classification occurs when a computer's active physical frame allocations are saturated, causing it to spend more time continuously swapping blocks to disk than executing actual instructions?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Cache inversion relates to advanced scheduling synchronization deadlock anomalies.')">A) Priority Lock Inversion deadlock</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! Thrashing describes the failure mode where a machine runs out of physical frames, resulting in a continuous, endless spiral of disk evictions and page faults that grinds instruction throughput to zero.')">B) Thrashing</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. External fragmentation tracks wasted spaces between variable contiguous memory assignments.')">C) Contiguous External Page Fragmentation</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Question 5 -->
+        <div class="card">
+            <h2>5. Given an allocation pool of 3 physical frames and an incoming page reference string sequence of `1, 2, 3, 4, 1, 2`, how many total page faults are logged under the Least Recently Used (LRU) algorithm?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Compute step by step: pages 1, 2, 3 fault to load. Then access 4 evicts 1 (fault 4). Access 1 evicts 2 (fault 5). Access 2 evicts 3 (fault 6).')">A) A final performance evaluation count of 3 page faults</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. While LRU is optimized for temporal reuse, this specific short shifting pattern triggers a fault on every reference after saturation.')">B) A final performance evaluation count of 4 page faults</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! The initial three access items trigger raw cold miss loads (3 faults). At access 4, LRU evicts page 1 (4 faults). Next, access 1 evicts page 2 (5 faults). Finally, access 2 evicts page 3 (6 faults), resulting in 6 total page faults.')">C) A final performance evaluation count of 6 page faults</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+    </div>
+
+    <script>
+        function checkAns(btn, isCorrect, reason) {
+            const card = btn.closest('.card');
+            const feedback = card.querySelector('.feedback');
+            const siblings = card.querySelectorAll('.option-btn');
+            
+            siblings.forEach(s => s.style.opacity = "0.5");
+            btn.style.opacity = "1";
+            
+            if (isCorrect) {
+                feedback.className = "feedback correct";
+                feedback.innerText = "✓ " + reason;
+            } else {
+                feedback.className = "feedback incorrect";
+                feedback.innerText = "✗ " + reason;
+            }
+        }
+    </script>
+</body>
+</html>
+
+      
