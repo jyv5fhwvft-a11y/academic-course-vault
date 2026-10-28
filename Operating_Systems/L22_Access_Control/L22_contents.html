@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>📚 L22: Access Control // Micro-Contents</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --bg-base: #06080e;
+            --bg-card: #0b0f19;
+            --bg-code: #020408;
+            --stroke-glass: rgba(255, 255, 255, 0.08);
+            --ink-bright: #ffffff;
+            --ink-secondary: #e2e8f0;
+            --ink-muted: #64748b;
+            --neon-emerald: #50fa7b;
+            --neon-cyan: #8be9fd;
+            --neon-blue: #627bfd;
+            --font-sans: system-ui, -apple-system, sans-serif;
+            --font-mono: monospace;
+        }
+        body { background-color: var(--bg-base); color: var(--ink-secondary); font-family: var(--font-sans); padding: 40px 24px; line-height: 1.7; overflow-y: auto !important; -webkit-overflow-scrolling: touch !important; }
+        .wrapper { max-width: 1000px; margin: 0 auto; display: flex; flex-direction: column; gap: 24px; }
+        header { border-bottom: 1px solid var(--stroke-glass); padding-bottom: 20px; margin-bottom: 10px; }
+        .lecture-badge { font-family: var(--font-mono); font-size: 0.75rem; color: var(--neon-cyan); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; }
+        h1 { color: var(--ink-bright); font-size: 1.8rem; font-weight: 800; margin-top: 6px; letter-spacing: -0.02em; }
+        .card { background: var(--bg-card); border: 1px solid var(--stroke-glass); border-radius: 8px; padding: 24px; }
+        h2 { color: var(--neon-cyan); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px; font-family: var(--font-mono); }
+        .objective-text { font-size: 1.1rem; color: var(--ink-bright); font-weight: 500; }
+        .analogy-title { color: var(--ink-bright); font-weight: 600; margin-bottom: 6px; font-size: 0.95rem; }
+        .lexicon-list { list-style: none; display: flex; flex-direction: column; gap: 16px; }
+        .term-name { color: var(--neon-emerald); font-family: var(--font-mono); font-weight: 700; font-size: 0.9rem; background: rgba(80, 250, 123, 0.08); padding: 2px 8px; border-radius: 4px; display: inline-block; margin-bottom: 4px; }
+        .code-block { background: var(--bg-code); border: 1px solid var(--stroke-glass); padding: 16px; border-radius: 6px; font-family: var(--font-mono); font-size: 0.85rem; color: #a5b4fc; margin-top: 8px; white-space: pre-wrap; word-break: break-all; }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+            <div class="lecture-badge">Module 7: Advanced Architectures &amp; Systems Security // Lecture 22</div>
+            <h1>Lecture 22: Access Control</h1>
+        </header>
+
+              <div class="card">
+            <h2>🎯 1. Objective</h2>
+            <p class="objective-text">Apply an access control matrix and distinguish an Access Control List (ACL) from a capability token.</p>
+        </div>
+
+        <div class="card">
+            <h2>🛑 2. Prerequisites</h2>
+            <p>Module 5 (L17: File Abstraction &amp; Directory Topology).</p>
+        </div>
+
+        <div class="card">
+            <h2>🎪 3 & 4. Pedagogical Analogies</h2>
+            <div style="margin-bottom: 18px;">
+                <div class="analogy-title">Analogy 1 (Everyday Life): The Hotel Room Ledger vs. The Physical Room Key</div>
+                <p>Imagine a hotel security framework. One design approach checks an explicit sheet clipped right onto the door frame: "Who is allowed into Room 204?" (ACL, resource-centric). Another design completely ignores the doors and hands you an electronic keycard token that simply works instantly on whichever lock it fits (Capability, user-centric).</p>
+            </div>
+            <div>
+                <div class="analogy-title">Analogy 2 (Pure Technical): Stateless NFS Mounting Rules vs. Cryptographic JWT Bearer Tokens</div>
+                <p>An ACL acts like a firewall rule table mapped directly onto a disk block node, while a capability behaves like an unforgeable, kernel-signed memory address descriptor held by a running thread.</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>🔗 5. System Cohesion Matrix</h2>
+            <p style="margin-bottom: 8px;"><strong>Relies On:</strong> Module 1 (L02: Dual-Mode Barrier) — Relies on Ring 0 isolation to guarantee that user-space processes cannot modify their own capability tokens or rewrite resource security bits.</p>
+            <p><strong>Feeds Into:</strong> L23 (Authentication) — Access control lists only work if the system possesses an unshakeable mechanism to verify the identity of the user calling them.</p>
+        </div>
+
+        <div class="card">
+            <h2>🔍 6. Core Breakdown</h2>
+            <p style="margin-bottom: 12px;">An operating system manages file security using Protection Domains. This architecture is mathematically mapped using an Access Control Matrix, where rows represent subjects and columns represent resource objects.</p>
+            <p>Because matrices are massive and sparse, production kernels use two opposing bookkeeping methodologies: ACLs decompose the matrix by columns, attaching a strict authorization list directly to the resource itself. Capabilities decompose the matrix by rows, handing secure, unforgeable tokens directly to the user or process context.</p>
+        </div>
+
+              <div class="card">
+            <h2>🏷️ 7. Lexicon / Terms</h2>
+            <ul class="lexicon-list">
+                <li><span class="term-name">Access Control Matrix</span> A conceptual grid mapping user domains against system objects to define structural read, write, and execute permissions.</li>
+                <li><span class="term-name">ACL (Access Control List)</span> A column-oriented optimization where resource permissions are tracked directly on the asset container.</li>
+                <li><span class="term-name">Capability</span> A row-oriented security optimization where unforgeable access tokens are carried and presented by the active user process.</li>
+                <li><span class="term-name">Protection Domain</span> The bounded environment profile determining which operations a thread is permitted to execute across various system objects.</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>🛠️ 8. Practical Example: Linux Standard File Permission Vector</h2>
+            <p>Standard Unix file systems compact ACL architecture down to 9 simple permission bits matching Owner, Group, and Others fields:</p>
+            <div class="code-block">------------------------------------------------=================
+Permission String Example: rwxr-xr--
+
+Isolate the bit segments:
+1. Owner Bits: 'rwx' ➔ Owner can Read, Write, and Execute.
+2. Group Bits: 'r-x' ➔ Group members can Read and Execute, but cannot modify.
+3. Other Bits: 'r--' ➔ All external system callers can strictly Read.
+
+Conclusion: Core protection domains block illegal mutation paths out-of-the-box.
+------------------------------------------------=================</div>
+        </div>
+
+        <div class="card">
+            <h2>🎯 9. Interactive Classroom Activity</h2>
+            <p><strong>The Matrix Verification Challenge:</strong> Sketch a 4x4 Access Control Matrix on the chalkboard listing users (Alice, Bob, Charlie) and resources (file1.txt, /dev/tty0).</p>
+            <p style="margin-top: 8px;">Rapidly shout out target scenarios: "Can Bob write to file1?" or "Can Charlie execute /dev/tty0?". Have students call out answers directly from the grid lines to practice reading sparse matrix definitions.</p>
+        </div>
+
+        <div class="card">
+            <h2>🌿 10 & 11. Topology Map Node</h2>
+            <p style="font-family: var(--font-mono); font-size: 0.85rem;">Module 7 -> L22: Access Control -> Matrix Optimization -> Resource ACLs vs User Capabilities.</p>
+        </div>
+    </div>
+</body>
+</html>
+
+
