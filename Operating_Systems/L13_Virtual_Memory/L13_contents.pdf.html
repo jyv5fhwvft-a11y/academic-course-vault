@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PDF EXPORT // CS 301 Lecture 13 Micro-Contents</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { 
+            background: #ffffff; 
+            color: #000000; 
+            font-family: 'Times New Roman', Times, serif; 
+            padding: 1.5in 1in; 
+            line-height: 1.5; 
+            font-size: 11pt; 
+        }
+        @media print {
+            body { padding: 0; }
+            .no-print { display: none; }
+            @page { size: letter; margin: 1in; }
+        }
+        header { 
+            border-bottom: 2px solid #000000; 
+            padding-bottom: 12px; 
+            margin-bottom: 24px; 
+        }
+        .meta-header { 
+            font-family: Arial, sans-serif; 
+            font-size: 9pt; 
+            text-transform: uppercase; 
+            letter-spacing: 1px; 
+            color: #555555; 
+        }
+        h1 { 
+            font-size: 20pt; 
+            font-weight: bold; 
+            margin-top: 6px; 
+        }
+        .section-block { 
+            margin-bottom: 20px; 
+            page-break-inside: avoid; 
+        }
+        h2 { 
+            font-family: Arial, sans-serif; 
+            font-size: 12pt; 
+            text-transform: uppercase; 
+            border-bottom: 1px solid #777777; 
+            padding-bottom: 4px; 
+            margin-bottom: 8px; 
+        }
+        .code-container { 
+            font-family: 'Courier New', Courier, monospace; 
+            background: #f4f4f4; 
+            border: 1px solid #cccccc; 
+            padding: 12px; 
+            border-radius: 4px; 
+            font-size: 9.5pt; 
+            margin-top: 6px; 
+            white-space: pre-wrap; 
+        }
+        .print-btn-banner {
+            background: #f1f5f9;
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid #cbd5e1;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            font-size: 9.5pt;
+        }
+        .print-btn {
+            background: #0f172a;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="print-btn-banner no-print">
+        <span>📄 <strong>PDF Export Assistant Active:</strong> Tap the action button to initialize your system print panel and export this file as an official academic PDF document.</span>
+        <button class="print-btn" onclick="window.print()">Print / Save PDF</button>
+    </div>
+    <header>
+        <div class="meta-header">CS 301: Operating Systems // Micro-Level Curriculum Ledger</div>
+        <h1>Lecture 13: Virtual Memory, Demand Paging &amp; Page Replacement Summary</h1>
+    </header>
+      <div class="section-block">
+        <h2>1. Objective</h2>
+        <p>Trace a page reference execution string manually through FIFO and LRU page replacement pipelines, and accurately log final Page Fault counts.</p>
+    </div>
+
+    <div class="section-block">
+        <h2>2. Prerequisites</h2>
+        <p>L11, L12, basic logic queues.</p>
+    </div>
+
+    <div class="section-block">
+        <h2>3 & 4. Pedagogical Analogies</h2>
+        <p><strong>Analogy 1 (Everyday Life): The Limited Desk and the Library Storage Stacks</strong><br>
+        Imagine you are studying in a massive university library. Your study desk can only fit exactly 3 books at a time (Physical Frame Allocation). You are currently writing an essay that references 10 different books (Virtual Address Space). You start working; you look for Book A on your desk. It isn't there! This is a Page Fault. You must pause your work, wait for a runner to fetch Book A from the deep basement storage stacks (The Hard Disk/Swap Space), and drop it onto your desk. When your desk fills up completely and you need a 4th book, you must choose one current book to throw off your desk and send back to the basement stacks (Page Replacement Policy).</p>
+        <p style="margin-top: 10px;"><strong>Analogy 2 (Pure Technical): An On-Demand Network Streaming Video Buffer</strong><br>
+        Demand paging matches media streaming platforms that load only the immediate 10 seconds of a massive 4K movie file into active memory, swapping old data blocks clear out of local cache boundaries when the player scrubs to a new section.</p>
+    </div>
+
+    <div class="section-block">
+        <h2>5. System Cohesion Matrix</h2>
+        <p>• <strong>Feeds Into: Module 4 (Process Synchronization)</strong> — Because virtual memory allows multiple concurrent threads to securely share specific page entries, it sets the stage for race condition contentions.<br>
+        • <strong>Feeds Into: Module 5 (File &amp; Storage Management)</strong> — Swapping unmapped dirty pages out of RAM requires directly orchestrating raw block writes to disk storage partitions.</p>
+    </div>
+
+    <div class="section-block">
+        <h2>6. Core Breakdown</h2>
+        <p>Demand Paging allows an operating system to execute an application even if its total memory footprint is vastly larger than the computer's physical RAM chip. The kernel leverages a Present/Absent Bit inside each page table entry. If a thread attempts to access a virtual page marked as absent, the hardware MMU cannot translate it and triggers a specialized Page Fault Exception Interrupt.</p>
+        <p style="margin-top: 6px;">The kernel intercepts this fault, halts the thread, locates the missing block inside the disk Swap Space, copies the page into an empty physical frame, updates the page table bit, and rewinds the CPU to retry the instruction. If no physical frames are vacant, a replacement algorithm—such as FIFO (First-In, First-Out) or LRU (Least Recently Used)—is invoked to evict a page.</p>
+    </div>
+
+      <div class="section-block">
+        <h2>7. Lexicon / Terms</h2>
+        <p>• <strong>Demand Paging:</strong> An optimization mechanism where virtual pages are loaded into physical RAM strictly on-demand only when an active instruction requests them.<br>
+        • <strong>Page Fault:</strong> A valid hardware exception interrupt triggered when a thread attempts an operation on a page marked as absent from physical RAM.<br>
+        • <strong>Swap Space:</strong> A designated raw block sector layout on a hard drive or SSD used to cache evicted virtual page overflows.<br>
+        • <strong>Thrashing:</strong> A critical system failure state where a machine spends more time continuously swapping blocks back and forth to disk than executing actual instruction paths.</p>
+    </div>
+
+    <div class="section-block">
+        <h2>8. Practical Example: Reference String Analysis Matrix</h2>
+        <p><strong>Workload Vector Constraints:</strong> 3 physical frames allocated, Reference String: <code>1, 2, 3, 4, 1, 2</code></p>
+        <div class="code-container">------------------------------------------------=================
+1. FIFO (First-In, First-Out) Execution Trace:
+   - Access 1, 2, 3 -> Loads contiguously into RAM -> 3 Page Faults
+   - Access 4       -> Evicts oldest page (1)  -> Frames: [4, 2, 3] (Fault 4)
+   - Access 1       -> Evicts next oldest (2)  -> Frames: [4, 1, 3] (Fault 5)
+   - Access 2       -> Evicts next oldest (3)  -> Frames: [4, 1, 2] (Fault 6)
+   Total FIFO Faults = 6
+
+2. LRU (Least Recently Used) Execution Trace:
+   - Access 1, 2, 3 -> Loads contiguously into RAM -> 3 Page Faults
+   - Access 4       -> Evicts least used (1)    -> Frames: [4, 2, 3] (Fault 4)
+   - Access 1       -> Evicts least used (2)    -> Frames: [4, 1, 3] (Fault 5)
+   - Access 2       -> Evicts least used (3)    -> Frames: [4, 1, 2] (Fault 6)
+   Total LRU Faults = 6
+------------------------------------------------=================</div>
+    </div>
+
+    <div class="section-block">
+        <h2>9. Interactive Classroom Activity</h2>
+        <p><strong>The Human Reference String LRU Simulation:</strong> Line up three empty chairs at the front of the room to serve as a 3-frame RAM block. Call out numbers from a string. Have students carrying matching numeric cards rush up to sit in an empty chair. When a student arrives and all chairs are full, instruct the class to evaluate who has been sitting in their chair the longest without being touched, and make that student vacate their seat back to the lobby.</p>
+    </div>
+</body>
+</html>
+
+
+  
