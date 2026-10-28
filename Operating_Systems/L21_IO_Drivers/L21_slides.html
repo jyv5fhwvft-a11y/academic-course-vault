@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>🎬 L21: Uniform Device Drivers &amp; VFS // Slides</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --bg-base: #06080e;
+            --bg-card: #0b0f19;
+            --bg-code: #020408;
+            --stroke-glass: rgba(255, 255, 255, 0.08);
+            --ink-bright: #ffffff;
+            --ink-secondary: #e2e8f0;
+            --ink-muted: #64748b;
+            --neon-emerald: #50fa7b;
+            --neon-cyan: #8be9fd;
+            --neon-blue: #6366f1;
+            --font-sans: system-ui, -apple-system, sans-serif;
+            --font-mono: monospace;
+        }
+        body { background-color: var(--bg-base); color: var(--ink-secondary); font-family: var(--font-sans); height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; overflow: hidden; }
+        .slide-stage { width: 90vw; max-width: 960px; height: 65vh; max-height: 600px; position: relative; }
+        .slide { position: absolute; inset: 0; background: var(--bg-card); border: 1px solid var(--stroke-glass); border-radius: 16px; padding: 48px; display: flex; flex-direction: column; justify-content: space-between; opacity: 0; visibility: hidden; transform: scale(0.98); transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); box-shadow: 0 30px 60px rgba(0,0,0,0.4); }
+        .slide.active { opacity: 1; visibility: visible; transform: scale(1); }
+        .slide-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--stroke-glass); padding-bottom: 16px; }
+        .slide-badge { font-family: var(--font-mono); font-size: 0.75rem; color: var(--neon-cyan); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; }
+        .slide-counter { font-family: var(--font-mono); font-size: 0.8rem; color: var(--ink-muted); }
+        .slide-body { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 16px; padding: 24px 0; }
+        .slide-title { color: var(--ink-bright); font-size: 1.8rem; font-weight: 800; letter-spacing: -0.02em; }
+        .slide-desc { font-size: 1.05rem; line-height: 1.6; color: var(--ink-secondary); }
+        .highlight-box { background: rgba(80, 250, 123, 0.04); border-left: 3px solid var(--neon-emerald); padding: 14px; border-radius: 4px; margin-top: 8px; }
+        .code-box { background: var(--bg-code); border: 1px solid var(--stroke-glass); padding: 14px; border-radius: 6px; font-family: var(--font-mono); font-size: 0.82rem; color: #a5b4fc; }
+        .control-bar { margin-top: 32px; display: flex; gap: 16px; align-items: center; z-index: 10; }
+        .btn { background: rgba(255,255,255,0.02); border: 1px solid var(--stroke-glass); color: var(--ink-secondary); font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; padding: 10px 20px; border-radius: 6px; cursor: pointer; transition: all 0.2s ease; }
+        .btn:hover { border-color: var(--neon-cyan); color: var(--neon-cyan); background: rgba(139, 233, 253, 0.05); }
+    </style>
+</head>
+<body>
+    <div class="slide-stage">
+
+              <!-- Slide 1 -->
+        <div class="slide active">
+            <div class="slide-header"><span class="slide-badge">CS 301 // L21</span><span class="slide-counter">01 / 04</span></div>
+            <div class="slide-body">
+                <h2 class="slide-title">Uniform Device Drivers &amp; /dev</h2>
+                <p class="slide-desc" style="font-size:1.3rem; color:var(--neon-emerald);">Lecture 21: Hardware Abstraction &amp; Polymorphic VFS Entry Maps</p>
+                <p class="slide-desc">Analyzing Character vs. Block device driver categories, Major/Minor identifier tags, and the file operations jump vectors.</p>
+            </div>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="slide">
+            <div class="slide-header"><span class="slide-badge">🎪 Power Adapters</span><span class="slide-counter">02 / 04</span></div>
+            <div class="slide-body">
+                <h2 class="slide-title">The Universal Power Outlet Analogy</h2>
+                <p class="slide-desc">The power grid presents a simple two-prong interface, blind to what gets plugged in. To the kernel, every peripheral presents a file container supporting <code>open()</code>, <code>read()</code>, and <code>write()</code>.</p>
+                <div class="highlight-box">
+                    <p class="slide-desc" style="color: #fff; font-weight:600;">The <strong>Device Driver</strong> acts as the adapter plugin. It catches the generic file API instructions sent by the OS and shifts them dynamically into the manufacturer's circuit register commands.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="slide">
+            <div class="slide-header"><span class="slide-badge">🔍 Device Core</span><span class="slide-counter">03 / 04</span></div>
+            <div class="slide-body">
+                <h2 class="slide-title">The Architectural Hardware Triad</h2>
+                <p class="slide-desc">The kernel divides the physical hardware layout into distinct functional sub-systems:</p>
+                <p class="slide-desc" style="margin-top:4px;">• <strong>Block Devices:</strong> Addressable fixed blocks, supporting random data seeks (e.g., SSDs).</p>
+                <p class="slide-desc" style="margin-top:4px;">• <strong>Character Devices:</strong> Continuous sequential byte streams without random seek bounds (e.g., Keyboards).</p>
+                <p class="slide-desc" style="margin-top:4px;">• <strong>Network Devices:</strong> Packet chunk routing layers bypassing the VFS file layer to hit sockets.</p>
+            </div>
+        </div>
+
+              <!-- Slide 4 -->
+        <div class="slide">
+            <div class="slide-header"><span class="slide-badge">🛠️ Struct Maps</span><span class="slide-counter">04 / 04</span></div>
+            <div class="slide-body">
+                <h2 class="slide-title">Polymorphic <code>file_operations</code> Registration</h2>
+                <p class="slide-desc">How the Virtual File System binds standard user-space commands directly to driver execution routines:</p>
+                <div class="code-box">static ssize_t custom_driver_write(struct file *file, const char __user *buf, ...) {
+    // Low-level inline assembly code to alter physical hardware registers
+    return count; 
+}
+
+static struct file_operations my_dev_fops = {
+    .owner = THIS_MODULE,
+    .write = custom_driver_write, // Maps write() directly to our driver loop!
+};</div>
+            </div>
+        </div>
+
+    </div>
+    <div class="control-bar">
+        <button class="btn" onclick="moveSlide(-1)">Prev</button>
+        <button class="btn" onclick="moveSlide(1)" style="border-color: var(--neon-blue); color:#fff;">Next Slide</button>
+    </div>
+    <script>
+        let currentIdx = 0;
+        const slides = document.querySelectorAll('.slide');
+        function showSlide(idx) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            if (idx >= slides.length) currentIdx = 0;
+            else if (idx < 0) currentIdx = slides.length - 1;
+            else currentIdx = idx;
+            slides[currentIdx].classList.add('active');
+        }
+        function moveSlide(direction) {
+            currentIdx += direction;
+            showSlide(currentIdx);
+        }
+        document.addEventListener('keydown', (e) => {
+            if (e.code === 'Space' || e.code === 'ArrowRight') moveSlide(1);
+            if (e.code === 'ArrowLeft') moveSlide(-1);
+        });
+    </script>
+</body>
+</html>
+
+
