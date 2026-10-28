@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>📝 L20: I/O Communication // Self-Assessment Quiz</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --bg-base: #06080e;
+            --bg-card: #0b0f19;
+            --bg-hover: #161f30;
+            --stroke-glass: rgba(255, 255, 255, 0.08);
+            --ink-bright: #ffffff;
+            --ink-secondary: #e2e8f0;
+            --ink-muted: #64748b;
+            --neon-emerald: #50fa7b;
+            --neon-cyan: #8be9fd;
+            --neon-blue: #6366f1;
+            --font-sans: system-ui, -apple-system, sans-serif;
+            --font-mono: monospace;
+        }
+        body { background-color: var(--bg-base); color: var(--ink-secondary); font-family: var(--font-sans); padding: 40px 24px; line-height: 1.7; overflow-y: auto !important; -webkit-overflow-scrolling: touch !important; }
+        .wrapper { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 24px; }
+        header { border-bottom: 1px solid var(--stroke-glass); padding-bottom: 20px; margin-bottom: 10px; }
+        .quiz-badge { font-family: var(--font-mono); font-size: 0.75rem; color: var(--neon-cyan); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; }
+        h1 { color: var(--ink-bright); font-size: 1.8rem; font-weight: 800; margin-top: 6px; letter-spacing: -0.02em; }
+        .card { background: var(--bg-card); border: 1px solid var(--stroke-glass); border-radius: 12px; padding: 28px; display: flex; flex-direction: column; gap: 16px; margin-bottom: 8px; }
+        h2 { color: var(--ink-bright); font-size: 1.05rem; font-weight: 600; line-height: 1.5; }
+        .options-group { display: flex; flex-direction: column; gap: 10px; }
+        .option-btn { width: 100%; text-align: left; background: rgba(255,255,255,0.01); border: 1px solid var(--stroke-glass); border-radius: 8px; padding: 14px 18px; color: var(--ink-secondary); font-size: 0.9rem; cursor: pointer; transition: all 0.2s ease; }
+        .option-btn:hover { background: var(--bg-hover); border-color: var(--neon-cyan); color: var(--ink-bright); }
+        .feedback { display: none; font-size: 0.88rem; padding: 14px; border-radius: 6px; margin-top: 8px; font-family: var(--font-mono); line-height: 1.5; }
+        .feedback.correct { display: block; background: rgba(80, 250, 123, 0.08); border-left: 3px solid var(--neon-emerald); color: var(--neon-emerald); }
+        .feedback.incorrect { display: block; background: rgba(239, 68, 68, 0.08); border-left: 3px solid #ef4444; color: #f87171; }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+            <div class="quiz-badge">Module 6 // I/O Layer Evaluation Matrix</div>
+            <h1>Lecture 20: The I/O Communication Matrix Quiz</h1>
+        </header>
+
+        <!-- Question 1 -->
+        <div class="card">
+            <h2>1. Which operational method forces the CPU to continuously read a device's Status register in a tight spinlock loop until the peripheral clears its busy flag?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Interrupts utilize hardware wires to signal the CPU asynchronously, avoiding continuous status loop checking.')">A) An asynchronous hardware interrupt loop signal path.</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! Polling requires the CPU to waste clock cycles continuously inspecting a status register bit until an operation is marked as completed.')">B) Polling</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. DMA offloads whole block transactions to an external chip controller.')">C) Direct Memory Access (DMA) bus master transfer.</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="card">
+            <h2>2. What severe architectural performance bottleneck occurs when a high-speed peripheral (like a Gigabit network card) throws thousands of standalone byte interrupts per second, forcing the CPU to continuously run context-switch saving routines?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! An Interrupt Storm (or interrupt thrashing) occurs when high-frequency interrupts saturate the CPU with context-switching overhead, grinding actual instruction processing to a crawl.')">A) An Interrupt Storm, which paralyzes processor utilization with context-switching overhead.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Belady\'s anomaly tracks page fault trends inside FIFO allocation rows.')">B) Belady\'s algorithmic anomaly framework mutation loop.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Internal fragmentation describes space waste inside uniform virtual memory pages.')">C) Internal page frame fragmentation space degradation.</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="card">
+            <h2>3. In our office package delivery analogies, what structural hardware asset matches hiring a private assistant who transfers 100 boxes directly onto a shelf, alerting you only when the total shipment is placed?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Doorbell chimes resemble basic hardware interrupt lines.')">A) The mailbox unit doorbell chime alerting you to step down the stairs.</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! A private assistant handling whole block moves straight to shelf locations corresponds perfectly to a Direct Memory Access (DMA) Controller.')">B) A dedicated Direct Memory Access (DMA) Controller chip module.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Ring 0 privilege vector gates map handler loops rather than shifting data.')">C) A Ring 0 interrupt vector table privilege routing descriptor handler.</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+              <!-- Question 4 -->
+        <div class="card">
+            <h2>4. Why is Polling selected as the optimal interface strategy for a low-speed industrial temperature sensor that updates values on a predictable 10-minute cadence?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Polling executes entirely inside unprivileged or standard system driver code layers.')">A) Reading sensor bits requires triggering atomic compare-and-swap instructions inside Ring 0 maps.</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! Since the timeline is slow and highly predictable, a simple periodic check completely avoids the hardware wiring and configuration allocation tax required to route dedicated interrupt line pins.')">B) It eliminates the need to route and configure a dedicated hardware interrupt signal line path.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Continuous loop spinlocks are highly inefficient for unpredictable inputs like keystrokes or mouse moves.')">C) It maximizes temporal and spatial cache locality for high-frequency user-space keyboard arrays.</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Question 5 -->
+        <div class="card">
+            <h2>5. Under a Direct Memory Access (DMA) system data transaction loop, how many interrupts does the peripheral hardware issue to the primary CPU processor core?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Transmitting individual byte chimes causes an interrupt storm, defeating the whole purpose of offloading data to the DMA chip.')">A) An interrupt is issued for every single byte or packet segment streamed over system lines.</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! The DMA engine manages the high-speed transfer silently across the bus. It fires exactly one single interrupt milestone signal to the CPU at the very end of the cycle when the entire data block is fully settled in RAM.')">B) Exactly one single interrupt when the entire multi-block data transaction is completely finished.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. The DMA channel notifies the CPU at completion so the kernel can wake up waiting threads.')">C) Zero interrupts, since memory mapping tables resolve the transfer transparently without hardware alerts.</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+    </div>
+
+    <script>
+        function checkAns(btn, isCorrect, reason) {
+            const card = btn.closest('.card');
+            const feedback = card.querySelector('.feedback');
+            const siblings = card.querySelectorAll('.option-btn');
+            
+            siblings.forEach(s => s.style.opacity = "0.5");
+            btn.style.opacity = "1";
+            
+            if (isCorrect) {
+                feedback.className = "feedback correct";
+                feedback.innerText = "✓ " + reason;
+            } else {
+                feedback.className = "feedback incorrect";
+                feedback.innerText = "✗ " + reason;
+            }
+        }
+    </script>
+</body>
+</html>
+
