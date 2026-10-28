@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>📝 L26: Firewalls &amp; IDS // Self-Assessment Quiz</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --bg-base: #06080e;
+            --bg-card: #0b0f19;
+            --bg-hover: #161f30;
+            --stroke-glass: rgba(255, 255, 255, 0.08);
+            --ink-bright: #ffffff;
+            --ink-secondary: #e2e8f0;
+            --ink-muted: #64748b;
+            --neon-emerald: #50fa7b;
+            --neon-cyan: #8be9fd;
+            --neon-blue: #6366f1;
+            --font-sans: system-ui, -apple-system, sans-serif;
+            --font-mono: monospace;
+        }
+        body { background-color: var(--bg-base); color: var(--ink-secondary); font-family: var(--font-sans); padding: 40px 24px; line-height: 1.7; overflow-y: auto !important; -webkit-overflow-scrolling: touch !important; }
+        .wrapper { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 24px; }
+        header { border-bottom: 1px solid var(--stroke-glass); padding-bottom: 20px; margin-bottom: 10px; }
+        .quiz-badge { font-family: var(--font-mono); font-size: 0.75rem; color: var(--neon-cyan); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; }
+        h1 { color: var(--ink-bright); font-size: 1.8rem; font-weight: 800; margin-top: 6px; letter-spacing: -0.02em; }
+        .card { background: var(--bg-card); border: 1px solid var(--stroke-glass); border-radius: 12px; padding: 28px; display: flex; flex-direction: column; gap: 16px; margin-bottom: 8px; }
+        h2 { color: var(--ink-bright); font-size: 1.05rem; font-weight: 600; line-height: 1.5; }
+        .options-group { display: flex; flex-direction: column; gap: 10px; }
+        .option-btn { width: 100%; text-align: left; background: rgba(255,255,255,0.01); border: 1px solid var(--stroke-glass); border-radius: 8px; padding: 14px 18px; color: var(--ink-secondary); font-size: 0.9rem; cursor: pointer; transition: all 0.2s ease; }
+        .option-btn:hover { background: var(--bg-hover); border-color: var(--neon-cyan); color: var(--ink-bright); }
+        .feedback { display: none; font-size: 0.88rem; padding: 14px; border-radius: 6px; margin-top: 8px; font-family: var(--font-mono); line-height: 1.5; }
+        .feedback.correct { display: block; background: rgba(80, 250, 123, 0.08); border-left: 3px solid var(--neon-emerald); color: var(--neon-emerald); }
+        .feedback.incorrect { display: block; background: rgba(239, 68, 68, 0.08); border-left: 3px solid #ef4444; color: #f87171; }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+            <div class="quiz-badge">Module 7 // Network Security Evaluation Layer</div>
+            <h1>Lecture 26: Firewalls &amp; Intrusion Detection Quiz</h1>
+        </header>
+
+        <!-- Question 1 -->
+        <div class="card">
+            <h2>1. Which primary metrics does a stateless perimeter border firewall evaluate to instantly block or permit incoming packet frames?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Deep transaction behavioral patterns are buffered and scanned inside internal IDS monitors.')">A) Deep database transaction signatures and behavioral timing profiles.</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! Border firewalls filter traffic primarily using static packet header fields, checking source IP addresses, destination IPs, and port numbers.')">B) Static packet header attributes including Source IP, Destination IP, and Port Numbers.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Memory stack canaries are compiler defenses deployed inside Ring 3 runtime segments.')">C) The runtime validity of compiler stack canaries inside application execution frames.</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="card">
+            <h2>2. In our nightclub analogy, what security role maps straight to an undercover security guard watching internal camera feeds for suspicious activity inside the building floors?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. A club bouncer checking IDs at the door mirrors an edge firewall boundary filter.')">A) An edge port-filtering boundary firewall checking ingress connection packets.</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! An undercover monitor inside the floor network spaces maps directly onto an Intrusion Detection System (IDS), which acts on transactions already inside system boundaries.')">B) An internal Intrusion Detection System (IDS).</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Cryptographic JWT bearer tokens resemble capabilities carried by rows.')">C) An unforgeable cryptographic row-oriented Capability Token keycard.</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="card">
+            <h2>3. Which type of intrusion detection method maps traffic byte sequences against an internal dictionary library of documented, historically verified exploit footprints?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! Signature-based detection relies on exact pattern matching against a dictionary index of documented threat profiles.')">A) Signature-Based Intrusion Detection.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Anomaly-based detection establishes a statistical baseline and watches for deviations.')">B) Anomaly-Based Heuristic Detection.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Stateless filtering describes firewall boundary layer checks.')">C) Stateless Perimeter Header Packet Filtering.</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+        <!-- Question 4 -->
+        <div class="card">
+            <h2>4. Consider this network log trace timeline event: An authorized administrator successfully logs into a file server using valid credentials from a legitimate local IP address at 3:00 AM, but immediately initiates a massive, abnormal 500GB outbound data dump. Why is a standard edge firewall blind to this threat?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Encryption concerns payload contents rather than connection routing limits.')">A) The data payload stream was encrypted with a symmetric AES session cipher key layout.</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! Because the connection originates from an approved source and utilizes a legal port, the edge firewall approves the traffic. Catching behavioral anomalies requires internal heuristic monitors.')">B) The connection uses a permitted source IP and an approved communication port, meaning it satisfies all static perimeter rule filters.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. File permissions protect data assets locally inside the VFS tree boundaries.')">C) The file descriptor table automatically granted root Ring 0 privileges to the task context lines.</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Question 5 -->
+        <div class="card">
+            <h2>5. Where does a kernel-integrated network protection engine hook into the system to analyze socket packets before they reach user-space application memory (Ring 3)?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Boot sector blocks map initial master boot code records rather than routing streaming sockets.')">A) Inside the hardcoded boot sector block containing the primary root directory inode map.</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! To evaluate network packets cleanly before they hit user space, the security modules hook straight into the low-level network driver packet ring buffers inside the kernel.')">B) Directly within the low-level network device driver packet ring buffers inside the kernel architecture.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Trusted Platform Modules isolate crypto signatures locally on independent silicons.')">C) Within the hardware-isolated cell matrices of the Trusted Platform Module (TPM).</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+    </div>
+
+    <script>
+        function checkAns(btn, isCorrect, reason) {
+            const card = btn.closest('.card');
+            const feedback = card.querySelector('.feedback');
+            const siblings = card.querySelectorAll('.option-btn');
+            
+            siblings.forEach(s => s.style.opacity = "0.5");
+            btn.style.opacity = "1";
+            
+            if (isCorrect) {
+                feedback.className = "feedback correct";
+                feedback.innerText = "✓ " + reason;
+            } else {
+                feedback.className = "feedback incorrect";
+                feedback.innerText = "✗ " + reason;
+            }
+        }
+    </script>
+</body>
+</html>
+
+      
