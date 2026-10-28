@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>📝 L22: Access Control // Self-Assessment Quiz</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --bg-base: #06080e;
+            --bg-card: #0b0f19;
+            --bg-hover: #161f30;
+            --stroke-glass: rgba(255, 255, 255, 0.08);
+            --ink-bright: #ffffff;
+            --ink-secondary: #e2e8f0;
+            --ink-muted: #64748b;
+            --neon-emerald: #50fa7b;
+            --neon-cyan: #8be9fd;
+            --neon-blue: #6366f1;
+            --font-sans: system-ui, -apple-system, sans-serif;
+            --font-mono: monospace;
+        }
+        body { background-color: var(--bg-base); color: var(--ink-secondary); font-family: var(--font-sans); padding: 40px 24px; line-height: 1.7; overflow-y: auto !important; -webkit-overflow-scrolling: touch !important; }
+        .wrapper { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 24px; }
+        header { border-bottom: 1px solid var(--stroke-glass); padding-bottom: 20px; margin-bottom: 10px; }
+        .quiz-badge { font-family: var(--font-mono); font-size: 0.75rem; color: var(--neon-cyan); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; }
+        h1 { color: var(--ink-bright); font-size: 1.8rem; font-weight: 800; margin-top: 6px; letter-spacing: -0.02em; }
+        .card { background: var(--bg-card); border: 1px solid var(--stroke-glass); border-radius: 12px; padding: 28px; display: flex; flex-direction: column; gap: 16px; margin-bottom: 8px; }
+        h2 { color: var(--ink-bright); font-size: 1.05rem; font-weight: 600; line-height: 1.5; }
+        .options-group { display: flex; flex-direction: column; gap: 10px; }
+        .option-btn { width: 100%; text-align: left; background: rgba(255,255,255,0.01); border: 1px solid var(--stroke-glass); border-radius: 8px; padding: 14px 18px; color: var(--ink-secondary); font-size: 0.9rem; cursor: pointer; transition: all 0.2s ease; }
+        .option-btn:hover { background: var(--bg-hover); border-color: var(--neon-cyan); color: var(--ink-bright); }
+        .feedback { display: none; font-size: 0.88rem; padding: 14px; border-radius: 6px; margin-top: 8px; font-family: var(--font-mono); line-height: 1.5; }
+        .feedback.correct { display: block; background: rgba(80, 250, 123, 0.08); border-left: 3px solid var(--neon-emerald); color: var(--neon-emerald); }
+        .feedback.incorrect { display: block; background: rgba(239, 68, 68, 0.08); border-left: 3px solid #ef4444; color: #f87171; }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+            <div class="quiz-badge">Module 7 // Access Security Evaluation Layer</div>
+            <h1>Lecture 22: Access Control Quiz</h1>
+        </header>
+
+        <!-- Question 1 -->
+        <div class="card">
+            <h2>1. What geometric decomposition of a standard Access Control Matrix characterizes an Access Control List (ACL)?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Row-oriented optimization maps straight to user or process capability tokens.')">A) A row-oriented optimization where unforgeable access tokens are distributed to user contexts.</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! An ACL represents a column-oriented decomposition of the access matrix, meaning the specific permission list is bound right onto the resource asset container itself.')">B) A column-oriented optimization where specific authorization lists are attached directly to the resource object container.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. This describes a distributed capability model rather than an ACL structure.')">C) A sparse multi-dimensional matrix stored exclusively inside non-volatile ROM chips.</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="card">
+            <h2>2. In our hotel room security analogy, what architectural component maps directly onto a row-oriented Capability Token?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. A checklist taped onto the door frame mirrors a column-oriented ACL.')">A) A strict checklist ledger page clipped right onto the door frame of Room 204.</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! An unforgeable electronic keycard carried and presented by the user represents a row-oriented Capability Token layout.')">B) An electronic keycard token held and presented by the guest context that works on any matching lock.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. This matches the overarching protection domain context rather than a capability token.')">C) The central master floor blueprint governing the structural layout dimensions of the hotel framework.</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="card">
+            <h2>3. Why must capability tokens be stored within kernel space or wrapped in unforgeable cryptographic frameworks?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! If capability tokens resided in mutable user space without cryptographic validation, user applications could forge or modify their own access boundaries, collapsing system security.')">A) To guarantee that untrusted user-space processes cannot alter their own access permissions or elevate privilege rings.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Caching optimizations are orthogonal to unforgeable privilege validations.')">B) To reduce memory page thrashing latency costs across multi-tier asymmetric inode trees.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. CPU scheduling lines are governed by timer context parameters.')">C) To force the process scheduler to prioritize thread execution loops inside the CPU context lines.</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+        <!-- Question 4 -->
+        <div class="card">
+            <h2>4. Deconstruct the standard 9-bit packed compact UNIX permission vector `rwxr-xr--`. What exact clearance domain boundaries are granted to Group members?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. The first segment (rwx) defines the user/owner permission bits.')">A) Group members have full Read, Write, and Execute rights over the file contents.</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! The middle segment `r-x` maps to group permissions, indicating that group members can read and execute the file, but are blocked from modifying it.')">B) Group members can strictly Read and Execute the asset, but are blocked from execution modification paths.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. The final segment (r--) defines world/others clearance limitations.')">C) Group members are restricted to strict read-only parameters without execute capabilities.</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Question 5 -->
+        <div class="card">
+            <h2>5. Which architectural security classification defines the specific bounded environment profile determining what operational steps an executing thread is permitted to invoke across various system objects?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. An Access Control Matrix is a conceptual visualization model rather than the operational boundary configuration itself.')">A) The sparse Access Control Matrix grid.</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! A Protection Domain defines the explicit bounded environment envelope that details precisely what rights and commands an active context holds over system assets.')">B) A Protection Domain.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. File descriptors are per-process index session references for open assets.')">C) An opened process File Descriptor table row index.</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+    </div>
+
+    <script>
+        function checkAns(btn, isCorrect, reason) {
+            const card = btn.closest('.card');
+            const feedback = card.querySelector('.feedback');
+            const siblings = card.querySelectorAll('.option-btn');
+            
+            siblings.forEach(s => s.style.opacity = "0.5");
+            btn.style.opacity = "1";
+            
+            if (isCorrect) {
+                feedback.className = "feedback correct";
+                feedback.innerText = "✓ " + reason;
+            } else {
+                feedback.className = "feedback incorrect";
+                feedback.innerText = "✗ " + reason;
+            }
+        }
+    </script>
+</body>
+</html>
+
+      
