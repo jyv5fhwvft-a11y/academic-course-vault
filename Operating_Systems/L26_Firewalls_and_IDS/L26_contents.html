@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>📚 L26: Firewalls &amp; Intrusion Detection // Micro-Contents</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --bg-base: #06080e;
+            --bg-card: #0b0f19;
+            --bg-code: #020408;
+            --stroke-glass: rgba(255, 255, 255, 0.08);
+            --ink-bright: #ffffff;
+            --ink-secondary: #e2e8f0;
+            --ink-muted: #64748b;
+            --neon-emerald: #50fa7b;
+            --neon-cyan: #8be9fd;
+            --neon-blue: #627bfd;
+            --font-sans: system-ui, -apple-system, sans-serif;
+            --font-mono: monospace;
+        }
+        body { background-color: var(--bg-base); color: var(--ink-secondary); font-family: var(--font-sans); padding: 40px 24px; line-height: 1.7; overflow-y: auto !important; -webkit-overflow-scrolling: touch !important; }
+        .wrapper { max-width: 1000px; margin: 0 auto; display: flex; flex-direction: column; gap: 24px; }
+        header { border-bottom: 1px solid var(--stroke-glass); padding-bottom: 20px; margin-bottom: 10px; }
+        .lecture-badge { font-family: var(--font-mono); font-size: 0.75rem; color: var(--neon-cyan); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; }
+        h1 { color: var(--ink-bright); font-size: 1.8rem; font-weight: 800; margin-top: 6px; letter-spacing: -0.02em; }
+        .card { background: var(--bg-card); border: 1px solid var(--stroke-glass); border-radius: 8px; padding: 24px; }
+        h2 { color: var(--neon-cyan); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px; font-family: var(--font-mono); }
+        .objective-text { font-size: 1.1rem; color: var(--ink-bright); font-weight: 500; }
+        .analogy-title { color: var(--ink-bright); font-weight: 600; margin-bottom: 6px; font-size: 0.95rem; }
+        .lexicon-list { list-style: none; display: flex; flex-direction: column; gap: 16px; }
+        .term-name { color: var(--neon-emerald); font-family: var(--font-mono); font-weight: 700; font-size: 0.9rem; background: rgba(80, 250, 123, 0.08); padding: 2px 8px; border-radius: 4px; display: inline-block; margin-bottom: 4px; }
+        .code-block { background: var(--bg-code); border: 1px solid var(--stroke-glass); padding: 16px; border-radius: 6px; font-family: var(--font-mono); font-size: 0.85rem; color: #a5b4fc; margin-top: 8px; white-space: pre-wrap; word-break: break-all; }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+            <div class="lecture-badge">Module 7: Advanced Architectures &amp; Systems Security // Lecture 26</div>
+            <h1>Lecture 26: Firewalls &amp; Intrusion Detection</h1>
+        </header>
+        <div class="card">
+            <h2>🎯 1. Objective</h2>
+            <p class="objective-text">Distinguish a firewall's blocking role from an IDS's detection role given a sample network log trace.</p>
+        </div>
+
+        <div class="card">
+            <h2>🛑 2. Prerequisites</h2>
+            <p>L25 (Encryption Fundamentals), network ports and sockets.</p>
+        </div>
+
+        <div class="card">
+            <h2>🎪 3 & 4. Pedagogical Analogies</h2>
+            <div style="margin-bottom: 18px;">
+                <div class="analogy-title">Analogy 1 (Everyday Life): The Club Bouncer vs. The Undercover Camera Guard</div>
+                <p>A Firewall acts exactly like a large bouncer checking IDs right at the entrance door of an elite nightclub; they enforce static rules to block entry completely before anyone sets foot inside. An Intrusion Detection System (IDS) acts exactly like an undercover security guard watching camera feeds inside the building floors; they don't stop anyone at the door, but if they see suspicious behavior already happening inside, they instantly ring an alarm.</p>
+            </div>
+            <div>
+                <div class="analogy-title">Analogy 2 (Pure Technical): Stateless Header Filters vs. Deep Packet Inspection Engines</div>
+                <p>Firewalls run fast bit checks on incoming IP/Port parameters, while an IDS buffers deep transaction logs to match data chunks against documented exploit signature footprints.</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>🔗 5. System Cohesion Matrix</h2>
+            <p><strong>Relies On:</strong> Module 6 (I/O &amp; Network Drivers) — Hooks directly into the kernel's low-level network driver packet rings to inspect socket data before it reaches user space.</p>
+        </div>
+
+        <div class="card">
+            <h2>🔍 6. Core Breakdown</h2>
+            <p style="margin-bottom: 12px;">Network protection requires dual defense boundaries. Firewalls act as gatekeepers, enforcing security policies at the network border by filtering traffic based on static packet header metrics (Source IP, Destination IP, Port Numbers).</p>
+            <p>Intrusion Detection Systems (IDS) act as internal monitors, analyzing traffic streams already flowing inside the network. An IDS uses two core strategies: Signature-based detection, scanning for known patterns matching a library of malicious exploit profiles, and Heuristic/Anomaly-based detection, establishing a statistical baseline of normal network behavior and flagging deviations.</p>
+        </div>
+
+              <div class="card">
+            <h2>🏷️ 7. Lexicon / Terms</h2>
+            <ul class="lexicon-list">
+                <li><span class="term-name">Firewall</span> A boundary security component that permits or blocks network traffic frames based on a predetermined set of filtering rule criteria.</li>
+                <li><span class="term-name">Port Filtering</span> Blocking or opening explicit software communication channels (e.g., Port 80 for HTTP, Port 22 for SSH) to restrict vector exposure.</li>
+                <li><span class="term-name">IDS (Intrusion Detection System)</span> An internal network data scanner that tracks packet streams already passing inside system boundaries to sound alarms on suspicious behaviors.</li>
+                <li><span class="term-name">Signature-Based vs. Anomaly-Based</span> Scanning for known malicious code string patterns vs. flagging deviations from normal statistical baseline behaviors.</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>🛠️ 8. Practical Example: Windows Defender vs. Out-of-Hours Telemetry IDS</h2>
+            <p>Tracing distinct detection domains across edge and telemetry monitors:</p>
+            <div class="code-block">------------------------------------------------=================
+1. BORDER FIREWALL MITIGATION:
+   A standard firewall rule block acts at the border, dropping unauthorized 
+   incoming connection requests targeting closed terminal lines (e.g., blocking 
+   unauthorized inbound connection requests on port 22).
+
+2. TELEMETRY ANOMALY IDS TRACKING:
+   If a valid user logs in successfully at 3:00 AM but immediately initiates 
+   an abnormal, multi-gigabyte data export loop, the firewall remains blind. 
+   Catching this internal threat requires an anomaly-based IDS to flag the 
+   statistical off-hours behavior baseline deviation.
+------------------------------------------------=================</div>
+        </div>
+
+        <div class="card">
+            <h2>🎯 9. Interactive Classroom Activity</h2>
+            <p><strong>The Raw Log Diagnostic Sorting Game:</strong> Hand students sheets displaying a short 10-line network traffic log containing mixed events (e.g., blocked IP sweeps, port scans, sudden massive outbound packet floods).</p>
+            <p style="margin-top: 8px;">Have them sort the lines into two columns: events caught by static firewall port filters vs events requiring an IDS analyzer engine.</p>
+        </div>
+
+        <div class="card">
+            <h2>🌿 10 & 11. Topology Map Node</h2>
+            <p style="font-family: var(--font-mono); font-size: 0.85rem;">Module 7 -> L26: Firewalls &amp; IDS -> Border Port Filtering -> Deep Packet Analysis -> Signature vs Anomaly Logs.</p>
+        </div>
+    </div>
+</body>
+</html>
+
+
+      
