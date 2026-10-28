@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>📝 L18: Inode Architecture // Self-Assessment Quiz</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --bg-base: #06080e;
+            --bg-card: #0b0f19;
+            --bg-hover: #161f30;
+            --stroke-glass: rgba(255, 255, 255, 0.08);
+            --ink-bright: #ffffff;
+            --ink-secondary: #e2e8f0;
+            --ink-muted: #64748b;
+            --neon-emerald: #50fa7b;
+            --neon-cyan: #8be9fd;
+            --neon-blue: #6366f1;
+            --font-sans: system-ui, -apple-system, sans-serif;
+            --font-mono: monospace;
+        }
+        body { background-color: var(--bg-base); color: var(--ink-secondary); font-family: var(--font-sans); padding: 40px 24px; line-height: 1.7; overflow-y: auto !important; -webkit-overflow-scrolling: touch !important; }
+        .wrapper { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 24px; }
+        header { border-bottom: 1px solid var(--stroke-glass); padding-bottom: 20px; margin-bottom: 10px; }
+        .quiz-badge { font-family: var(--font-mono); font-size: 0.75rem; color: var(--neon-cyan); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; }
+        h1 { color: var(--ink-bright); font-size: 1.8rem; font-weight: 800; margin-top: 6px; letter-spacing: -0.02em; }
+        .card { background: var(--bg-card); border: 1px solid var(--stroke-glass); border-radius: 12px; padding: 28px; display: flex; flex-direction: column; gap: 16px; margin-bottom: 8px; }
+        h2 { color: var(--ink-bright); font-size: 1.05rem; font-weight: 600; line-height: 1.5; }
+        .options-group { display: flex; flex-direction: column; gap: 10px; }
+        .option-btn { width: 100%; text-align: left; background: rgba(255,255,255,0.01); border: 1px solid var(--stroke-glass); border-radius: 8px; padding: 14px 18px; color: var(--ink-secondary); font-size: 0.9rem; cursor: pointer; transition: all 0.2s ease; }
+        .option-btn:hover { background: var(--bg-hover); border-color: var(--neon-cyan); color: var(--ink-bright); }
+        .feedback { display: none; font-size: 0.88rem; padding: 14px; border-radius: 6px; margin-top: 8px; font-family: var(--font-mono); line-height: 1.5; }
+        .feedback.correct { display: block; background: rgba(80, 250, 123, 0.08); border-left: 3px solid var(--neon-emerald); color: var(--neon-emerald); }
+        .feedback.incorrect { display: block; background: rgba(239, 68, 68, 0.08); border-left: 3px solid #ef4444; color: #f87171; }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+            <div class="quiz-badge">Module 5 // File System Layout Evaluation Layer</div>
+            <h1>Lecture 18: Inode Architecture &amp; File System Layouts Quiz</h1>
+        </header>
+
+        <!-- Question 1 -->
+        <div class="card">
+            <h2>1. What data classification does a Unix index node (Inode) explicitly omit from its fixed-size structural layout fields?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Access permissions and security bits are primary metadata elements stored natively inside the inode.')">A) Access permissions and file type metadata flags.</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! To keep structural metadata isolated from human organization structures, inodes completely exclude the human-readable filename string. Filenames are preserved exclusively inside directory mapping arrays.')">B) The human-readable filename string itself.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Block addresses tracking physical locations are fundamental inode components.')">C) The array tracking pointers mapping to physical data block sectors.</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="card">
+            <h2>2. Why does traditional file system layout logic deploy an asymmetric mix of direct, single indirect, and double indirect pointers inside a single inode?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Multi-tiered indices exist to manage data capacity bounds rather than optimizing seek latencies.')">A) To eliminate mechanical seek time overhead penalties across magnetic HDD platters.</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! Asymmetric pointer trees keep individual inode metadata footings tiny and high-speed for the vast majority of small files, while allowing the index map to scale up exponentially for large objects.')">B) To keep inode overhead small for standard small files while scaling out dynamically to support huge files.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Direct and indirect blocks map across data segments without impacting memory privilege tiers.')">C) To prevent user space threads from running privileged instructions inside Ring 0 blocks.</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="card">
+            <h2>3. In the library card filing analogy, what operational tracking event corresponds straight to hitting a "Single Indirect Pointer" block?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! A single indirect pointer acts exactly like a reference card that points you to a separate box full of deeper, additional coordinates rather than directing you to a book storage shelf immediately.')">A) Reading a shelf coordinate card that points you directly to a second card ledger box filled with additional coordinates.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Fetching a text block maps to direct pointer tracking steps.')">B) Moving immediately to a specific shelf location to pull down raw story data books.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. This describes a hard link namespace shortcut configuration.')">C) Erasing the original author details while keeping duplicate cards active inside alternative cabinets.</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+              <!-- Question 4 -->
+        <div class="card">
+            <h2>4. Given a filesystem architecture with 4KB (4096 bytes) blocks and 4-byte pointer addresses, how many secondary block references can a single Indirect block hold?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Divide the total block byte length by individual address memory costs.')">A) Exactly 12 pointer references.</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! Total capacity = 4096 bytes / 4 bytes per pointer address = 1024 distinct indirect block references.')">B) Exactly 1024 pointer references.</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. 1,048,576 is the capacity threshold reached inside the double indirect tree tier.')">C) Exactly 1,048,576 pointer references.</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+        <!-- Question 5 -->
+        <div class="card">
+            <h2>5. Consider an inode layout configuration containing 12 Direct Pointers, 1 Single Indirect, and 1 Double Indirect. If block dimensions are 4KB and pointers cost 4 bytes, what absolute maximum data ceiling capacity can this file structure support?</h2>
+            <div class="options-group">
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. Review the math walk: 48KB (Direct) + 4MB (Single) + 4GB (Double) yields a larger cumulative total.')">A) Exactly 48.0 Kilobytes (KB)</button>
+                <button class="option-btn" onclick="checkAns(this, false, 'Incorrect. 4.0 Megabytes is the data capacity threshold bounded within the first indirect block branch.')">B) Exactly 4.048 Megabytes (MB)</button>
+                <button class="option-btn" onclick="checkAns(this, true, 'Correct! Summing up the capacity limbs: Direct blocks contribute 48KB. The single indirect branch handles 4MB. The double indirect tree provides 4GB. Combined, they yield a total scale boundary of 4.004 Gigabytes (GB).')">C) Exactly 4.004 Gigabytes (GB)</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+    </div>
+
+    <script>
+        function checkAns(btn, isCorrect, reason) {
+            const card = btn.closest('.card');
+            const feedback = card.querySelector('.feedback');
+            const siblings = card.querySelectorAll('.option-btn');
+            
+            siblings.forEach(s => s.style.opacity = "0.5");
+            btn.style.opacity = "1";
+            
+            if (isCorrect) {
+                feedback.className = "feedback correct";
+                feedback.innerText = "✓ " + reason;
+            } else {
+                feedback.className = "feedback incorrect";
+                feedback.innerText = "✗ " + reason;
+            }
+        }
+    </script>
+</body>
+</html>
+
