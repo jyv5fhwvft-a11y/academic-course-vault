@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>📚 L14: Race Conditions & Mutual Exclusion // Micro-Contents</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --bg-base: #06080e;
+            --bg-card: #0b0f19;
+            --bg-code: #020408;
+            --stroke-glass: rgba(255, 255, 255, 0.08);
+            --ink-bright: #ffffff;
+            --ink-secondary: #e2e8f0;
+            --ink-muted: #64748b;
+            --neon-emerald: #50fa7b;
+            --neon-cyan: #8be9fd;
+            --neon-blue: #627bfd;
+            --font-sans: system-ui, -apple-system, sans-serif;
+            --font-mono: monospace;
+        }
+        body { background-color: var(--bg-base); color: var(--ink-secondary); font-family: var(--font-sans); padding: 40px 24px; line-height: 1.7; overflow-y: auto !important; -webkit-overflow-scrolling: touch !important; }
+        .wrapper { max-width: 1000px; margin: 0 auto; display: flex; flex-direction: column; gap: 24px; }
+        header { border-bottom: 1px solid var(--stroke-glass); padding-bottom: 20px; margin-bottom: 10px; }
+        .lecture-badge { font-family: var(--font-mono); font-size: 0.75rem; color: var(--neon-cyan); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; }
+        h1 { color: var(--ink-bright); font-size: 1.8rem; font-weight: 800; margin-top: 6px; letter-spacing: -0.02em; }
+        .card { background: var(--bg-card); border: 1px solid var(--stroke-glass); border-radius: 8px; padding: 24px; }
+        h2 { color: var(--neon-cyan); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px; font-family: var(--font-mono); }
+        .objective-text { font-size: 1.1rem; color: var(--ink-bright); font-weight: 500; }
+        .analogy-title { color: var(--ink-bright); font-weight: 600; margin-bottom: 6px; font-size: 0.95rem; }
+        .lexicon-list { list-style: none; display: flex; flex-direction: column; gap: 16px; }
+        .term-name { color: var(--neon-emerald); font-family: var(--font-mono); font-weight: 700; font-size: 0.9rem; background: rgba(80, 250, 123, 0.08); padding: 2px 8px; border-radius: 4px; display: inline-block; margin-bottom: 4px; }
+        .code-block { background: var(--bg-code); border: 1px solid var(--stroke-glass); padding: 16px; border-radius: 6px; font-family: var(--font-mono); font-size: 0.85rem; color: #a5b4fc; margin-top: 8px; white-space: pre-wrap; word-break: break-all; }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+            <div class="lecture-badge">Module 4: Process Synchronization // Lecture 14</div>
+            <h1>Lecture 14: Race Conditions &amp; Mutual Exclusion</h1>
+        </header>
+
+              <div class="card">
+            <h2>🎯 1. Objective</h2>
+            <p class="objective-text">Identify a data race condition inside a multi-threaded code block and refactor the code to guarantee mutual exclusion using a POSIX mutex lock.</p>
+        </div>
+
+        <div class="card">
+            <h2>🛑 2. Prerequisites</h2>
+            <p>Module 3 (All Lectures), L09 (Threads &amp; Concurrency).</p>
+        </div>
+
+        <div class="card">
+            <h2>🎪 3 & 4. Pedagogical Analogies</h2>
+            <div style="margin-bottom: 18px;">
+                <div class="analogy-title">Analogy 1 (Everyday Life): The Shared Digital Piggy Bank</div>
+                <p>Imagine a digital piggy bank shared between two siblings (Threads) who can both add money at the same time. The bank currently holds $100. Siblings A and B both want to add $1 at the exact same instant. Sibling A reads the balance ($100). Right before Sibling A can write down $101, Sibling B barges in, reads the balance ($100), and writes down $101. Sibling A then finishes their turn and writes down $101. Even though two separate dollars were added, the bank ends up short because one update overwrote the other. This is a Race Condition. To fix it, we introduce a Mutex Lock—a single physical bathroom key taped to the bank. A sibling must grab the key, lock the room, change the balance in total isolation, and return the key.</p>
+            </div>
+            <div>
+                <div class="analogy-title">Analogy 2 (Pure Technical): A Transactional Database Table Row Lock</div>
+                <p>A software mutex lock behaves identically to a hardware-enforced write-reservation token that blocks out raw processor access lines to a specific memory array address index until a commit sequence resolves.</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>🔗 5. System Cohesion Matrix</h2>
+            <p style="margin-bottom: 8px;"><strong>Relies On:</strong> Module 3 (Memory Management) — Requires threads pointing to identical shared virtual memory page coordinates to manifest a race state.</p>
+            <p><strong>Feeds Into:</strong> L15 (Classic Problems &amp; Deadlocks) — Introducing multiple independent mutex locks to protect complex data structures creates the precise architectural prerequisites for deadlock loops.</p>
+        </div>
+
+        <div class="card">
+            <h2>🔍 6. Core Breakdown</h2>
+            <p style="margin-bottom: 12px;">When multiple concurrent execution contexts read and modify a shared variable simultaneously, the final outcome depends entirely on the unpredictable order in which the instruction lines interleave. This vulnerability is a Race Condition, and the specific block of code executing the modification is the Critical Section.</p>
+            <p>To prevent corruption, we must enforce Mutual Exclusion—guaranteeing that only one thread can sit inside the critical section at any given time. This requires an atomic hardware instruction (like Test-and-Set or Compare-and-Swap) to verify and flip a Mutex flag in a single clock cycle without interruption.</p>
+        </div>
+
+              <div class="card">
+            <h2>🏷️ 7. Lexicon / Terms</h2>
+            <ul class="lexicon-list">
+                <li><span class="term-name">Race Condition</span> A concurrency bug where the system output shifts nondeterministically based on the precise timing and execution order of overlapping threads.</li>
+                <li><span class="term-name">Critical Section</span> A structural window of source code that reads or writes to a shared, mutable global or heap state resource.</li>
+                <li><span class="term-name">Mutual Exclusion (Mutex)</span> A synchronization primitive that locks out concurrent access, ensuring only one execution thread can claim a resource slot.</li>
+                <li><span class="term-name">Atomic Operation</span> A low-level processor instruction sequence that executes completely to completion as a single indivisible unit without any possibility of preemption.</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>🛠️ 8. Practical Example</h2>
+            <div class="code-block">#include &lt;pthread.h&gt;
+#include &lt;stdio.h&gt;
+
+int shared_balance = 100; // Shared resource in the data segment
+pthread_mutex_t bank_lock = PTHREAD_MUTEX_INITIALIZER; // The Mutex Primitive
+
+void* add_dollar_routine(void* arg) {
+    for(int i = 0; i < 10000; i++) {
+        pthread_mutex_lock(&bank_lock);   // Acquire exclusive access / entry path
+
+        // --- START CRITICAL SECTION ---
+        shared_balance++;                 // Shared state modification block
+        // ---- END CRITICAL SECTION ----
+
+        pthread_mutex_unlock(&bank_lock); // Release lock / exit path
+    }
+    return NULL;
+}
+
+int main() {
+    pthread_t t1, t2;
+    pthread_create(&t1, NULL, add_dollar_routine, NULL);
+    pthread_create(&t2, NULL, add_dollar_routine, NULL);
+    pthread_join(t1, NULL);
+    pthread_join(t2, NULL);
+    printf("Final absolute guaranteed balance: $%d\n", shared_balance); // Always 20100
+    return 0;
+}</div>
+        </div>
+
+        <div class="card">
+            <h2>🎯 9. Interactive Classroom Activity</h2>
+            <p><strong>The Shared Whiteboard Disruption:</strong> Draw a large single number "0" on the center classroom whiteboard. Appoint two students to act as Threads. Instruct them that their only loop instruction is to read the board number, add 1 in their head, and write the new value over the old one.</p>
+            <p style="margin-top: 8px;">Have them both try to do this simultaneously as fast as possible with different colored markers. Watch how their writing overrides each other, leading to a corrupt, incorrect math total on the board, demonstrating a real data race.</p>
+        </div>
+
+        <div class="card">
+            <h2>🌿 10 & 11. Topology Map Node</h2>
+            <p style="font-family: var(--font-mono); font-size: 0.85rem;">CS 301: Operating Systems -> Module 4: Process Synchronization -> L14: Race Conditions -> Critical Sections -> Mutual Exclusion -> Atomic Hardware Instructions.</p>
+        </div>
+    </div>
+</body>
+</html>
+
+
+
+      
