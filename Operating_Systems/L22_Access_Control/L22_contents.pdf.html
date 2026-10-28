@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PDF EXPORT // CS 301 Lecture 22 Micro-Contents</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { 
+            background: #ffffff; 
+            color: #000000; 
+            font-family: 'Times New Roman', Times, serif; 
+            padding: 1.5in 1in; 
+            line-height: 1.5; 
+            font-size: 11pt; 
+        }
+        @media print {
+            body { padding: 0; }
+            .no-print { display: none; }
+            @page { size: letter; margin: 1in; }
+        }
+        header { 
+            border-bottom: 2px solid #000000; 
+            padding-bottom: 12px; 
+            margin-bottom: 24px; 
+        }
+        .meta-header { 
+            font-family: Arial, sans-serif; 
+            font-size: 9pt; 
+            text-transform: uppercase; 
+            letter-spacing: 1px; 
+            color: #555555; 
+        }
+        h1 { 
+            font-size: 20pt; 
+            font-weight: bold; 
+            margin-top: 6px; 
+        }
+        .section-block { 
+            margin-bottom: 20px; 
+            page-break-inside: avoid; 
+        }
+        h2 { 
+            font-family: Arial, sans-serif; 
+            font-size: 12pt; 
+            text-transform: uppercase; 
+            border-bottom: 1px solid #777777; 
+            padding-bottom: 4px; 
+            margin-bottom: 8px; 
+        }
+        .code-container { 
+            font-family: 'Courier New', Courier, monospace; 
+            background: #f4f4f4; 
+            border: 1px solid #cccccc; 
+            padding: 12px; 
+            border-radius: 4px; 
+            font-size: 9.5pt; 
+            margin-top: 6px; 
+            white-space: pre-wrap; 
+        }
+        .print-btn-banner {
+            background: #f1f5f9;
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid #cbd5e1;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            font-size: 9.5pt;
+        }
+        .print-btn {
+            background: #0f172a;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="print-btn-banner no-print">
+        <span>📄 <strong>PDF Export Assistant Active:</strong> Tap the action button to initialize your system print panel and export this file as an official academic PDF document.</span>
+        <button class="print-btn" onclick="window.print()">Print / Save PDF</button>
+    </div>
+    <header>
+        <div class="meta-header">CS 301: Operating Systems // Micro-Level Curriculum Ledger</div>
+        <h1>Lecture 22: Access Control Summary</h1>
+    </header>
+
+      <div class="section-block">
+        <h2>1. Objective</h2>
+        <p>Apply an access control matrix and distinguish an Access Control List (ACL) from a capability token.</p>
+    </div>
+
+    <div class="section-block">
+        <h2>2. Prerequisites</h2>
+        <p>Module 5 (L17: File Abstraction & Directory Topology).</p>
+    </div>
+
+    <div class="section-block">
+        <h2>3 & 4. Pedagogical Analogies</h2>
+        <p><strong>Analogy 1 (Everyday Life): The Hotel Room Ledger vs. The Physical Room Key</strong><br>
+        Imagine a hotel security framework. One design approach checks an explicit sheet clipped right onto the door frame: "Who is allowed into Room 204?" (ACL, resource-centric). Another design completely ignores the doors and hands you an electronic keycard token that simply works instantly on whichever lock it fits (Capability, user-centric).</p>
+        <p style="margin-top: 10px;"><strong>Analogy 2 (Pure Technical): Stateless Network File System Mounting Rules vs. Cryptographic JWT Bearer Tokens</strong><br>
+        An ACL acts like a firewall rule table mapped directly onto a disk block node, while a capability behaves like an unforgeable, kernel-signed memory address descriptor held by a running thread.</p>
+    </div>
+
+    <div class="section-block">
+        <h2>5. System Cohesion Matrix</h2>
+        <p>• <strong>Relies On:</strong> Module 1 (L02: Dual-Mode Barrier) — Relies on Ring 0 isolation to guarantee that user-space processes cannot modify their own capability tokens or rewrite resource security bits.<br>
+        • <strong>Feeds Into:</strong> L23 (Authentication) — Access control lists only work if the system possesses an unshakeable mechanism to verify the identity of the user calling them.</p>
+    </div>
+
+    <div class="section-block">
+        <h2>6. Core Breakdown</h2>
+        <p>An operating system manages file security using Protection Domains. This architecture is mathematically mapped using an Access Control Matrix, where rows represent subjects and columns represent resource objects.</p>
+        <p style="margin-top: 6px;">Because matrices are massive and sparse, production kernels use two opposing bookkeeping methodologies: ACLs decompose the matrix by columns, attaching a strict authorization list directly to the resource itself. Capabilities decompose the matrix by rows, handing secure, unforgeable tokens directly to the user or process context.</p>
+    </div>
+    <div class="section-block">
+        <h2>7. Lexicon / Terms</h2>
+        <p>• <strong>Access Control Matrix:</strong> A conceptual grid mapping user domains against system objects to define structural read, write, and execute permissions.<br>
+        • <strong>ACL (Access Control List):</strong> A column-oriented optimization where resource permissions are tracked directly on the asset container.<br>
+        • <strong>Capability:</strong> A row-oriented security optimization where unforgeable access tokens are carried and presented by the active user process.<br>
+        • <strong>Protection Domain:</strong> The bounded environment profile determining which operations a thread is permitted to execute across various system objects.</p>
+    </div>
+
+    <div class="section-block">
+        <h2>8. Practical Example: Linux Standard File Permission Vector</h2>
+        <p>Standard Unix file systems compact ACL architecture down to 9 simple permission bits matching Owner, Group, and Others fields:</p>
+        <div class="code-container">------------------------------------------------=================
+Permission String Example: rwxr-xr--
+
+Isolate the bit segments:
+1. Owner Bits: 'rwx' ➔ Owner can Read, Write, and Execute.
+2. Group Bits: 'r-x' ➔ Group members can Read and Execute, but cannot modify.
+3. Other Bits: 'r--' ➔ All external system callers can strictly Read.
+
+Conclusion: Core protection domains block illegal mutation paths out-of-the-box.
+------------------------------------------------=================</div>
+    </div>
+
+    <div class="section-block">
+        <h2>9. Interactive Classroom Activity</h2>
+        <p><strong>The Matrix Verification Challenge:</strong> Sketch a 4x4 Access Control Matrix on the chalkboard listing users (Alice, Bob, Charlie) and resources (file1.txt, /dev/tty0). Rapidly shout out target scenarios: "Can Bob write to file1?" or "Can Charlie execute /dev/tty0?" Have students call out answers directly from the grid lines to practice reading sparse matrix definitions.</p>
+    </div>
+</body>
+</html>
+
+  
+
