@@ -972,6 +972,104 @@
                 },
 
 
+                24: {
+                    analogy: {
+                        metaTitle: "📦 OVERFILLED WAREHOUSE CARGO SHELF CONFLICT SYSTEM",
+                        conceptTitle: "Concept: Splitting a Shelf vs. Crashing the Main Office Instruction Sheet",
+                        conceptDesc: "<strong>The Overflowing Shelf:</strong> A cargo shelf slot is explicitly built to hold exactly 5 cardboard packages total. Right behind this shelf sits the supervisor's notebook clipboard (The Return Pointer) that tells the forklift driver where to go next. <br><strong>The Address Smashing:</strong> An rogue driver cames in and forces 10 heavy boxes onto that small shelf space. The extra boxes spill over the back boundary edge, completely crushing and overwriting the supervisor's clipboard notebook sheet with a fake destination. When the forklift reads the corrupted sheet, it drives straight into a hidden trap area.",
+                        inputLabel: "1. Select Freight Input Buffer Payload Size",
+                        btnText: ["📦 Load 5 Normal Boxes (Safe Buffer)", "🚨 Load 10 Heavy Boxes (Overflow Heap)", "🛡️ Install Steel Barrier Guard (Canary Schutz)"],
+                        btnPayloads: ["Normal_Buffer_Load", "Stack_Smash_Overflow", "Stack_Canary_Protection_Active"],
+                        trackLabel: "🧱 WAREHOUSE FREIGHT INTERMEDIATE STORAGE SHELF LINE",
+                        trackIdle: "[ FREIGHT LEVEL STABLE: STORAGE BOUNDARIES RIGID AND SECURE ]",
+                        ledgerLabel: "📋 SUPERVISOR NEXT-STEP ROUTING CLIPBOARD REGS:",
+                        ledgerIdle: "[ Pointer Valid &mdash; Next Warehouse Destination Vector Intact ]",
+                        dispatchBtn: "Cycle Forklift Dispatch Routine",
+                        queueUnit: "Boxes",
+                        readoutIdle: "<strong>Freight Deck Telemetry:</strong> Shelf stable. Force an overflow payload sequence above to observe how a smashed routing pointer redirects the vehicle."
+                    },
+                    technical: {
+                        metaTitle: "🎛️ STACK BUFFER OVERFLOW & RETURN ADDRESS SMASHER MONITOR",
+                        conceptTitle: "Technical Layer: Stack Memory Footprints, Buffer Overflows, and Return Address Smashing",
+                        conceptDesc: "When an unprivileged Ring 3 application allocates a fixed-size array buffer on the **Call Stack** (e.g., via `strcpy()`), failing to enforce boundary checking allows input parameters to overrun the allocation block. The excess byte strings spill upward into the stack frame, overwriting the saved **Function Return Address (EIP/RIP)** register link pointer. By swapping this address pointer with a memory location pointing to malicious injected assembly bytes (**Shellcode**), the program traps the instruction stream into executing privileged operations inside Ring 0.",
+                        inputLabel: "1. Fire String Parameter Byte Payload into Stack Memory Segment",
+                        btnText: ["💾 Inbound String: 64 Bytes (Safe bound)", "💾 Inbound String: 128 Bytes (Stack Smash)", "⚡ Activate Canary Verification (SSP Hook)"],
+                        btnPayloads: ["Safe_Buffer_Execution", "Return_Address_Smashed_Trap", "Canary_Mismatch_Sigsegv_Trap"],
+                        trackLabel: "⚡ ACTIVE CALL STACK STAGE STORAGE SPACE (RAM CELL STRIP)",
+                        trackIdle: "[ STACK ALIGNED: RET ADDRESS REGISTERS GUARDED BY COMPILER BOUNDS ]",
+                        ledgerLabel: "⏳ SAVED EIP/RIP INSTRUCTION FRAME LINK REGISTERS:",
+                        ledgerIdle: "[ Link Registers Intact &mdash; Processing Normal Context Returns inside User Space ]",
+                        dispatchBtn: "Execute Function ret Instruction Frame Loop",
+                        queueUnit: "Bytes",
+                        readoutIdle: "<strong>Exploit Analyzer Core Status:</strong> Stack frames balanced. Fire an unbounded string memory write sequence above to witness an un-boundary checked loop overwrite instruction register vectors inside memory structures."
+                    }
+                },
+
+                25: {
+                    analogy: {
+                        metaTitle: "🔐 THE LOCKED BOX SECRET KEY MESSENGER MATRIX",
+                        conceptTitle: "Concept: The Shared Padlock vs. The Open Padlock Mailbox",
+                        conceptDesc: "<strong>Symmetric (AES) Box:</strong> You put a message in a box and lock it with a padlock. Your friend has an exact copy of the key. To read the note, they use that identical key. If an interloper steals the key during transport, security collapses.<br><strong>Asymmetric (RSA) Mailbox:</strong> Your friend leaves a custom padlock open on the street. Anyone can drop a letter in and snap the lock shut (Public Key). But only your friend keeps the unique key to unlock it (Private Key), meaning you can exchange secure files without trading keys first.",
+                        inputLabel: "1. Select Cipher Key Exchange Profile Sequence",
+                        btnText: ["🔑 Shared Key Lock (Symmetric AES)", "🔓 Snap Public Lock (Asymmetric RSA)", "🚨 Intercept Key (Man-in-the-Middle)"],
+                        btnPayloads: ["Symmetric_AES_Lock", "Asymmetric_RSA_Snap", "MITM_Key_Interception"],
+                        trackLabel: "🧱 SECURE IN-TRANSIT COURIER CARGO TRUCK CONSOLE",
+                        trackIdle: "[ CIPHER DECK IDLE: MESSAGES STANDING BY FOR KEY WRAPPERS ]",
+                        ledgerLabel: "📋 DYNAMIC KEY RECONCILIATION REGISTERS:",
+                        ledgerIdle: "[ Standby &mdash; Keys Sealed and Transport Tracks Secure ]",
+                        dispatchBtn: "Transmit Locked Message Box",
+                        queueUnit: "Keys",
+                        readoutIdle: "<strong>Courier Dispatch Telemetry:</strong> System idle. Request a lock profile strategy above to trace key exchange speeds."
+                    },
+                    technical: {
+                        metaTitle: "🎛️ CRYPTOGRAPHIC CIPHER ENGINE (AES-256 VS RSA-4096)",
+                        conceptTitle: "Technical Layer: Symmetric block ciphers, Asymmetric Public/Private Keys, & Diffie-Hellman",
+                        conceptDesc: "Operating systems secure data pathways via math ciphers. **Symmetric Encryption (AES)** uses a single shared secret key for high-speed hardware block transforms, but struggles with safe key delivery across network boundaries. **Asymmetric Encryption (RSA)** uses mathematically linked prime number pairs; the **Public Key** encrypts user metrics in Ring 3, but execution can only be decrypted by the matching **Private Key** held securely inside kernel ring boundaries.",
+                        inputLabel: "1. Fire Bitwise Mathematical Transformation Primitive",
+                        btnText: ["💾 Encrypt via AES-256 (Shared Bitmask)", "💾 Encrypt via RSA Public Key (Primes)", "🛑 Revoke Private Key Vector Frame"],
+                        btnPayloads: ["AES_Symmetric_Transform", "RSA_Asymmetric_Public_Lock", "Private_Key_Revocation_Trap"],
+                        trackLabel: "⚡ RING 0 HARDWARE CRYPTO-ACCELERATOR BUS INTERFACE",
+                        trackIdle: "[ CIPHER ENGINE STEADY: MEMORY ENCRYPTION ENGINES ARMED AND ACTIVE ]",
+                        ledgerLabel: "⏳ CRYPTOGRAPHIC DESCRIPTOR KEY-PAIR VALUE MATRICES:",
+                        ledgerIdle: "[ Cipher Vectors Synchronized &mdash; Platform Substrate Secure against Sniffers ]",
+                        dispatchBtn: "Run Bitwise Cryptographic Cipher Transform Loop",
+                        queueUnit: "Bits",
+                        readoutIdle: "<strong>Crypto Core Monitor Status:</strong> Tracking encryption keys. Fire a symmetric bitmask transform or asymmetric public lock above to watch how hardware circuits secure memory blocks against raw interception."
+                    }
+                },
+
+                                26: {
+                    analogy: {
+                        metaTitle: "🏰 CASTLE MOAT GUARD GATE & ENVIRONMENT CONTROL CONSOLE",
+                        conceptTitle: "Concept: Simple Rule Checking vs. Smart Guest History Tracking",
+                        conceptDesc: "<strong>Stateless Guard (Simple Filter):</strong> A gatekeeper stands at a bridge. They read a simple text rules list (e.g., 'Block anyone carrying an orange banner'). They check each person individually but completely forget who passed by 5 seconds ago, leaving them blind to clever trick patterns.<br><strong>Stateful Guard (History Tracker):</strong> The gatekeeper keeps a local notebook ledger tracking who went out. If a wagon rolls up claiming it is 'returning' from inside but the notebook shows it never left, the guard raises the drawbridge and blocks entry.",
+                        inputLabel: "1. Advance Traveler Bridge Crossing Request",
+                        btnText: ["🛡️ Filter Orange Banner (Stateless Block)", "🛡️ Check Outbound Notebook (Stateful Pass)", "🚨 Force Malicious Incursion (IDS Alert)"],
+                        btnPayloads: ["Stateless_Banner_Block", "Stateful_Ledger_Pass", "IDS_Intrusion_Alert"],
+                        trackLabel: "🏰 CASTLE MAIN DRAWBRIDGE CROSSING SURFACE AREA",
+                        trackIdle: "[ MOAT SECURITY STEADY: DRAWBRIDGE ACTIVE AND GUARD ARMED ]",
+                        ledgerLabel: "📋 GUARD GATE BOOK HISTORY VISITOR CORES:",
+                        ledgerIdle: "[ Tracking Ledger Synchronized &mdash; Zero Stale Entries Cached ]",
+                        dispatchBtn: "Cycle Gate Traffic Action",
+                        queueUnit: "Travelers",
+                        readoutIdle: "<strong>Moat Perimeter Telemetry:</strong> System idle. Request an inbound traveler profile command above to trace bridge security checks."
+                    },
+                    technical: {
+                        metaTitle: "🎛️ IPTABLES FIREWALL ENGINE & STATEFUL PACKET CONSOLE",
+                        conceptTitle: "Technical Layer: Packet-Filtering Firewalls, Stateful Inspection, & Netfilter Hooks",
+                        conceptDesc: "The Linux kernel processes network traffic via the **Netfilter** architecture hook system inside Ring 0. A basic stateless filter inspects raw packet headers inside raw memory frames to drop specific source IPs or ports. A **Stateful Inspection Firewall (iptables/nftables)** references an active **Connection Tracking Table (`conntrack`)**. It tracks the exact TCP handshake sequence state; if an inbound packet claims to be an established response (`ESTABLISHED`) but no matching outbound socket link was logged, the packet is instantly dropped.",
+                        inputLabel: "1. Fire Inbound Network Packet Vector through Netfilter Hooks",
+                        btnText: ["💾 Inspect Header port 80 (Stateless Rule)", "💾 Cross-Ref conntrack Table (Stateful Check)", "🚨 Trigger Signature Pattern Match (IDS Sniffer)"],
+                        btnPayloads: ["Stateless_Port_Check", "Conntrack_State_Match", "IDS_Snort_Signature_Match"],
+                        trackLabel: "⚡ RING 0 NETFILTER HOOK INTERCEPTION LAYER PIPELINE",
+                        trackIdle: "[ FIREWALL BUS ACTIVE: SOCKET BUFFERS BALANCED AND CLEAN IN RAM ]",
+                        ledgerLabel: "⏳ KERNEL CONNTRACK ACTIVE TCP SESSION MAP REGS:",
+                        ledgerIdle: "[ Connection Matrix Safe &mdash; Zero Unsolicited Session Packets Resident in Bus ]",
+                        dispatchBtn: "Process Network Packet Frame via Netfilter",
+                        queueUnit: "Packets",
+                        readoutIdle: "<strong>Firewall Core Monitor Status:</strong> Tracking network buffers. Dispatch a stateless rule filter or conntrack session trace above to observe how the kernel secures system ports against raw socket intrusions."
+                    }
+                },
 
 
 
@@ -1006,9 +1104,46 @@
                         dispatchBtn: "Trap through clone() namespace boundary",
                         queueUnit: "Bitmasks",
                         readoutIdle: "<strong>Container Namespace Telemetry:</strong> Standing by in Ring 0. Pass bitwise separation variables above to spin up container containers."
+                    },
+
+                                    28: {
+                    analogy: {
+                        metaTitle: "🚗 FULL-SYSTEM INTERCONNECTED CAR MECHANIC VIEW PANEL",
+                        conceptTitle: "Concept: The Synced Engine, Transmission, and Dashboard Clocks",
+                        conceptDesc: "<strong>The Connected System:</strong> An expert mechanic doesn't study an isolated tire or a disconnected fuel pipe in a vacuum. They visualize how pressing the accelerator foot pedal (System Call) instantly opens the fuel butterfly valve, ignites the engine cylinders, spins the transmission gear shafts, and flashes metrics across the electronic dashboard dials simultaneously. Everything is a piece of one beautiful, living machine.",
+                        inputLabel: "1. Fire Central Master Vehicle Activation Signal",
+                        btnText: ["🔑 Turn Ignition Key (Boot Substrate)", "⛽ Press Accelerator Pedal (Handoff Flow)", "📊 Scan Diagnostic Dashboard Console"],
+                        btnPayloads: ["Ignition_Boot_Sequence", "Accelerator_System_Handoff", "Dashboard_Diagnostic_Trace"],
+                        trackLabel: "🚗 FULL SYSTEM OPERATIONAL ENGINE PLATFORM PLATFORM LAYOUT",
+                        trackIdle: "[ VEHICLE IDLE: ENGINE RUNNING SMOOTHLY AT BASE PARAMETERS ]",
+                        ledgerLabel: "📋 INTEGRATED MECHANIC TELEMETRY TRANSLATION REGS:",
+                        ledgerIdle: "[ All Subsystems Cohesive &mdash; Machine Framework Fully Synchronized ]",
+                        dispatchBtn: "Trace Connected Automotive Transaction Step",
+                        queueUnit: "Systems",
+                        readoutIdle: "<strong>Master Mechanic Telemetry:</strong> Car idling. Fire a complete system handoff cycle above to watch how all independent internal engineering layers communicate seamlessly."
+                    },
+                    technical: {
+                        metaTitle: "🎛️ FULL-STACK SOFTWARE-TO-HARDWARE INTEGRATED TRANSITION ENGINE",
+                        conceptTitle: "Technical Layer: The Complete Full-Stack Cohesive System Integration Retrospective",
+                        conceptDesc: "Operating systems achieve engineering parity by connecting distinct abstraction layers into a unified block. When a user application spawns a thread, it taps user-space abstractions, traps across privilege borders (**Ring 0** via the **IDT**), multiplexes execution time frames (**CPU Scheduler**), maps translation boundaries via hardware registers (**MMU Page Tables**), lookups file string boundaries (**VFS/Inodes**), coordinates device buses via interrupts (**Drivers/ISR**), and isolates application visibilities via kernel constraints (**Namespaces**). It is a single, interconnected architectural masterpiece.",
+                        inputLabel: "1. Trigger End-to-End System Execution Handoff Framework",
+                        btnText: ["⚡ Power On Reset (POST -> GRUB Boot)", "💾 Invoke App write() -> Traps to Ring 0", "🚀 Pipeline Sync (Hardware-to-Software Interlink)"],
+                        btnPayloads: ["Hardware_POST_Boot_Process", "App_Syscall_IDT_VFS_Handoff", "Full_Stack_Pipeline_Convergence"],
+                        trackLabel: "⚡ COMPLETE INTEGRATED COMPUTER HARDWARE CORE MATRIX SUBSYSTEM",
+                        trackIdle: "[ WORKSPACE RIGID: HARDWARE AND SOFTWARE CONVERGED IN PERFECT UNIFIED BALANCES ]",
+                        ledgerLabel: "⏳ FULL-STACK CORE METADATA ARCHITECTURE RUNTIME REGISTERS:",
+                        ledgerIdle: "[ Master Context Timeline Locked &mdash; All Modular Abstractions Synchronized and Secure ]",
+                        dispatchBtn: "Trace Full-Stack Interconnected Execution Flow",
+                        queueUnit: "Layers",
+                        readoutIdle: "<strong>Grand Retrospective Monitor Status:</strong> Monitoring full-stack convergence layout. Fire an end-to-end execution handoff trace above to witness all 29 modular building blocks mesh seamlessly across the system hardware canvas layer."
                     }
                 }
+
+                    
+                }
             };
+
+            
 
                                     // ==================== LABORATORY MASTER DESKTOP ENGINE RUNTIME LOGIC ====================
             function loadLabWorkspace(moduleId) {
