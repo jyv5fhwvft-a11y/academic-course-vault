@@ -345,50 +345,78 @@
                 }
             }
 
-            function dispatchActiveQuantum() {
-                if (labActiveTimer) return;
+            
                 
-                const node = labDatabase[currentLabModule === 1 ? 0 : currentLabModule][currentLabSubstrate];
-                if (labActiveQueue.length === 0) {
-                    document.getElementById('lab-readout-box').innerHTML = 
-                        `<strong>Subsystem Warning:</strong> Processing denied. The memory buffer tracking array matrix is completely clear.`;
-                    return;
-                }
-                
-                const runway = document.getElementById('lab-track-box');
-                const runwayStatus = document.getElementById('lab-track-status');
-                const readout = document.getElementById('lab-readout-box');
-                
-                let activeItem = labActiveQueue.shift();
-                updateQueueLogUI();
-                
-                runway.style.background = "rgba(80, 250, 123, 0.04)";
-                runway.style.borderColor = "#50fa7b";
-                runwayStatus.style.color = "#50fa7b";
-                
-                if (currentLabSubstrate === 'analogy') {
-                    runwayStatus.innerText = `🛬 ACTIVE TRAVERSAL: ${activeItem}`;
-                    readout.innerHTML = `<strong>Lab Router Telemetry:</strong> Processing routing path bounds for <code>${activeItem}</code>. All secondary entry point links locked out...`;
-                } else {
-                    runwayStatus.innerText = `⚙️ CORE REGISTER ACTIVE: ${activeItem}`;
-                    readout.innerHTML = `<strong>Kernel Monitor Status:</strong> Loaded thread state parameters for <code>${activeItem}</code> onto processor hardware registers. Preemption context timer ticked active...`;
-                }
-                
-                labActiveTimer = setTimeout(() => {
-                    runway.style.background = "rgba(255, 255, 255, 0.02)";
-                    runway.style.borderColor = "rgba(255,255,255,0.15)";
-                    runwayStatus.innerText = node.trackIdle;
-                    runwayStatus.style.color = "#64748b";
-                    
-                    if (currentLabSubstrate === 'analogy') {
-                        readout.innerHTML = `<strong>Lab Router Telemetry:</strong> Traversal loop for <code>${activeItem}</code> complete. Target pathway records cleared back to baseline parameters.`;
-                    } else {
-                        readout.innerHTML = `<strong>Kernel Monitor Status:</strong> Execution quantum expired. Preempted <code>${activeItem}</code> tracking pointers, saved register stack blocks, and trapped to Ring 0.`;
-                    }
-                    
-                    labActiveTimer = null;
-                }, 3000);
+          function dispatchActiveQuantum() {
+        if (labActiveTimer) return;
+        
+        const node = labDatabase[currentLabModule === 1 ? 1 : currentLabModule][currentLabSubstrate];
+        if (labActiveQueue.length === 0) {
+            if (currentLabSubstrate === 'analogy') {
+                document.getElementById('lab-readout-box').innerHTML = 
+                    `<strong>Subsystem Warning:</strong> Processing denied. The analogy tracking array matrix is completely clear.`;
+            } else {
+                document.getElementById('lab-readout-box').innerHTML = 
+                    `<strong>Kernel Monitor Status:</strong> Dispatch rejected. The target execution queue tracking descriptor array is empty.`;
             }
+            return;
+        }
+        
+        const runway = document.getElementById('lab-track-box');
+        const runwayStatus = document.getElementById('lab-track-status');
+        const readout = document.getElementById('lab-readout-box');
+        
+        let activeItem = labActiveQueue.shift();
+        updateQueueLogUI();
+        
+        runway.style.background = "rgba(239, 68, 68, 0.08)";
+        runway.style.borderColor = "#ef4444";
+        runwayStatus.style.color = "#ef4444";
+        
+        // Dynamic system simulation branch evaluation based on selected module index routing values
+        if (currentLabModule === 1) {
+            if (currentLabSubstrate === 'analogy') {
+                runwayStatus.innerText = `🚨 CRASH FAULT: ${activeItem}`;
+                readout.innerHTML = `<strong>Kitchen Dispatch Telemetry:</strong> Segment fault detected at <code>${activeItem}</code>! Isolating broken container unit vehicle. All remaining food trucks continue shipping meals independently...`;
+            } else {
+                runwayStatus.innerText = `🚨 USER-SPACE EXPLOIT: ${activeItem}`;
+                readout.innerHTML = `<strong>Kernel Monitor Status:</strong> Process thread <code>${activeItem}</code> issued a core segmentation fault inside Ring 3! Microkernel intercepted the trap, killed the unprivileged server node, and initiated an automated recovery loop. <strong>Ring 0 primitives remain completely untouched and secure.</strong>`;
+            }
+        } else {
+            runway.style.background = "rgba(80, 250, 123, 0.04)";
+            runway.style.borderColor = "#50fa7b";
+            runwayStatus.style.color = "#50fa7b";
+            
+            if (currentLabSubstrate === 'analogy') {
+                runwayStatus.innerText = `🛬 ACTIVE TRAVERSAL: ${activeItem}`;
+                readout.innerHTML = `<strong>Lab Router Telemetry:</strong> Processing routing path bounds for <code>${activeItem}</code>. All secondary entry point links locked out...`;
+            } else {
+                runwayStatus.innerText = `⚙️ CORE REGISTER ACTIVE: ${activeItem}`;
+                readout.innerHTML = `<strong>Kernel Monitor Status:</strong> Loaded thread state parameters for <code>${activeItem}</code> onto processor hardware registers. Preemption context timer ticked active...`;
+            }
+        }
+        
+        labActiveTimer = setTimeout(() => {
+            runway.style.background = "rgba(255, 255, 255, 0.02)";
+            runway.style.borderColor = "rgba(255,255,255,0.15)";
+            runwayStatus.innerText = node.trackIdle;
+            runwayStatus.style.color = "#64748b";
+            
+            if (currentLabSubstrate === 'analogy') {
+                readout.innerHTML = `<strong>Lab Router Telemetry:</strong> Transaction loop for <code>${activeItem}</code> completed cleanly. Target pathway records restored back to baseline parameters.`;
+            } else {
+                readout.innerHTML = `<strong>Kernel Monitor Status:</strong> Execution window closed. Preempted processing runtime parameters for <code>${activeItem}</code> and safely context-switched back to baseline server tracing bounds.`;
+            }
+            
+            labActiveTimer = null;
+        }, 4000);
+    }
+          
+                
+                
+                
+                    
+                    
 
             function refreshLabUI() {
                 const node = labDatabase[currentLabModule === 1 ? 0 : currentLabModule][currentLabSubstrate];
