@@ -57,17 +57,14 @@
             <p class="lab-desc">Central sandbox runtime array executing cross-functional kernel tracking matrices. Toggle between high-relatability 5th-grader conceptual analog hooks and low-level supervisor privilege ring hardware traces.</p>
         </header>
 
-                <!-- ==================== INTERACTIVE TIMELINE SELECTOR CONTROLS ==================== -->
+                        <!-- ==================== INTERACTIVE TIMELINE SELECTOR CONTROLS ==================== -->
         <div class="selector-deck">
             <button id="nav-l00" class="lecture-btn active" onclick="loadLabWorkspace(0)">L00</button>
             <button id="nav-l01" class="lecture-btn" onclick="loadLabWorkspace(1)">L01</button>
-            <button id="nav-l17" class="lecture-btn" onclick="loadLabWorkspace(17)">L17</button>
-            <button id="nav-l24" class="lecture-btn" onclick="loadLabWorkspace(24)">L24</button>
-            <button id="nav-l27" class="lecture-btn" onclick="loadLabWorkspace(27)">L27</button>
         </div>
 
         <!-- ==================== SYSTEM SIMULATION ACTIVE STAGE CONTAINER ==================== -->
-        <div class="simulation-stage" id="main-lab-stage" style="border: 1px solid rgba(255,255,255,0.08); background: var(--bg-card); padding: 24px; border-radius: 12px; display: flex; flex-direction: column; gap: 20px; box-shadow: 0 8px 32px 0 rgba(0,0,0,0.5);">
+        <div class="simulation-stage" id="main-lab-stage" style="border: 1px solid rgba(80, 250, 123, 0.2); background: var(--bg-card); padding: 24px; border-radius: 12px; display: flex; flex-direction: column; gap: 20px; box-shadow: 0 8px 32px 0 rgba(0,0,0,0.5);">
             
             <!-- SUBSTRATE INTERACTIVE DUAL TOGGLE BAR -->
             <div class="substrate-toggle">
@@ -89,7 +86,6 @@
 
             <!-- DYNAMIC INTERACTION HARDWARE PANEL LAYOUT -->
             <div id="dynamic-action-panel" style="display: flex; flex-direction: column; gap: 16px;">
-                <!-- Content will dynamically update here based on selected lecture via JS -->
                 <div style="background: var(--bg-code); border: 1px solid rgba(255,255,255,0.05); padding: 16px; border-radius: 8px;">
                     <div style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--neon-cyan); text-transform: uppercase; margin-bottom: 10px; font-weight: 700;" id="lab-input-label">1. Request New Runway Landing Authorization</div>
                     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px;" id="lab-buttons-row">
@@ -109,6 +105,15 @@
                     <div id="lab-queue-log" style="color: var(--neon-cyan); line-height: 1.4;">[ Tower Airspace Clear &mdash; Standing By ]</div>
                 </div>
             </div>
+
+        
+
+                
+
+                
+            
+
+            
 
             <!-- CORE DESCRIPTIVE ENGINE STATUS DISPLAY -->
             <div id="lab-readout-box" style="background: rgba(139, 233, 253, 0.03); border-left: 3px solid var(--neon-cyan); padding: 14px; border-radius: 4px; font-size: 0.9rem; color: var(--ink-secondary); line-height: 1.5; min-height: 65px;">
