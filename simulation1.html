@@ -171,5 +171,149 @@
             </ul>
         </div>
     </div>
+        <script>
+        // Data records capturing exact structural mappings for student learning loops
+        const pipelineData = [
+            {
+                node: 0,
+                title: "MODULE 1: System Architectures & Application Isolation Space",
+                concept: "<strong>The Stage Actor:</strong> You start out in the public town square (User Space). Your running program is like an actor performing on stage. The actor can wear their own clothes and read their own script box, but they are completely blocked from running into other actors' dressing rooms or touching private castle properties.",
+                techLog: "Thread context allocated inside Ring 3 User Space. Virtual boundaries isolated via task_struct task mapping arrays. Local instruction pointers restricted from accessing supervisor memory structures."
+            },
+            {
+                node: 1,
+                title: "MODULE 2: System Calls & Privilege Ring Barriers",
+                concept: "<strong>The Bank Vault Teller Window:</strong> The stage actor needs a weapon locked deep inside the King's steel vault. They aren't allowed to unlock the vault doors themselves. Instead, they stand behind a thick glass partition (The Interrupt Gate Vector Table) and pass a permission voucher across. The King handles it from there.",
+                techLog: "POSIX string call triggered a hardware 'syscall' trap instruction. CPU freezes unprivileged Ring 3 execution contexts, switches core flags to Ring 0 Supervisor Mode, and references the Interrupt Descriptor Table (IDT) entry."
+            },
+            {
+                node: 2,
+                title: "MODULE 3: Concurrency, Scheduling & Threading Locks",
+                concept: "<strong>The Ticket Spindle Dispenser:</strong> Inside the castle halls, thousands of other travelers are shouting to talk to the King. To prevent chaos, guards install a ticket spindle. Only the single traveler holding token #1 can step inside the room; others are forced to sit on a bench outside.",
+                techLog: "Kernel invokes pthread_mutex_lock() primitive over shared memory addresses. Thread context captures atomic hardware test-and-set register bit fields. Conflicting concurrent contexts suspended cleanly into scheduler sleep channels."
+            },
+            {
+                node: 3,
+                title: "MODULE 4: Memory Management & Address Translations",
+                concept: "<strong>The Mailbox Slot Cheat Sheet:</strong> The manager builds a grid of small mailbox slots. Instead of reading a giant, thousand-page leather book ledger to sort every single envelope, the clerk keeps a tiny sticky card note on their desk layout counter containing the most common names to speed up the work.",
+                techLog: "MMU intercepts logical memory reference addresses. Core scans Translation Lookaside Buffer (TLB) associative hardware caches. Cache hits return physical frame translations instantly without forcing multi-level page table RAM tree walks."
+            },
+            {
+                node: 4,
+                title: "MODULE 5: Virtual Memory, Demand Paging & Disk Swaps",
+                concept: "<strong>The Small Reading Desk Cart:</strong> Your workspace table is tiny and can only hold 3 open books total. When you demand a reference fact hidden inside a dusty textbook compressed out into a backyard storage warehouse (The Swap Disk), you must stop, run outside, and swap volumes on your cart.",
+                techLog: "TLB page translation mapping missed; Present Bit resolved as 0 in entry descriptor. CPU asserts Hardware Interrupt 14: Page Fault Exception! Execution freezes inside Ring 0 while page swappers stream data blocks from disk partitions back to real RAM frames."
+            },
+            {
+                node: 5,
+                title: "MODULE 6: Virtual File Systems & Disk Inode Offsets",
+                concept: "<strong>The Library Index Cards:</strong> A card descriptor catalog card doesn't store the giant text chapters of the book. It holds 12 direct shelf slots for tiny stories, and links to large expansion cards (Indirect Pointers) to calculate block locations for massive data logs.",
+                techLog: "POSIX read() system call parameters passed to VFS layer. Subsystem walks cached dentry nodes to extract absolute path targets, cross-checks file descriptor bitmasks, and parses ext4 Inode records to map byte offset storage arrays."
+            },
+            {
+                node: 6,
+                title: "MODULE 7: Device Drivers, I/O Operations & Firewalls",
+                concept: "<strong>The Castle Moat Guard Gate:</strong> Before your package rolls across the drawbridge out to the village, a border guard cross-checks its passport history ledger. If an incoming wagon claims to be returning from inside but the check-out logs show it never left, the drawbridge stays up.",
+                techLog: "Data buffer flushed to hardware controller bus pathways. Netfilter hooks analyze outbound headers against conntrack TCP state tables. Peripheral PIC drops Programmable Interrupt pin line (IRQ) to alert the processor context operations are complete."
+            }
+        ];
+
+        let executionStep = 0;
+        let grandPipelineTimer = null;
+        let isPipelinePaused = false;
+
+        function launchGrandPipelineAnimation() {
+            document.getElementById('exec-btn').disabled = true;
+            document.getElementById('pause-btn').disabled = false;
+            document.getElementById('pause-btn').innerText = "⏸️ Pause Engine";
+            document.getElementById('pause-btn').className = "action-btn pause-btn";
+            
+            executionStep = 0;
+            isPipelinePaused = false;
+            document.getElementById('telemetry-log').innerHTML = '';
+            
+            document.querySelectorAll('.stage-node').forEach(node => {
+                node.className = 'stage-node';
+                node.style.opacity = '0.4';
+            });
+            
+            runPipelineTick();
+        }
+
+        function runPipelineTick() {
+            if (isPipelinePaused) return;
+
+            if (executionStep >= pipelineData.length) {
+                document.querySelectorAll('.stage-node').forEach(node => {
+                    node.className = 'stage-node active';
+                    node.style.opacity = '1';
+                });
+                document.getElementById('pipeline-status').innerText = '[ 🧪 COMPILATION TRANS-LOOP SUCCESSFUL ]';
+                document.getElementById('exec-btn').disabled = false;
+                document.getElementById('pause-btn').disabled = true;
+                
+                const log = document.getElementById('telemetry-log');
+                log.innerHTML += '<div class="log-entry success">[ SUCCESS ] End-to-end full-stack computer architecture processing loop completed cleanly inside 0ms context windows. User application returned successfully to Ring 3 execution states.</div>';
+                log.scrollTop = log.scrollHeight;
+                return;
+            }
+
+            const currentData = pipelineData[executionStep];
+            document.getElementById('pipeline-status').innerText = '[ Running Stage ' + (executionStep + 1) + ' of 7 ]';
+
+            document.querySelectorAll('.stage-node').forEach((node, idx) => {
+                if (idx < executionStep) {
+                    node.className = 'stage-node active';
+                    node.style.opacity = '1';
+                } else if (idx === executionStep) {
+                    node.className = 'stage-node processing';
+                    node.style.opacity = '1';
+                } else {
+                    node.className = 'stage-node';
+                    node.style.opacity = '0.4';
+                }
+            });
+
+            document.getElementById('panel-concept-title').innerText = '📚 Step ' + (executionStep + 1) + ': ' + currentData.title;
+            document.getElementById('concept-box').innerHTML = currentData.concept;
+
+            const log = document.getElementById('telemetry-log');
+            const timestamp = new Date().toLocaleTimeString();
+            log.innerHTML += '<div class="log-entry highlight">[ ' + timestamp + ' ] [ STAGE ' + (executionStep + 1) + ' ] ' + currentData.techLog + '</div>';
+            log.scrollTop = log.scrollHeight;
+
+            executionStep++;
+            grandPipelineTimer = setTimeout(runPipelineTick, 2400);
+        }
+
+        function togglePipelinePauseState() {
+            const pauseBtn = document.getElementById('pause-btn');
+            if (!isPipelinePaused) {
+                isPipelinePaused = true;
+                clearTimeout(grandPipelineTimer);
+                document.getElementById('pipeline-status').innerText = '[ ⏸️ ENGINE PAUSED AT STAGE ' + executionStep + ' ]';
+                pauseBtn.innerText = "▶️ Resume Engine";
+                pauseBtn.className = "action-btn resume-btn";
+                
+                const log = document.getElementById('telemetry-log');
+                log.innerHTML += '<div class="log-entry" style="border-color: var(--neon-amber); color: var(--neon-amber);">[ PAUSED ] Frozen pipeline context clock registers. Standing by for user instruction resume prompt.</div>';
+                log.scrollTop = log.scrollHeight;
+            } else {
+                isPipelinePaused = false;
+                pauseBtn.innerText = "⏸️ Pause Engine";
+                pauseBtn.className = "action-btn pause-btn";
+                runPipelineTick();
+            }
+        }
+
+        function clearActiveLab() {
+            if (grandPipelineTimer) {
+                clearTimeout(grandPipelineTimer);
+                grandPipelineTimer = null;
+            }
+            isPipelinePaused = false;
+            document.getElementById('exec-btn').disabled = false;
+            document.getElementById('pause-btn').disabled = true;
+
 
     
