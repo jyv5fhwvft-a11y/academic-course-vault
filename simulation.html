@@ -172,7 +172,8 @@
 
             <script>
         // Data records capturing exact structural mappings for student learning loops
-        const pipelineData = [
+
+                        const pipelineData = [
             {
                 node: 0,
                 title: "MODULE 1: System Architectures & Applications Space",
@@ -226,13 +227,17 @@
             document.getElementById('telemetry-log').innerHTML = '';
             document.querySelectorAll('.stage-node').forEach(node => {
                 node.className = 'stage-node';
+                node.style.opacity = '0.4';
             });
             runPipelineTick();
         }
 
         function runPipelineTick() {
             if (executionStep >= pipelineData.length) {
-                document.querySelectorAll('.stage-node').forEach(node => node.className = 'stage-node active');
+                document.querySelectorAll('.stage-node').forEach(node => {
+                    node.className = 'stage-node active';
+                    node.style.opacity = '1';
+                });
                 document.getElementById('pipeline-status').innerText = '[ 🧪 COMPILATION TRANS-LOOP SUCCESSFUL ]';
                 document.getElementById('exec-btn').disabled = false;
                 
@@ -248,10 +253,13 @@
             document.querySelectorAll('.stage-node').forEach((node, idx) => {
                 if (idx < executionStep) {
                     node.className = 'stage-node active';
+                    node.style.opacity = '1';
                 } else if (idx === executionStep) {
                     node.className = 'stage-node processing';
+                    node.style.opacity = '1';
                 } else {
                     node.className = 'stage-node';
+                    node.style.opacity = '0.4';
                 }
             });
 
@@ -278,13 +286,19 @@
             document.getElementById('concept-box').innerHTML = "Tap 'Execute System Instruction' to launch the animation track and view step-by-step curriculum concept cross-references here.";
             document.getElementById('telemetry-log').innerHTML = '<div class="log-entry">[ Reset ] System contexts synchronized back to baseline User-Mode boundaries. Registers cold.</div>';
             document.querySelectorAll('.stage-node').forEach((node, idx) => {
-                node.className = idx === 0 ? 'stage-node active' : 'stage-node';
+                if (idx === 0) {
+                    node.className = 'stage-node active';
+                    node.style.opacity = '1';
+                } else {
+                    node.className = 'stage-node';
+                    node.style.opacity = '0.4';
+                }
             });
         }
     </script>
 </body>
 </html>
 
-
+                
         
-
+         
