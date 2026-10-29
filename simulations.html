@@ -122,4 +122,112 @@
             </div>
         </div>
 
+                <!-- ==================== LABORATORY MASTER VARIABLE DATABASE MATRIX ==================== -->
+        <script>
+            let currentLabModule = 0;
+            let currentLabSubstrate = 'analogy';
+            let labActiveQueue = [];
+            let labActiveTimer = null;
+
+            // Multi-Lecture Dual-Substrate Vocabulary Translation Database Mapping Matrix
+            const labDatabase = {
+                0: {
+                    analogy: {
+                        metaTitle: "🎛️ AIR TRAFFIC QUEUE MULTIPLEXER",
+                        conceptTitle: "Concept: Resource Multiplexing & Schedulers",
+                        conceptDesc: "If multiple aircraft attempt to claim the exact same runway strip layout at the identical moment, a catastrophic terminal crash occurs. The tower must arbitrate and schedule them into sequential landing slots.",
+                        inputLabel: "1. Request New Runway Landing Authorization",
+                        btnText: ["✈️ Flight: Web Browser", "✈️ Flight: Video Game", "✈️ Flight: Music Player"],
+                        btnPayloads: ["🌐 Browser", "🎮 Game", "🎵 Music"],
+                        trackLabel: "🛬 ACTIVE RUNWAY ZONE (HARDWARE TARGET STRIP)",
+                        trackIdle: "[ RUNWAY EMPTY: STANDING BY ]",
+                        ledgerLabel: "⏳ TOWER HOLDING PATTERN ARRAY STACK:",
+                        ledgerIdle: "[ Tower Airspace Clear &mdash; Standing By ]",
+                        dispatchBtn: "Authorize Runway Landing",
+                        queueUnit: "Flights",
+                        readoutIdle: "<strong>Control Tower Telemetry:</strong> System idle. Request incoming landing vectors to study timescale division loops."
+                    },
+                    technical: {
+                        metaTitle: "🎛️ KERNEL CPU RESOURCE MULTIPLEXER",
+                        conceptTitle: "Technical Layer: Context Switching & Round-Robin Scheduling",
+                        conceptDesc: "The operating system multiplexes hardware timescales, dividing CPU execution limits into discrete chunks so multiple applications execute inside User Mode (Ring 3) without tearing memory footprints.",
+                        inputLabel: "1. Spawn Active User-Space Process Thread Frame",
+                        btnText: ["⚙️ Process: Chrome Browser", "⚙️ Process: Minecraft Game", "⚙️ Process: Spotify Music"],
+                        btnPayloads: ["🌐 Browser", "🎮 Game", "🎵 Music"],
+                        trackLabel: "🛬 ACTIVE CPU REGS (RING 3 USER-SPACE MULTIPLEX SUBSYSTEM)",
+                        trackIdle: "[ CPU CORE IDLE: HALT INSTRUCTION ACTIVE ]",
+                        ledgerLabel: "⏳ SCHEDULER READY QUEUE LINEAR RUNTIME BUFFER ARRAY:",
+                        ledgerIdle: "[ Empty Scheduler Queue &mdash; Task Array Clear ]",
+                        dispatchBtn: "Schedules Time Quantum Slices",
+                        queueUnit: "Tasks",
+                        readoutIdle: "<strong>OS Kernel Telemetry Status:</strong> Standing by in Supervisor Space (Ring 0). Intercept process contexts above to evaluate execution queues."
+                    }
+                },
+                17: {
+                    analogy: {
+                        metaTitle: "🎛️ CORPORATE OFFICE PATH LOOKUP DIRECTORY Map",
+                        conceptTitle: "Concept: Tree Path Resolution",
+                        conceptDesc: "When looking for an employee file, you click down through the Department drawer, then the Employee folder. The system follows structural branches to target data without getting lost.",
+                        inputLabel: "1. Select Absolute File Directory Drawer Path Pointer",
+                        btnText: ["📁 Folder: /bin (System Apps)", "📁 Folder: /home (User Profiles)", "📁 Folder: /etc (Config Sheets)"],
+                        btnPayloads: ["/bin", "/home", "/etc"],
+                        trackLabel: "🗂️ ACTIVE TOPOLOGY VFS MOUNT ROOT PIN POINT",
+                        trackIdle: "[ MOUNT ACTIVE: STANDING BY FOR FILE SYSTEM CALL ]",
+                        ledgerLabel: "🌿 DIRECTORY NODE TRAVERSAL HISTORY PATH REGISTERS:",
+                        ledgerIdle: "[ No Traversal Paths Indexed &mdash; Root VFS Pin Idle ]",
+                        dispatchBtn: "Resolve Absolute Directory Path",
+                        queueUnit: "Nodes",
+                        readoutIdle: "<strong>Directory Lookup Telemetry:</strong> VFS mount layer active. Tap path structures above to trace lookup tree indices."
+                    },
+                    technical: {
+                        metaTitle: "🎛️ VIRTUAL FILE SYSTEM (VFS) INODE LOOKUP RESOLVER",
+                        conceptTitle: "Technical Layer: Directory Entry (dentry) Cache Mapping",
+                        conceptDesc: "The monolithic kernel intercepts text string file path calls and parses them loop-by-loop against the dentry tree structures to extract target disk raw block address mapping descriptors.",
+                        inputLabel: "1. Invoke POSIX lookup() System Call on Directory Path string",
+                        btnText: ["💾 dentry: /bin (Binary Binaries)", "💾 dentry: /home (User Space Land)", "💾 dentry: /etc (Configuration Inodes)"],
+                        btnPayloads: ["/bin", "/home", "/etc"],
+                        trackLabel: "💾 ACTIVE VFS INODE REGISTER BUFFER (VFS INTERFACE LAYER)",
+                        trackIdle: "[ STRUCT ACTIVE: MOUNT SUBSTRATE READY FOR SYS_OPEN ]",
+                        ledgerLabel: "⏳ MEMORY CACHED DENTRY GRAPH TRAVERSAL REGISTERS:",
+                        ledgerIdle: "[ No Active dentry cache walks running &mdash; Array Clear ]",
+                        dispatchBtn: "Walk VFS dentry tree branch",
+                        queueUnit: "Pointers",
+                        readoutIdle: "<strong>VFS Kernel Subsystem Status:</strong> Standing by inside Ring 0. Fire system lookup operations above to walk inode indexes."
+                    }
+                },
+                27: {
+                    analogy: {
+                        metaTitle: "🎛️ MATRIX VIRTUAL REALITY SIMULATOR HOOK",
+                        conceptTitle: "Concept: Virtualization Boundary Constraints",
+                        conceptDesc: "The simulator creates a separate virtual room world. The guest within believes they own the house, completely blind to the real infrastructure layout surrounding their space.",
+                        inputLabel: "1. Inject Virtual Sandbox Isolation Boundaries",
+                        btnText: ["📦 Split Network View", "📦 Split Process Tree View", "📦 Split User Identity Data"],
+                        btnPayloads: ["CLONE_NEWNET", "CLONE_NEWPID", "CLONE_NEWUSER"],
+                        trackLabel: "👁️ ACTIVE HOST VISIBILITY RUNTIME BOUNDARY",
+                        trackIdle: "[ SYSTEM IDLE: HOST VIEW UNCONSTRAINED ]",
+                        ledgerLabel: "🛡️ SANDBOX CONTAINMENT FLAG BOUNDARY LAYER MATRICES:",
+                        ledgerIdle: "[ No Active Virtual Sandbox Limits Injected &mdash; Host Root Mode ]",
+                        dispatchBtn: "Execute Container Sandbox Trap",
+                        queueUnit: "Flags",
+                        readoutIdle: "<strong>Sandbox Isolation Telemetry:</strong> Layer active. Inject environment virtualization boundaries above to run process sandboxes."
+                    },
+                    technical: {
+                        metaTitle: "🎛️ LINUX NAMESPACE CONTROLLER (CONTAINER BOUNDARY)",
+                        conceptTitle: "Technical Layer: Namespace Isolation Bounds via clone() flag parameters",
+                        conceptDesc: "The Linux engine captures system execution variables during thread instantiation, clamping process resource visibilities via cgroups and unique process visibility boundaries.",
+                        inputLabel: "1. Pass Structural Bitwise Namespace Parameters to clone() Subsystem",
+                        btnText: ["🔒 Isolate VFS /dev (CLONE_NEWNET)", "🔒 Isolate PIDs (CLONE_NEWPID)", "🔒 Isolate IDs (CLONE_NEWUSER)"],
+                        btnPayloads: ["CLONE_NEWNET", "CLONE_NEWPID", "CLONE_NEWUSER"],
+                        trackLabel: "🔒 HARDWARE NAMESPACE MAP CONTROL BLOCK (KERNEL SUBSTRATE)",
+                        trackIdle: "[ CAPABILITIES NORMAL: THREADS EXECUTING IN HOST NAMESPACE ]",
+                        ledgerLabel: "⏳ ISOLATED TASK_STRUCT NAMESPACE SYSTEM CONTROL POINTERS:",
+                        ledgerIdle: "[ No Container Subsystem namespaces active &mdash; Host Root Space ]",
+                        dispatchBtn: "Trap through clone() namespace boundary",
+                        queueUnit: "Bitmasks",
+                        readoutIdle: "<strong>Container Namespace Telemetry:</strong> Standing by in Ring 0. Pass bitwise separation variables above to spin up container containers."
+                    }
+                }
+            };
+
+
         
