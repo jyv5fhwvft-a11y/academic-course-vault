@@ -229,5 +229,157 @@
                 }
             };
 
+                        // ==================== LABORATORY MASTER DESKTOP ENGINE RUNTIME LOGIC ====================
+            function loadLabWorkspace(moduleId) {
+                // Clear any lingering active timer thread structures
+                if (labActiveTimer) {
+                    clearTimeout(labActiveTimer);
+                    labActiveTimer = null;
+                }
+                
+                currentLabModule = moduleId;
+                labActiveQueue = [];
+                
+                // Toggle active navigational highlight border styles
+                document.querySelectorAll('.lecture-btn').forEach(btn => btn.classList.remove('active'));
+                const targetNav = document.getElementById(`nav-l${moduleId === 1 ? '01' : moduleId < 10 ? '0' + moduleId : moduleId}`);
+                if (targetNav) targetNav.classList.add('active');
+                
+                // Regenerate dynamic action button decks matching the target module content metrics
+                const targetNode = labDatabase[currentLabModule === 1 ? 0 : currentLabModule][currentLabSubstrate];
+                const btnRow = document.getElementById('lab-buttons-row');
+                btnRow.innerHTML = '';
+                
+                targetNode.btnText.forEach((text, index) => {
+                    const payload = targetNode.btnPayloads[index];
+                    const colorSchemes = ['rgba(99, 102, 241, 0.12)', 'rgba(241, 99, 184, 0.12)', 'rgba(80, 250, 123, 0.12)'];
+                    const strokeSchemes = ['#6366f1', '#f163b8', '#50fa7b'];
+                    
+                    const btn = document.createElement('button');
+                    btn.innerText = text;
+                    btn.style.background = colorSchemes[index % 3];
+                    btn.style.border = `1px solid ${strokeSchemes[index % 3]}`;
+                    btn.style.color = '#ffffff';
+                    btn.style.padding = '12px';
+                    btn.style.borderRadius = '6px';
+                    btn.style.fontWeight = '600';
+                    btn.style.fontSize = '0.82rem';
+                    btn.style.cursor = 'pointer';
+                    btn.onclick = () => pushLabQueueItem(payload);
+                    btnRow.appendChild(btn);
+                });
+                
+                refreshLabUI();
+            }
+
+            function switchLabSubstrate(mode) {
+                currentLabSubstrate = mode;
+                document.getElementById('l00-btn-analogy').classList.toggle('active', mode === 'analogy');
+                document.getElementById('l00-btn-technical').classList.toggle('active', mode === 'technical');
+                
+                // Reload buttons row to match new substrate translation terminology bounds
+                loadLabWorkspace(currentLabModule);
+            }
+
+            function pushLabQueueItem(item) {
+                labActiveQueue.push(item);
+                updateQueueLogUI();
+                
+                const node = labDatabase[currentLabModule === 1 ? 0 : currentLabModule][currentLabSubstrate];
+                if (currentLabSubstrate === 'analogy') {
+                    document.getElementById('lab-readout-box').innerHTML = 
+                        `<strong>Lab Router Telemetry:</strong> Buffered entry <code>${item}</code> into tracking system storage allocation layers.`;
+                } else {
+                    document.getElementById('lab-readout-box').innerHTML = 
+                        `<strong>Kernel Monitor Status:</strong> Pushed descriptor payload pointer <code>${item}</code> into active scheduling array registers.`;
+                }
+            }
+
+            function updateQueueLogUI() {
+                const node = labDatabase[currentLabModule === 1 ? 0 : currentLabModule][currentLabSubstrate];
+                document.getElementById('lab-queue-count').innerText = `Ready Queued: ${labActiveQueue.length} ${node.queueUnit}`;
+                
+                const logBox = document.getElementById('lab-queue-log');
+                if (labActiveQueue.length === 0) {
+                    logBox.innerHTML = node.ledgerIdle;
+                } else {
+                    logBox.innerHTML = labActiveQueue.map((item, idx) => {
+                        return `<div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); padding: 5px 10px; margin-top: 4px; border-radius: 4px; display: inline-block; margin-right: 6px; font-family: monospace;">
+                            <span style="color: #64748b;">[Idx ${idx}]</span> ${item}
+                        </div>`;
+                    }).join('');
+                }
+            }
+
+            function dispatchActiveQuantum() {
+                if (labActiveTimer) return;
+                
+                const node = labDatabase[currentLabModule === 1 ? 0 : currentLabModule][currentLabSubstrate];
+                if (labActiveQueue.length === 0) {
+                    document.getElementById('lab-readout-box').innerHTML = 
+                        `<strong>Subsystem Warning:</strong> Processing denied. The memory buffer tracking array matrix is completely clear.`;
+                    return;
+                }
+                
+                const runway = document.getElementById('lab-track-box');
+                const runwayStatus = document.getElementById('lab-track-status');
+                const readout = document.getElementById('lab-readout-box');
+                
+                let activeItem = labActiveQueue.shift();
+                updateQueueLogUI();
+                
+                runway.style.background = "rgba(80, 250, 123, 0.04)";
+                runway.style.borderColor = "#50fa7b";
+                runwayStatus.style.color = "#50fa7b";
+                
+                if (currentLabSubstrate === 'analogy') {
+                    runwayStatus.innerText = `🛬 ACTIVE TRAVERSAL: ${activeItem}`;
+                    readout.innerHTML = `<strong>Lab Router Telemetry:</strong> Processing routing path bounds for <code>${activeItem}</code>. All secondary entry point links locked out...`;
+                } else {
+                    runwayStatus.innerText = `⚙️ CORE REGISTER ACTIVE: ${activeItem}`;
+                    readout.innerHTML = `<strong>Kernel Monitor Status:</strong> Loaded thread state parameters for <code>${activeItem}</code> onto processor hardware registers. Preemption context timer ticked active...`;
+                }
+                
+                labActiveTimer = setTimeout(() => {
+                    runway.style.background = "rgba(255, 255, 255, 0.02)";
+                    runway.style.borderColor = "rgba(255,255,255,0.15)";
+                    runwayStatus.innerText = node.trackIdle;
+                    runwayStatus.style.color = "#64748b";
+                    
+                    if (currentLabSubstrate === 'analogy') {
+                        readout.innerHTML = `<strong>Lab Router Telemetry:</strong> Traversal loop for <code>${activeItem}</code> complete. Target pathway records cleared back to baseline parameters.`;
+                    } else {
+                        readout.innerHTML = `<strong>Kernel Monitor Status:</strong> Execution quantum expired. Preempted <code>${activeItem}</code> tracking pointers, saved register stack blocks, and trapped to Ring 0.`;
+                    }
+                    
+                    labActiveTimer = null;
+                }, 3000);
+            }
+
+            function refreshLabUI() {
+                const node = labDatabase[currentLabModule === 1 ? 0 : currentLabModule][currentLabSubstrate];
+                document.getElementById('lab-meta-title').innerText = node.metaTitle;
+                document.getElementById('lab-concept-title').innerText = node.conceptTitle;
+                document.getElementById('lab-concept-desc').innerHTML = node.conceptDesc;
+                document.getElementById('lab-input-label').innerText = node.inputLabel;
+                document.getElementById('lab-track-label').innerText = node.trackLabel;
+                document.getElementById('lab-track-status').innerText = node.trackIdle;
+                document.getElementById('lab-ledger-label').innerText = node.ledgerLabel;
+                document.getElementById('lab-dispatch-btn').innerText = node.dispatchBtn;
+                document.getElementById('lab-readout-box').innerHTML = node.readoutIdle;
+                updateQueueLogUI();
+            }
+
+            function clearActiveLab() {
+                loadLabWorkspace(currentLabModule);
+            }
+
+            // Fire up default baseline configuration index parameters on file initialization load
+            window.onload = () => { loadLabWorkspace(0); };
+        </script>
+    </div>
+</body>
+</html>
+
 
         
