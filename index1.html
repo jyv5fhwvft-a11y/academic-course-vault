@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>🎓 CS 301: Advanced Operating Systems // Master Vault</title>
+    <style>
+        /* ==================== VARIABLE RESET & LAYOUT PARAMETERS ==================== */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --bg-base: #06080e;
+            --bg-card: #0b0f19;
+            --bg-code: #020408;
+            --stroke-glass: rgba(255, 255, 255, 0.08);
+            --ink-bright: #ffffff;
+            --ink-secondary: #e2e8f0;
+            --ink-muted: #64748b;
+            --neon-emerald: #50fa7b;
+            --neon-cyan: #8be9fd;
+            --neon-blue: #6366f1;
+            --font-sans: system-ui, -apple-system, sans-serif;
+            --font-mono: monospace;
+        }
+        body { background-color: var(--bg-base); color: var(--ink-secondary); font-family: var(--font-sans); padding: 40px 24px; line-height: 1.6; }
+        .wrapper { max-width: 1000px; margin: 0 auto; display: flex; flex-direction: column; gap: 24px; }
+        header { border-bottom: 1px solid var(--stroke-glass); padding-bottom: 20px; }
+        .lab-badge { font-family: var(--font-mono); font-size: 0.75rem; color: var(--neon-emerald); text-transform: uppercase; letter-spacing: 0.15em; font-weight: 700; display: inline-block; margin-bottom: 8px; }
+        h1 { color: var(--ink-bright); font-size: 2.2rem; font-weight: 800; letter-spacing: -0.03em; }
+        .lab-desc { color: var(--ink-muted); margin-top: 6px; font-size: 1rem; max-width: 800px; }
+        .module-section { margin-top: 12px; }
+        .module-title { color: var(--neon-cyan); font-family: var(--font-mono); font-size: 1.2rem; margin-bottom: 14px; text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 4px; }
+        .lecture-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; margin-bottom: 24px; }
+        .lecture-card { background: var(--bg-card); border: 1px solid var(--stroke-glass); border-radius: 10px; padding: 18px; display: flex; flex-direction: column; gap: 12px; }
+        .card-header { display: flex; flex-direction: column; gap: 4px; }
+        .lecture-id { font-family: var(--font-mono); font-size: 0.72rem; color: var(--neon-emerald); font-weight: 700; }
+        .lecture-name { color: var(--ink-bright); font-size: 1rem; font-weight: 700; }
+        .asset-links-container { display: flex; flex-wrap: wrap; gap: 8px; font-size: 0.8rem; font-family: var(--font-mono); }
+        .asset-link { color: var(--neon-blue); text-decoration: none; background: rgba(99, 102, 241, 0.08); padding: 4px 8px; border-radius: 4px; border: 1px solid rgba(99, 102, 241, 0.2); transition: all 0.2s ease; }
+        .asset-link:hover { background: var(--neon-blue); color: var(--ink-bright); }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+            <div class="lab-badge">🔐 LIVE CURRICULUM VAULT ENVIRONMENT</div>
+            <h1>CS 301: Advanced Operating Systems</h1>
+            <p class="lab-desc">Polymorphic educational framework mapping cross-functional kernel management subsystems, hardware abstractions, and runtime system containment boundaries.</p>
+        </header>
+
+        <!-- ==================== MODULE 1 ==================== -->
+        <div class="module-section">
+            <h2 class="module-title">💾 Module 1: Introduction & OS Architectures</h2>
+            <div class="lecture-grid">
+                <div class="lecture-card">
+                    <div class="card-header"><span class="lecture-id">Lecture 00</span><h3 class="lecture-name">Resource Multiplexing & Schedulers</h3></div>
+                    <div class="asset-links-container"><a class="asset-link" href="#">📖 Guide</a><a class="asset-link" href="#">📄 Print</a><a class="asset-link" href="#">🎬 Slides</a><a class="asset-link" href="#">📝 Quiz</a></div>
+                </div>
+                <div class="lecture-card">
+                    <div class="card-header"><span class="lecture-id">Lecture 01</span><h3 class="lecture-name">Monolithic Kernels vs Microkernels</h3></div>
+                    <div class="asset-links-container"><a class="asset-link" href="#">📖 Guide</a><a class="asset-link" href="#">📄 Print</a><a class="asset-link" href="#">🎬 Slides</a><a class="asset-link" href="#">📝 Quiz</a></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== MODULE 2 ==================== -->
+        <div class="module-section">
+            <h2 class="module-title">💾 Module 2: Memory Management — Paging & Translation</h2>
+            <div class="lecture-grid">
+                <div class="lecture-card">
+                    <div class="card-header"><span class="lecture-id">Lecture 02</span><h3 class="lecture-name">Base & Bounds Memory Segmentation</h3></div>
+                    <div class="asset-links-container"><a class="asset-link" href="#">📖 Guide</a><a class="asset-link" href="#">📄 Print</a><a class="asset-link" href="#">🎬 Slides</a><a class="asset-link" href="#">📝 Quiz</a></div>
+                </div>
+                <div class="lecture-card">
+                    <div class="card-header"><span class="lecture-id">Lecture 03</span><h3 class="lecture-name">Hardware Traps & Interrupt Vector Tables</h3></div>
+                    <div class="asset-links-container"><a class="asset-link" href="#">📖 Guide</a><a class="asset-link" href="#">📄 Print</a><a class="asset-link" href="#">🎬 Slides</a><a class="asset-link" href="#">📝 Quiz</a></div>
+                </div>
+                <div class="lecture-card">
+                    <div class="card-header"><span class="lecture-id">Lecture 04</span><h3 class="lecture-name">Paging Frameworks & Hardware TLB Caches</h3></div>
+                    <div class="asset-links-container"><a class="asset-link" href="#">📖 Guide</a><a class="asset-link" href="#">📄 Print</a><a class="asset-link" href="#">🎬 Slides</a><a class="asset-link" href="#">📝 Quiz</a></div>
+                </div>
+                <div class="lecture-card">
+                    <div class="card-header"><span class="lecture-id">Lecture 05</span><h3 class="lecture-name">Demand Paging & Page Fault Exceptions</h3></div>
+                    <div class="asset-links-container"><a class="asset-link" href="#">📖 Guide</a><a class="asset-link" href="#">📄 Print</a><a class="asset-link" href="#">🎬 Slides</a><a class="asset-link" href="#">📝 Quiz</a></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== MODULE 3 ==================== -->
+        <div class="module-section">
+            <h2 class="module-title">💾 Module 3: Process Management — Control Trees & Lifecycles</h2>
+            <div class="lecture-grid">
+                <div class="lecture-card">
+                    <div class="card-header"><span class="lecture-id">Lecture 06</span><h3 class="lecture-name">Process Control Blocks & fork() Primitive</h3></div>
+                    <div class="asset-links-container"><a class="asset-link" href="#">📖 Guide</a><a class="asset-link" href="#">📄 Print</a><a class="asset-link" href="#">🎬 Slides</a><a class="asset-link" href="#">📝 Quiz</a></div>
+                </div>
+                <div class="lecture-card">
+                    <div class="card-header"><span class="lecture-id">Lecture 07</span><h3 class="lecture-name">Execution Contexts & Scheduler Ready Queues</h3></div>
+                    <div class="asset-links-container"><a class="asset-link" href="#">📖 Guide</a><a class="asset-link" href="#">📄 Print</a><a class="asset-link" href="#">🎬 Slides</a><a class="asset-link" href="#">📝 Quiz</a></div>
+                </div>
+                <div class="lecture-card">
+                    <div class="card-header"><span class="lecture-id">Lecture 08</span><h3 class="lecture-name">Hardware Copy-on-Write (COW) Memory Maps</h3></div>
+                    <div class="asset-links-container"><a class="asset-link" href="#">📖 Guide</a><a class="asset-link" href="#">📄 Print</a><a class="asset-link" href="#">🎬 Slides</a><a class="asset-link" href="#">📝 Quiz</a></div>
+                </div>
+            </div>
+        </div>
