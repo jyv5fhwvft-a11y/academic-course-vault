@@ -132,4 +132,43 @@
                 </div>
             </div>
         </div>
+        <!-- SECTION 3: DUAL BALANCED REAL-TIME TELEMETRY REGS -->
+        <div class="telemetry-deck">
+            <div class="panel">
+                <div class="panel-header" id="panel-concept-title">📚 Concept Breakdown Window</div>
+                <div class="log-display" id="concept-box" style="display: flex; flex-direction: column; justify-content: center; text-align: left; color: #94a3b8; font-family: var(--font-sans); line-height: 1.5; max-height: none; overflow: visible; font-size: 0.88rem;">
+                    Tap 'Execute System Instruction' to launch the animation track and view step-by-step curriculum concept cross-references here.
+                </div>
+            </div>
+
+            <div class="panel">
+                <div class="panel-header">📟 Privilege Ring Register Telemetry Log</div>
+                <div class="log-display" id="telemetry-log">
+                    <div class="log-entry">[ 04:40:00 PM ] System core initialized in Ring 3 sandboxed memory space. Ready for execution call.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 4: MAIN CONTROL PANEL BUTTONS DECK -->
+        <div class="control-strip">
+            <button class="action-btn" id="exec-btn" onclick="launchGrandPipelineAnimation()">Execute System Instruction</button>
+            <div style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--ink-muted);" id="speed-indicator">
+                [ Animation Sync Frequency: 2200ms per Hardware Handoff Boundary Layer ]
+            </div>
+            <button onclick="clearActiveLab()" style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.08); color: var(--ink-muted); padding: 12px 18px; border-radius: 6px; cursor: pointer; font-family: var(--font-mono); font-weight: 700; font-size: 0.75rem; margin-left: auto; text-transform: uppercase;">Reset Lab</button>
+        </div>
+
+        <!-- SECTION 5: INTERACTIVE SIMULATOR WORKSPACE MANUAL -->
+        <div class="text-card">
+            <h2>🕹️ Simulation User Manual: How to Track the Lab Workspace</h2>
+            <ul class="manual-list">
+                <li><strong>The Hardware Pipeline Grid:</strong> The canvas maps out your curriculum milestones sequentially. The active processing layer turns vibrant green, while trailing layers stay locked in illuminated status tracks.</li>
+                <li><strong>Triggering a Handoff:</strong> Tap the blue <strong>"Execute System Instruction"</strong> button to launch a request. Clicks are automatically throttled until execution sequences return to safe User modes.</li>
+                <li><strong>Tracing the Mappings:</strong> As the execution pulse passes boundaries, the left panel pulls up high-relatability analogies, while the right log streams live register metrics, thread status structures, and privilege reloads.</li>
+                <li><strong>The Reset Protocol:</strong> Tap the muted <strong>"Reset Lab"</strong> anchor button at any millisecond to clear process ready queues, clear timeout timers, and flush cache vectors back to a fresh boot baseline.</li>
+            </ul>
+        </div>
+    </div>
+
+        
 
