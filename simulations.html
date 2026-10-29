@@ -239,6 +239,38 @@
                         readoutIdle: "<strong>MMU Monitor Subsystem Status:</strong> Tracking pointer matrices. Dispatch an address conversion or boundary violation above to trace core segmentation behaviors."
                     }
                 },
+                3: {
+                    analogy: {
+                        metaTitle: "🏦 BANK VAULT SECURE SERVICE WINDOW INTERFACE",
+                        conceptTitle: "Concept: The Secure Service Window (System Call Pathways)",
+                        conceptDesc: "Customers are legally blocked from walking behind the thick vault doors to grab cash themselves. Instead, you fill out a strict request voucher slip and hand it to a bank teller across a secure glass window partition. The teller steps inside, verifies the vault contents, and returns with your request.",
+                        inputLabel: "1. Hand Completed Request Slip to Bank Teller",
+                        btnText: ["📝 Voucher: Withdraw $50 Cash", "📝 Voucher: Inspect Safe Box", "🚨 Violation: Jump Over Counter"],
+                        btnPayloads: ["Withdraw_50", "Inspect_Box", "Jump_Counter"],
+                        trackLabel: "🏦 SECURE BACK-ROOM BANK VAULT SUBSTRATE",
+                        trackIdle: "[ TRANSACTION WINDOW CLEAR: TELLER AT STANDBY ]",
+                        ledgerLabel: "📋 VERIFIED CLERK INTERRUPT TRANS ACTION SLIPS:",
+                        ledgerIdle: "[ Counter Barrier Intact &mdash; Security Secure ]",
+                        dispatchBtn: "Process Teller Transaction Link",
+                        queueUnit: "Vouchers",
+                        readoutIdle: "<strong>Bank Security Monitor:</strong> Barrier secure. Submit a transaction voucher slip above to watch the clerk cross the counter boundary."
+                    },
+                    technical: {
+                        metaTitle: "🎛️ CPU INTERRUPT HANDLER & SYS_CALL TRANSITION CORE",
+                        conceptTitle: "Technical Layer: Hardware Traps & Interrupt Descriptor Tables (IDT)",
+                        conceptDesc: "When a Ring 3 application executes a privileged operation, it must fire a hardware trap. The CPU checks the hardware registers, jumps privileges to **Ring 0**, and index-matches the request against the kernel's **Interrupt Descriptor Table (IDT)** to safely process the operation.",
+                        inputLabel: "1. Fire Hardware Trap Instruction Line to CPU Core Bus",
+                        btnText: ["⚡ Execute syscall (sys_write)", "⚡ Execute syscall (sys_fork)", "🛑 Attack: Direct Ring 0 Pointer Write"],
+                        btnPayloads: ["sys_write", "sys_fork", "Direct_Write_Attempt"],
+                        trackLabel: "⚡ PRIVILEGED CPU CORE PIPELINE CORE (RING 0 SUPERVISOR MODE)",
+                        trackIdle: "[ PRIVILEGE SYSTEM STABLE: EXECUTING APPLICATIONS IN RING 3 SANDBOX ]",
+                        ledgerLabel: "⏳ INTERRUPT DESCRIPTOR TABLE (IDT) REGISTER POINTERS:",
+                        ledgerIdle: "[ IDT Trap Gates Armed &mdash; Supervisor Lines Guarded ]",
+                        dispatchBtn: "Trap CPU through IDT Vector Gate",
+                        queueUnit: "Traps",
+                        readoutIdle: "<strong>CPU Architecture Monitor:</strong> CPU running unprivileged in Ring 3. Fire a system call macro above to witness hardware privilege rings transition to Ring 0."
+                    }
+                },
 
 
                 17: {
