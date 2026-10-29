@@ -475,6 +475,238 @@
                     }
                 },
 
+                                9: {
+                    analogy: {
+                        metaTitle: "🥖 BAKERY TICKET DISPENSER & FLOOR ARBITRATION VIEW",
+                        conceptTitle: "Concept: Explicit Ticket Strips & Polite Turn Shields (Peterson's Rule)",
+                        conceptDesc: "<strong>The Bakery Ticket Dispenser:</strong> Two impatient shoppers enter a narrow bread bakery layout booth simultaneously. To prevent a collision at the counter, they pull entry ticket integers from a machine. <br><strong>The Polite Turn Shield:</strong> If both shoppers pull tickets at the exact same millisecond, they set a 'Turn' flag marker pointing to the other customer. The shopper politely yields, letting the other person buy bread first to eliminate counter conflicts entirely.",
+                        inputLabel: "1. Advance Shopper Entry Registration Sequences",
+                        btnText: ["🥖 Shopper A pulls ticket", "🥖 Shopper B pulls ticket", "🔓 Complete Purchase (Exit Counter)"],
+                        btnPayloads: ["Shopper_A_Inten", "Shopper_B_Inten", "Exit_Bakery_Counter"],
+                        trackLabel: "🥖 SINGLE-CUSTOMER BAKERY CASH REGISTER ZONE",
+                        trackIdle: "[ BOOTH CLEAR: CUSTOMERS COMPILING THROUGH PURCHASE LOOP FLUIDLY ]",
+                        ledgerLabel: "📋 COUNTER ARBITRATION STRIP REGISTER REGS:",
+                        ledgerIdle: "[ Standby &mdash; Ticket State and Turn Shields Balanced ]",
+                        dispatchBtn: "Cycle Bakery Counter State Step",
+                        queueUnit: "Shoppers",
+                        readoutIdle: "<strong>Bakery Floor Telemetry:</strong> System baseline verified. Dispatch a shopper ticket pull above to trace critical entrance loops."
+                    },
+                    technical: {
+                        metaTitle: "🎛️ HARDWARE BUS ATOMIC TEST-AND-SET PRIMITIVE CONTROLLER",
+                        conceptTitle: "Technical Layer: Software Mutual Exclusion (Peterson's) vs. Low-Level Hardware Lock Primitives",
+                        conceptDesc: "Software-only mutual exclusion algorithms like Peterson's work for two threads but break down on modern out-of-order processors. To secure multi-core execution slots, hardware platforms enforce strict atomic primitives such as <code>TestAndSet</code> or <code>CompareAndSwap</code>. These commands lock the memory bus cache line to evaluate and flip an index value in a single, uninterrupted hardware clock cycle.",
+                        inputLabel: "1. Invoke Atomic Hardware Execution Instruction Sequences",
+                        btnText: ["⚡ Spin on TestAndSet() -> Hit", "⚡ TestAndSet() -> Lock Taken", "🔓 Clear Flag (Release Bus Lock)"],
+                        btnPayloads: ["Atomic_TAS_True", "Thread_Spin_Wait", "Release_Bus_Lock"],
+                        trackLabel: "⚡ SYSTEM RAM HARDWARE BUS LINE CORE LOCK SUBSTRATE",
+                        trackIdle: "[ LOCK UNSET: HARDWARE CORES PROCESSING NORMAL INDEPENDENT LOOPS ]",
+                        ledgerLabel: "⏳ MEMORY BUS CACHE LINE ATOMIC TRANSACTION STATE REGISTERS:",
+                        ledgerIdle: "[ Memory Maps Normal &mdash; Atomic Arbiters Armed and Idle ]",
+                        dispatchBtn: "Fire Atomic TestAndSet Clock Cycle Trap",
+                        queueUnit: "Locks",
+                        readoutIdle: "<strong>Hardware Lock Monitor Status:</strong> Tracking bus registers. Fire an atomic TestAndSet check above to watch how CPU hardware rings block concurrent register entry attempts."
+                    }
+                },
+
+                                10: {
+                    analogy: {
+                        metaTitle: "📦 THE PRODUCER-CONSUMER WAREHOUSE LOADING DOCK",
+                        conceptTitle: "Concept: Delivery Trucks vs. Empty Warehouse Shelves (Bounded Buffer)",
+                        conceptDesc: "<strong>The Storage Shelf:</strong> A bakery shelf can hold exactly 3 bread boxes total. If the shelf fills up completely, the baker (Producer) must halt work and wait for a shopper to buy a box.<br><strong>The Condition Signal:</strong> If the shelf is entirely empty, the shopper (Consumer) cannot buy anything; they must sit on a bench and sleep until the baker bakes a fresh loaf and rings a bell (Signal) to wake them up.",
+                        inputLabel: "1. Advance Inventory Delivery / Purchase Sequence",
+                        btnText: ["🍞 Produce: Add Bread Box", "🛒 Consume: Buy Bread Box", "🧹 Flush Shelf (Reset Slots)"],
+                        btnPayloads: ["Produce_Item", "Consume_Item", "Clear_Buffer_Slots"],
+                        trackLabel: "📦 PHYSICAL WAREHOUSE STORAGE MATRIX (MAX 3 ITEMS)",
+                        trackIdle: "[ WAREHOUSE STEADY: PRODUCTION CAPACITY SYNCHRONIZED ]",
+                        ledgerLabel: "📋 CONDITION BENCH WAITING VISITOR ARRAY:",
+                        ledgerIdle: "[ Standby &mdash; No Shoppers or Bakers Stranded in Sleep State ]",
+                        dispatchBtn: "Execute Warehouse Stock Transaction",
+                        queueUnit: "Boxes",
+                        readoutIdle: "<strong>Loading Dock Telemetry:</strong> Shelf empty. Request a production item command above to watch condition flags update."
+                    },
+                    technical: {
+                        metaTitle: "🎛️ BOUNDED-BUFFER MONITOR & CONDITION VARIABLE CONSOLE",
+                        conceptTitle: "Technical Layer: Bounded Buffers, Condition Variables, and Thread Signaling",
+                        conceptDesc: "To coordinates threads without burning CPU cycles on spinning locks, the kernel uses condition variables. When a thread finds a shared buffer full/empty, it invokes <code>pthread_cond_wait()</code>, relinquishing its mutex and entering an un-runnable sleep queue. The modifying thread calls <code>pthread_cond_signal()</code>, waking the victim to re-evaluate structural variables inside Ring 0.",
+                        inputLabel: "1. Trigger Bounded-Buffer POSIX Thread Condition Variables",
+                        btnText: ["💾 push() -> pthread_cond_wait()", "💾 pop() -> pthread_cond_signal()", "🚨 Force Overrun (Spurious Wakeup)"],
+                        btnPayloads: ["Cond_Wait_Trap", "Cond_Signal_Emit", "Spurious_Wakeup_Event"],
+                        trackLabel: "⚡ RING 0 SHARED KERNEL CIRCULAR STORAGE ARRAY BUFFER",
+                        trackIdle: "[ RAM MATRIX STABLE: METADATA POINTER MARGINS STABLE INSIDE CR3 ]",
+                        ledgerLabel: "⏳ PTHREAD CONDITION WAITCHANNEL THREAD WAIT QUEUE:",
+                        ledgerIdle: "[ Wait Link Empty &mdash; Zero Thread Blocks Suspended on State Signals ]",
+                        dispatchBtn: "Evaluate Thread Context Memory Boundaries",
+                        queueUnit: "Signals",
+                        readoutIdle: "<strong>Condition Variable Monitor Status:</strong> Buffer tracking safe. Fire a wait trap or conditional signal trigger above to watch the scheduler balance thread sleep-wake states."
+                    }
+                },
+
+                                11: {
+                    analogy: {
+                        metaTitle: "📚 PUBLIC LIBRARY BOOK CART STRAP SWAP CONSOLE",
+                        conceptTitle: "Concept: Small Desk space vs. The Massive Library Vault (Memory Hierarchy)",
+                        conceptDesc: "<strong>The Book Cart:</strong> Your study desk surface space is tiny and can only hold a few volumes total. The library vault contains thousands of books. You don't bring the whole library to your desk; you only keep the books you are actively reading right on a rolling cart.<br><strong>The Cart Swap:</strong> When you look for a reference page that isn't on your desk, you stop reading, walk to the vault, swap an old book out back onto the storage cart, and put the new book on your desk.",
+                        inputLabel: "1. Request Book Title Reference from Library Vault",
+                        btnText: ["📘 Read Book A (On Desk)", "📘 Fetch Book D (Vault Swap)", "🧹 Clear Desk Cart (Eviction)"],
+                        btnPayloads: ["Book_A_Hit", "Book_D_Vault_Fetch", "Evict_Oldest_Volume"],
+                        trackLabel: "🛋️ ACTIVE STUDY DESK SURFACE AREA (VISIBLE WORKSPACE)",
+                        trackIdle: "[ WORKING CONTEXT CALM: DESK BOOKS LOADED AND STABLE ]",
+                        ledgerLabel: "📋 LIBRARY CART INDEX TRACKING SLOTS:",
+                        ledgerIdle: "[ Cart Warm &mdash; Active Study Volumes Cached on Desk ]",
+                        dispatchBtn: "Process Book Reference via Librarian",
+                        queueUnit: "Books",
+                        readoutIdle: "<strong>Librarian Desk Telemetry:</strong> Standing by. Request a book title validation command above to trace desk-to-vault paging cycles."
+                    },
+                    technical: {
+                        metaTitle: "🎛️ VIRTUAL MEMORY MANAGER & RAM HIERARCHY SIMULATOR",
+                        conceptTitle: "Technical Layer: Virtual Memory Cycles, Spatial Locality, & RAM Hierarchy Layers",
+                        conceptDesc: "Operating systems construct an illusion of massive near-infinite memory space by slicing raw execution targets into independent Virtual Memory Cycles. By utilizing structural properties of **Spatial and Temporal Locality**, active program blocks are held inside fast hardware **Physical RAM frames** while dormant instruction cells are compressed out onto slow storage swap disk surfaces.",
+                        inputLabel: "1. Reference Virtual Memory Address Frame Pointer",
+                        btnText: ["💾 Access Addr (Present Bit = 1)", "💾 Access Addr (Present Bit = 0)", "🚨 Force LRU Page Eviction"],
+                        btnPayloads: ["Page_Frame_Hit", "Page_Fault_Trap_Int14", "LRU_Victim_Eviction"],
+                        trackLabel: "⚡ PRIVILEGED RING 0 INTERRUPT HANDLER (PAGE FAULT CORE)",
+                        trackIdle: "[ SYSTEM BUS STABLE: ACTIVE WORKING SET PAGES IN PHYSICAL RAM ]",
+                        ledgerLabel: "⏳ DISK SWAP PARTITION SECTOR TRACK ALLOCATIONS:",
+                        ledgerIdle: "[ Swap Pages Synchronized &mdash; Virtual Adr Translation Fluid ]",
+                        dispatchBtn: "Fire Memory Reference into Demand Paging Subsystem",
+                        queueUnit: "Exceptions",
+                        readoutIdle: "<strong>Virtual Memory Monitor Status:</strong> Tracking exception registers. Submit a valid address reference or trigger a hardware page fault trap above to trace disk swap execution boundaries."
+                    }
+                },
+
+                                12: {
+                    analogy: {
+                        metaTitle: "📚 LIBRARY INDEX CATALOG & VAULT THRASHING CONSOLE",
+                        conceptTitle: "Concept: Active Research Desk Room vs. Overloaded Cart Stalls (Thrashing)",
+                        conceptDesc: "<strong>The Working Set:</strong> To write your essay, you need a minimum core set of 3 books open simultaneously on your desk to cross-reference facts.<br><strong>The Library Thrashing:</strong> If the librarian strips your desk room space down and leaves you with only 1 book slot, you spend 100% of your time running back and forth to the vault swapping books, and 0% of your time writing. Your productivity drops to absolute zero because the overhead system breaks down.",
+                        inputLabel: "1. Manipulate Research Desk Allocation Pointers",
+                        btnText: ["📖 Load Core Working Books", "🚨 Strip Desk Slots (Thrashing)", "🧹 Expand Desk Buffer Area"],
+                        btnPayloads: ["Working_Set_Alloc", "Thrashing_Fault_Loop", "Stabilize_Desk_Frames"],
+                        trackLabel: "🛋️ RESEARCHER WORKING AREA SPACE (PAGE BUFFER STRIP)",
+                        trackIdle: "[ RUNTIME CALM: WORKING SET FULLY RESIDENT INSIDE WORKSPACE ]",
+                        ledgerLabel: "📋 VAULT RUNTIME SWAP TRANSACTION TRAFFIC TRAFFIC:",
+                        ledgerIdle: "[ Disk Traffic Warm &mdash; Zero Paging Delays Registered ]",
+                        dispatchBtn: "Cycle Researcher Reference Frame",
+                        queueUnit: "Books",
+                        readoutIdle: "<strong>Librarian Tracker Telemetry:</strong> System balanced. Strip desk slots above to witness an unresolvable thrashing lock."
+                    },
+                    technical: {
+                        metaTitle: "🎛️ WORKING SET MONITOR & CORE THRASHING DETECTOR ENGINE",
+                        conceptTitle: "Technical Layer: Working Set Estimation, Page Fault Frequency, and Thrashing",
+                        conceptDesc: "If the total number of physical frames demanded by active processes exceeds the available physical RAM blocks, the system falls into **Thrashing**. Processes spend more time handling page faults inside Ring 0 than executing instructions in Ring 3. The kernel must monitor the **Page Fault Frequency (PFF)** and suspend low-priority tasks to reclaim frame frames.",
+                        inputLabel: "1. Trigger Virtual Memory Thrashing Frameworks",
+                        btnText: ["💾 Access Resident Pages (PFF Low)", "💾 Overcommit RAM (PFF Spike)", "🛡️ Suspend Task (Reclaim Frames)"],
+                        btnPayloads: ["PFF_Stable_Hit", "PFF_Spike_Thrashing", "Process_Suspend_Trap"],
+                        trackLabel: "⚡ REAL PHYSICAL HARDWARE RAM FRAME ALLOCATOR (SLAB LAYER)",
+                        trackIdle: "[ RAM BUS SOLID: CONTEXT EXECUTIONS COMPILING FLUIDLY INSIDE RAM ]",
+                        ledgerLabel: "⏳ KERNEL DISK I/O WAIT CHANNEL REGS ARRAY:",
+                        ledgerIdle: "[ I/O Lines Calm &mdash; CPU Core Processing at Maximum Clock Speeds ]",
+                        dispatchBtn: "Evaluate Kernel Paging Frequency Vectors",
+                        queueUnit: "Faults",
+                        readoutIdle: "<strong>Memory Allocation Subsystem Status:</strong> Monitoring tracking vectors. Force an overcommit execution layout above to evaluate a hardware thrashing collapse."
+                    }
+                },
+
+                                13: {
+                    analogy: {
+                        metaTitle: "🕒 THE CLOCK HAND SECOND CHANCE SELECTION WHEEL",
+                        conceptTitle: "Concept: The Lazy Inspector Hand & Second Chance Tokens",
+                        conceptDesc: "<strong>The Clock Hand:</strong> Imagine a circular rack of coats. An inspector hand rotates slowly in a circle checking each coat's ticket tag marker. <br><strong>The Second Chance:</strong> If a coat has a valid token ticket, the hand politely strips the token away but gives it a second chance, passing over it. The hand only throws a coat out if it finds a ticket tag completely empty, ensuring highly active coats stay inside the active wardrobe rooms.",
+                        inputLabel: "1. Advance Clock Inspection Pointer Sequence",
+                        btnText: ["🕒 Reference Page (Set Flag)", "🕒 Rotate Clock Hand (Check)", "🧹 Force Victim Sweep (Eviction)"],
+                        btnPayloads: ["Set_Use_Bit", "Rotate_Hand_Sweep", "Evict_Zero_Bit_Page"],
+                        trackLabel: "🛋️ CIRCULAR PHYSICAL MEMORY RACK SPACE OVERVIEW",
+                        trackIdle: "[ WHEEL STEADY: HIGH-DEMAND PAGES REGISTERED INSIDE RING 3 ]",
+                        ledgerLabel: "📋 INTERACTIVE SECOND-CHANCE USE BIT LEDGER SLOTS:",
+                        ledgerIdle: "[ Standby &mdash; Hardware Flags Synchronized on the Ring ]",
+                        dispatchBtn: "Increment Clock Hand Inspection Loop",
+                        queueUnit: "Pointers",
+                        readoutIdle: "<strong>Clock Hand Telemetry:</strong> Pointer resting at default index cell. Advance the clock inspection hand above to track second chance evictions."
+                    },
+                    technical: {
+                        metaTitle: "🎛️ SECOND CHANCE CLOCK PAGE REPLACEMENT ENGINE",
+                        conceptTitle: "Technical Layer: Approximating LRU via The Clock Page Replacement Algorithm",
+                        conceptDesc: "True Least-Recently-Used (LRU) tracking is too hardware-expensive for modern CPU memory management units. The **Clock Algorithm** approximates LRU by treating physical memory frames as a circular queue buffer. A rotating pointer sweeps page entries: if a frame's **Reference Bit** is 1, the hardware MMU flips it to 0 and advances; if the Reference Bit is already 0, that page frame is immediately targeted as the eviction victim.",
+                        inputLabel: "1. Trigger Hardware Page Frame Bit Field Manipulations",
+                        btnText: ["💾 Read/Write memory (Set Use Bit=1)", "💾 Advance Sweep Pointer (Bit 1 -> 0)", "🚨 Evict Clean Page Frame (Bit=0)"],
+                        btnPayloads: ["Memory_Read_Use_1", "Sweep_Pointer_Advance", "Page_Eviction_Trigger"],
+                        trackLabel: "⚡ RING 0 RESIDENT PHYSICAL FRAMES CIRCULAR MATRIX RING",
+                        trackIdle: "[ RAM SUBSYSTEM RIGID: COMPILING SYSTEM WORK SET FRAMES INSIDE CR3 ]",
+                        ledgerLabel: "⏳ PAGE TABLE DESCRIPTOR USE-BIT HARDWARE VECTOR BITS:",
+                        ledgerIdle: "[ Bit Vector Map Synchronized &mdash; Virtual Isolations Active ]",
+                        dispatchBtn: "Step Hardware Clock Page Allocation Pointer",
+                        queueUnit: "Frames",
+                        readoutIdle: "<strong>Clock Engine Subsystem Status:</strong> Monitoring bit states. Run a page reference or sweep pointer command above to observe how the kernel finds page replacement victims."
+                    }
+                },
+
+                                14: {
+                    analogy: {
+                        metaTitle: "🧺 THE DIRTY LAUNDRY TAG & STORAGE SEPARATION BIN",
+                        conceptTitle: "Concept: Pristine Folded Suits vs. Stained Shirts (Dirty Bit Flags)",
+                        conceptDesc: "<strong>The Clean Uniform:</strong> If you pull a clean suit from the closet, try it on, and take it right off without tracking dirt, you don't wash it; you toss it right back onto the rack instantly.<br><strong>The Dirty Laundry Tag:</strong> If you wear a shirt and spill food on it, you attach a bright red 'Dirty' tag marker to the fabric. When you clean out your room space, you can't just toss that shirt back on the rack; you are forced to stop, route it to the laundry wash basin, and sync its cleanliness before clearing the floor.",
+                        inputLabel: "1. Manipulate Wardrobe Asset Modifiers",
+                        btnText: ["👔 Wear Suit (Read Only - Clean)", "👕 Spill Coffee (Write Op - Dirty)", "🧼 Wash Basin Sync (Write-Back)"],
+                        btnPayloads: ["Read_Clean_Suit", "Write_Dirty_Spill", "Sync_Laundry_Wash"],
+                        trackLabel: "🧺 WARDROBE DECK COAT RACK STORAGE CART AREA",
+                        trackIdle: "[ WARDROBE COMPILING: DISK BUFFER BALANCED AND CLEAN ]",
+                        ledgerLabel: "📋 SYSTEM DIRTY SHIRT TAG MATRIX TRACK ARRAY:",
+                        ledgerIdle: "[ All Cached Garments Clean &mdash; No Extra Washing Overhead ]",
+                        dispatchBtn: "Commit Wardrobe Storage Cycle",
+                        queueUnit: "Tags",
+                        readoutIdle: "<strong>Laundry Room Telemetry:</strong> Rack stable. Spill coffee on a shirt above to witness how the dirty bit changes structural processing rules."
+                    },
+                    technical: {
+                        metaTitle: "🎛️ MEMORY DIRTY BIT MANAGER & DISK SYNC CONTROLLER",
+                        conceptTitle: "Technical Layer: Clean vs. Dirty Pages, and Write-Back Storage Synchronization",
+                        conceptDesc: "When a thread updates memory, the hardware MMU sets the **Dirty Bit (Modified Bit)** to 1 in the Page Table entry. If the kernel needs to evict a page frame: a clean page (Dirty Bit = 0) is instantly dropped to save time; a dirty page (Dirty Bit = 1) **must be written back to the disk swap partition** first to preserve modifications before the frame can be recycled.",
+                        inputLabel: "1. Trigger Process Memory Write Operations via CPU Bus",
+                        btnText: ["💾 read() page (Dirty Bit = 0)", "💾 write() page (Set Dirty Bit = 1)", "🚨 sys_sync() -> Flush to Disk"],
+                        btnPayloads: ["Read_Clean_Page", "Write_Dirty_Page", "Sys_Sync_Flush"],
+                        trackLabel: "⚡ REAL HARDWARE PHYSICAL RAM FRAME CORE SUBSTRATE",
+                        trackIdle: "[ RAM CORE STEADY: SYSTEM EXECUTIONS BUFFERED IN PHYSICAL CELLS ]",
+                        ledgerLabel: "⏳ PAGE DESCRIPTOR MODIFIED D-BIT POINTER SLOTS:",
+                        ledgerIdle: "[ Memory Maps Synchronized &mdash; Zero Paging Delays Cached ]",
+                        dispatchBtn: "Fire RAM Modification Reference to Memory Subsystem",
+                        queueUnit: "Bits",
+                        readoutIdle: "<strong>Dirty Bit Subsystem Monitor:</strong> Monitoring page descriptors. Fire a memory write operation above to trace dirty page write-back overhead limits."
+                    }
+                },
+
+                                15: {
+                    analogy: {
+                        metaTitle: "🏨 HOTEL KEY CARD DE-REGISTRATION & SYSTEM EXPIRATION PANEL",
+                        conceptTitle: "Concept: Outdated Room Keys vs. The Master Desk Ledger (TLB Shootdown)",
+                        conceptDesc: "<strong>The Outdated Key:</strong> A guest checks out of Room 101 early, and the front desk clerk changes the room status in the master book ledger. However, the guest's physical plastic key card still has the old room memory code cached on its magnetic strip.<br><strong>The Core Expiration:</strong> If the guest tries to swipe that card, they bypass security using an old record. The hotel must send an alert message to every physical door lock node on the floor to instantly flush out old key card memory caches before an illegal entry occurs.",
+                        inputLabel: "1. Force Key Card Memory Clearance Sequences",
+                        btnText: ["🔑 Update Master Ledger (Change Room)", "🚨 Broadcast Expiration Alert to Doors", "🧹 Flush Key Memory Card (Clear Caches)"],
+                        btnPayloads: ["Master_Ledger_Change", "Door_Broadcast_Alert", "Flush_Plastic_Key_Cache"],
+                        trackLabel: "🏨 PHYSICAL HOTEL DOOR LOCK CORES (SATELLITE LOCKS)",
+                        trackIdle: "[ HOTEL SECURE: ALL ISOLATION KEYS SYNCHRONIZED WITH DESK LEDGER ]",
+                        ledgerLabel: "📋 SATELLITE DOOR MAGNETIC MEMORY REGISTER REGS:",
+                        ledgerIdle: "[ Memory Maps Synced &mdash; Zero Stale Access Vectors Present ]",
+                        dispatchBtn: "Commit Hotel Key Expiration Synchronization Loop",
+                        queueUnit: "Alerts",
+                        readoutIdle: "<strong>Front Desk Security Tracker:</strong> System synchronized. Change a master ledger assignment above to watch how stale keys are flushed."
+                    },
+                    technical: {
+                        metaTitle: "🎛️ MULTI-CORE TLB SHOOTDOWN & INTER-PROCESSOR INTERRUPT (IPI) ENGINE",
+                        conceptTitle: "Technical Layer: TLB Consistency, CR3 Context Flushes, and TLB Shootdowns",
+                        conceptDesc: "When a CPU core modifies a page table entry (e.g., unmapping memory during <code>munmap()</code>), its own local Translation Lookaside Buffer (TLB) becomes out of sync with other cores. To prevent multi-core memory leaks, the initiating core must issue an **Inter-Processor Interrupt (IPI)** to all other CPU cores, forcing them to pause execution, flush their local TLB lines via a <code>CR3</code> register reload, and achieve **TLB Consistency**.",
+                        inputLabel: "1. Trigger Inter-Processor Paging Synchronization Chains",
+                        btnText: ["💾 Modify Page Entry -> invalidate line", "⚡ Emit IPI Inter-Core Interrupt (Shootdown)", "⚙️ Reload CR3 Reg (Flush Core TLBs)"],
+                        btnPayloads: ["Page_Table_Invalidate", "IPI_Shootdown_Broadcast", "CR3_Register_Reload_Flush"],
+                        trackLabel: "⚡ MULTI-CORE CPU HARDWARE BUS STRUCTURE (CORE SUBSYSTEM)",
+                        trackIdle: "[ MULTI-CORE CONSISTENCY SECURE: ALL TLB HARDWARE CACHES REFLECT RECENT PT MAPS ]",
+                        ledgerLabel: "⏳ INTER-PROCESSOR INTERRUPT (IPI) ACTIVE HARDWARE REGISTERS:",
+                        ledgerIdle: "[ Core Busses Stable &mdash; Zero Stale Adr Translations Resident in SMP Cache ]",
+                        dispatchBtn: "Execute Multi-Core TLB Shootdown Cycle",
+                        queueUnit: "IPIs",
+                        readoutIdle: "<strong>TLB Coherency Subsystem Status:</strong> All caches consistent. Invalidate a multi-core page table entry mapping above to watch the hardware broadcast an inter-processor shootout instruction."
+                    }
+                },
+
+                
 
                 17: {
                     analogy: {
