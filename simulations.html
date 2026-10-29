@@ -806,6 +806,73 @@
                     }
                 },
 
+                                19: {
+                    analogy: {
+                        metaTitle: "🍳 RESTAURANT ORDER CARBON COPY LEDGER CONSOLE",
+                        conceptTitle: "Concept: The Kitchen Order Notebook vs. Mid-Meal Power Outages",
+                        conceptDesc: "<strong>The Carbon Copy Notebook:</strong> If a waiter changes your table's bill but the restaurant loses power mid-order, the system breaks. The kitchen cooks food that was never paid for, corrupting the house ledger book.<br><strong>The Journaling Check:</strong> Before updating the master cash drawer, the waiter writes the entire order down on a tiny notebook stub (The Journal) first. If a power outage strikes mid-meal, the manager reviews the notebook slip to safely undo or fast-forward the updates, ensuring zero data loss.",
+                        inputLabel: "1. Advance Transaction Recording State Parameters",
+                        btnText: ["📝 Write Order to Notebook Stub (Journal)", "🍳 Cook Meal and Update Master Drawer", "🚨 Pull Power Plug (Simulate Crash)"],
+                        btnPayloads: ["Write_Journal_Stub", "Commit_Master_Drawer", "Power_Outage_Crash"],
+                        trackLabel: "🍳 CENTRAL RESTAURANT PRODUCTION CASH DRAWER REALM",
+                        trackIdle: "[ TRANSACTION CALM: KITCHEN LEDGER AND REGISTER RECONCILED ]",
+                        ledgerLabel: "📋 NOTEBOOK STUB JOURNAL CHECK REGS LIST:",
+                        ledgerIdle: "[ Journal Flushed &mdash; All Pending Updates Safe in Cash Drawer ]",
+                        dispatchBtn: "Reconcile Restaurant Account Ledger",
+                        queueUnit: "Transactions",
+                        readoutIdle: "<strong>Order Security Telemetry:</strong> Standing by. Present an entry order sequence above to evaluate ledger crash consistency loops."
+                    },
+                    technical: {
+                        metaTitle: "🎛️ WRITE-AHEAD LOGGING (WAL) & RECOVERY JOURNALING SUBSYSTEM",
+                        conceptTitle: "Technical Layer: Crash Consistency Link, Metadata Journaling, & ext4 Recovery",
+                        conceptDesc: "When file systems write data to a disk block, a sudden system crash can create an asymmetric state where pointers point to non-existent data blocks. To prevent this **Crash Consistency Problem**, journaling file systems (like ext4) execute **Write-Ahead Logging (WAL)**. Changes are securely written to an isolated, fast on-disk circular buffer log (The Journal) first, then verified, and finally checkpointed to the main disk block arrays.",
+                        inputLabel: "1. Trigger System File Write Call Sequences",
+                        btnText: ["💾 Transaction Log -> write_journal()", "💾 Checkpoint -> write_main_blocks()", "🛑 Force Kernel Panic (Crash Subsystem)"],
+                        btnPayloads: ["Journal_Write_Phase", "Checkpoint_Main_Data", "Kernel_Panic_Crash_Simulation"],
+                        trackLabel: "⚡ ACTIVE HDD SECTOR CONTROLLER DEVICE BOUNDARY (RING 0)",
+                        trackIdle: "[ TRANSACTION LOCK RIGID: FILE INODE STATE BLOCKS CONSISTENT IN HARDWARE ]",
+                        ledgerLabel: "⏳ DISK WAL CIRCULAR JOURNAL TRANS MAP DESCRIPTORS:",
+                        ledgerIdle: "[ Journal State Clean &mdash; All Transaction Frames Safely Checkpointed ]",
+                        dispatchBtn: "Step Hardware Journal Sync Clock Engine",
+                        queueUnit: "Transactions",
+                        readoutIdle: "<strong>Journaling Monitor Subsystem Status:</strong> Tracking log boundaries. Run a write transaction or drop power lines above to observe how the kernel reconstructs un-checkpointed inodes."
+                    }
+                },
+
+                                20: {
+                    analogy: {
+                        metaTitle: "🔔 THE IMPATIENT BOSS VS. DOORBELL INTERRUPT SYSTEM",
+                        conceptTitle: "Concept: Checking the Door Every 5 Seconds vs. Waiting for the Bell (Polling vs. Interrupts)",
+                        conceptDesc: "<strong>The Impatient Boss (Polling):</strong> You expect an important parcel delivery package. Instead of working, you walk to the front door every 10 seconds to check if the courier arrived. You waste 99% of your energy and time doing nothing but checking an empty porch floor layout.<br><strong>The Doorbell Ring (Interrupts):</strong> You sit at your desk and focus completely on your research work. When the courier finally arrives, they press the doorbell button. The sharp ring sound instantly breaks your attention loop, you open the door, collect the package, and go right back to work.",
+                        inputLabel: "1. Select Device Packet Arrival Mode",
+                        btnText: ["⏳ Poll Device State (Spin Check)", "🔔 Fire Doorbell Ring (Interrupt)", "🧹 Yield Work Task (Sleep Waiting)"],
+                        btnPayloads: ["Polling_Spin_Loop", "Doorbell_Interrupt_Trigger", "Task_Sleep_Yield"],
+                        trackLabel: "🧱 MAIN OFFICE WORK DESK ROOM SPACE SURFACE AREA",
+                        trackIdle: "[ CONTEXT STABLE: RESEARCH WORKFLOW RUNNING WITHOUT CHATTER ]",
+                        ledgerLabel: "📋 BACKGROUND DOORBELL ALERT REGISTERS:",
+                        ledgerIdle: "[ Lines Quiet &mdash; Zero Hardware Interrupt Alerts Cached ]",
+                        dispatchBtn: "Cycle I/O Status Step",
+                        queueUnit: "Pings",
+                        readoutIdle: "<strong>Office Floor Telemetry:</strong> System baseline verified. Run a spin check loop or fire an interrupt above to study resource waste thresholds."
+                    },
+                    technical: {
+                        metaTitle: "🎛️ HARDWARE INTERRUPT CONTROLLER & POLLING BUS MATRIX",
+                        conceptTitle: "Technical Layer: Programmed I/O Polling Loops vs. Hardware Interrupt Vectors",
+                        conceptDesc: "When communicating with hardware peripherals, a naive **Polling loop** wastes infinite CPU clock cycles checking an active status register bit until the device marks it clean. Advanced operating systems use **Hardware Interrupts**. The CPU core executes normal User-Mode code threads unhindered; when an external device drops a data packet on a bus line, the **Programmable Interrupt Controller (PIC)** asserts a pin line, forcing the CPU to branch instantly into the kernel's registered **Interrupt Service Routine (ISR)** handler.",
+                        inputLabel: "1. Trigger Peripheral Hardware Bus Communication Sequence",
+                        btnText: ["💾 Spin on I/O STATUS Reg Bit", "⚡ Assert Local IRQ Line (Hardware PIC)", "🚨 Trap CPU to ISR Handler (Vector Table)"],
+                        btnPayloads: ["Spin_Status_Bit_Check", "IRQ_Pin_Line_Assert", "ISR_Vector_Trap_Gate"],
+                        trackLabel: "⚡ PRIVILEGED CPU CORE EXECUTION BUS CORE (RING 0)",
+                        trackIdle: "[ CPU UNFETTERED: EXECUTING USER THREADS AT FULL HARDWARE SPEEDS ]",
+                        ledgerLabel: "⏳ INTERRUPT DESCRIPTOR TABLE (IDT) IRQ MAPPING VECTOR ENTRIES:",
+                        ledgerIdle: "[ IDT Trap Gates Armed &mdash; Supervisor Lines Guarded against Data Splits ]",
+                        dispatchBtn: "Step Hardware Interrupt Vector Bus Cycle",
+                        queueUnit: "Interrupts",
+                        readoutIdle: "<strong>Hardware I/O Subsystem Status:</strong> CPU running application code lines. Spin on status or trigger an IRQ interrupt pin above to see the hardware context-switch to Supervisor Mode."
+                    }
+                },
+
+
                 
                 27: {
                     analogy: {
