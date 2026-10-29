@@ -113,6 +113,155 @@
             <h2>🌿 10 & 11. Topology Map</h2>
             <p style="font-family: var(--font-mono); font-size: 0.85rem; margin-bottom: 8px;">CS 301: Operating Systems -> Module 1: OS Structure & Design -> L0_Course_Introduction -> The OS as a Resource Referee.</p>
         </div>
+<!-- ==================== L00: AIR TRAFFIC CONTROL SIMULATION WIDGET ==================== -->
+<div class="card shadow-box" style="margin: 24px 0; border: 1px solid rgba(80, 250, 123, 0.2); background: #0b0f19; padding: 24px; border-radius: 12px; display: flex; flex-direction: column; gap: 20px; color: #e2e8f0; font-family: system-ui, -apple-system, sans-serif;">
+    
+    <!-- Top Meta Panel -->
+    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 12px;">
+        <span style="font-family: monospace; font-size: 0.75rem; color: #50fa7b; font-weight: 700; letter-spacing: 0.1em;">🎛️ L00 SYSTEM MULTIPLEXER SIMULATOR</span>
+        <span style="font-family: monospace; font-size: 0.8rem; color: #64748b;" id="l00-queue-count">Ready Queued: 0 Tasks</span>
+    </div>
+    
+    <!-- Title & Description Header -->
+    <div>
+        <h3 style="color: #ffffff; font-size: 1.25rem; font-weight: 700; margin-bottom: 6px;">The Air Traffic Control Tower (Resource Multiplexing)</h3>
+        <p style="color: #94a3b8; font-size: 0.9rem; line-height: 1.5;"><strong>5th-Grader Hook:</strong> If two planes try to land on the same runway at once, they crash. The tower intercepts them and schedules landing slots. <br><strong style="color: #8be9fd;">Technical Reality:</strong> The OS resource manager multiplexes hardware timescales, dividing CPU execution limits so multiple programs run simultaneously without crashing into memory limits.</p>
+    </div>
+
+    <!-- MAIN DISPATCH CONTROL ROOM INTERFACE -->
+    <div style="display: grid; grid-template-columns: 1fr; gap: 16px;">
+        
+        <!-- Application Control Deck Panel -->
+        <div style="background: #020408; border: 1px solid rgba(255,255,255,0.05); padding: 16px; border-radius: 8px;">
+            <div style="font-family: monospace; font-size: 0.7rem; color: #8be9fd; text-transform: uppercase; margin-bottom: 10px; font-weight: 700;">1. Open Active App Flight Commands</div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px;">
+                <button onclick="queueL00App('🌐 Chrome Web Browser')" style="background: rgba(99, 102, 241, 0.15); border: 1px solid #6366f1; color: #ffffff; padding: 10px; border-radius: 6px; font-weight: 600; font-size: 0.8rem; cursor: pointer;">🌐 Open Browser</button>
+                <button onclick="queueL00App('🎮 Minecraft Game')" style="background: rgba(241, 99, 184, 0.15); border: 1px solid #f163b8; color: #ffffff; padding: 10px; border-radius: 6px; font-weight: 600; font-size: 0.8rem; cursor: pointer;">🎮 Launch Game</button>
+                <button onclick="queueL00App('🎵 Spotify Media Player')" style="background: rgba(80, 250, 123, 0.15); border: 1px solid #50fa7b; color: #ffffff; padding: 10px; border-radius: 6px; font-weight: 600; font-size: 0.8rem; cursor: pointer;">🎵 Stream Music</button>
+            </div>
+        </div>
+
+        <!-- TELEMETRY MONITORING TRACK (RUNWAY GRID) -->
+        <div style="display: grid; grid-template-columns: 1fr; gap: 12px;">
+            
+            <!-- CPU MULTIPLEXED RUNWAY -->
+            <div id="l00-runway-box" style="background: rgba(255, 255, 255, 0.02); border: 1px dashed rgba(255,255,255,0.15); border-radius: 8px; padding: 16px; text-align: center; min-height: 70px; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: all 0.3s ease;">
+                <div style="font-family: monospace; font-size: 0.65rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.05em;">🛬 ACTIVE CPU EXECUTION RUNWAY (RING 3 SUBSTRATE)</div>
+                <div id="l00-runway-status" style="font-size: 1.1rem; font-weight: 700; color: #64748b; margin-top: 6px;">[ CPU IDLE: RUNWAY CLEAR ]</div>
+            </div>
+
+            <!-- READY QUEUE CONSOLE BUFFER -->
+            <div style="background: #020408; border: 1px solid rgba(255,255,255,0.05); padding: 14px; border-radius: 8px; font-family: monospace; font-size: 0.8rem; min-height: 85px;">
+                <div style="color: #64748b; margin-bottom: 6px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase;">⏳ SCHEDULER READY QUEUE LEDGER ARRAY:</div>
+                <div id="l00-queue-log" style="color: #8be9fd; line-height: 1.4;">[ Empty Scheduler Queue — System Idle ]</div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- PEDAGOGICAL METRIC READOUT CONSOLE -->
+    <div id="l00-readout-box" style="background: rgba(139, 233, 253, 0.03); border-left: 3px solid #8be9fd; padding: 14px; border-radius: 4px; font-size: 0.9rem; color: #cbd5e1; line-height: 1.5;">
+        <strong>OS Kernel Telemetry Status:</strong> Standing by in Supervisor Space. Open application context flows above to evaluate how the multiplexer slices timescale bounds.
+    </div>
+
+    <!-- DISPATCH EXECUTION ROW -->
+    <div style="display: flex; gap: 12px;">
+        <button onclick="clearL00Simulator()" style="flex: 1; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.08); color: #94a3b8; padding: 12px; border-radius: 6px; cursor: pointer; font-family: monospace; font-weight: 700; font-size: 0.75rem; text-transform: uppercase;">Flush Cache</button>
+        <button onclick="dispatchL00Quantum()" id="l00-dispatch-btn" style="flex: 2; background: #6366f1; border: 1px solid rgba(255,255,255,0.1); color: #ffffff; padding: 12px; border-radius: 6px; cursor: pointer; font-family: monospace; font-weight: 700; font-size: 0.75rem; text-transform: uppercase; transition: all 0.2s ease;">Schedules Time Quantum Slices</button>
+    </div>
+</div>
+
+        <!-- CLIENT APPLICATION RUNTIME SCHEDULER CONTROLLER ENGINE -->
+<script>
+    let l00SchedulerQueue = [];
+    let l00ActiveInterval = null;
+
+    function queueL00App(appName) {
+        // Enqueue the incoming thread task payload
+        l00SchedulerQueue.push(appName);
+        updateL00Display();
+        
+        document.getElementById('l00-readout-box').innerHTML = 
+            `<strong>OS Kernel Status:</strong> Intercepted execution request thread from <code>${appName}</code>. Task successfully buffered into the Scheduler Ready Queue array block.`;
+    }
+
+    function updateL00Display() {
+        // Update ready task numerical counter metrics
+        document.getElementById('l00-queue-count').innerText = `Ready Queued: ${l00SchedulerQueue.length} Tasks`;
+        
+        const logBox = document.getElementById('l00-queue-log');
+        if (l00SchedulerQueue.length === 0) {
+            logBox.innerHTML = `[ Empty Scheduler Queue &mdash; System Idle ]`;
+        } else {
+            // Map out array pipeline contents graphically
+            logBox.innerHTML = l00SchedulerQueue.map((app, idx) => {
+                return `<div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); padding: 4px 8px; margin-top: 4px; border-radius: 4px; display: inline-block; margin-right: 6px;">
+                    <span style="color: #64748b;">[Index ${idx}]</span> ${app}
+                </div>`;
+            }).join('');
+        }
+    }
+
+    function dispatchL00Quantum() {
+        if (l00ActiveInterval) return; // Disallow overlapping timer interruptions
+        
+        if (l00SchedulerQueue.length === 0) {
+            document.getElementById('l00-readout-box').innerHTML = 
+                `<strong>OS Kernel Status:</strong> Scheduling operation aborted. Ready Queue array substrate is completely clear. No active application workflows demanding hardware processing resources.`;
+            return;
+        }
+
+        const runway = document.getElementById('l00-runway-box');
+        const runwayStatus = document.getElementById('l00-runway-status');
+        const readout = document.getElementById('l00-readout-box');
+        
+        // Dequeue processing mechanism (FIFO scheduling paradigm loop)
+        let activeApp = l00SchedulerQueue.shift();
+        updateL00Display();
+
+        // Trigger context switches visually onto hardware registers
+        runway.style.background = "rgba(80, 250, 123, 0.05)";
+        runway.style.borderColor = "#50fa7b";
+        runwayStatus.innerText = `⚙️ RUNNING: ${activeApp}`;
+        runwayStatus.style.color = "#50fa7b";
+        
+        readout.innerHTML = `<strong>OS Kernel Multiplexing Action:</strong> Handed CPU timescale ownership over to <code>${activeApp}</code> for one discrete 100ms hardware Time Quantum slice. Interrupt timer counting down...`;
+
+        // Simulate a hardware context timer interrupt expiration cascade
+        l00ActiveInterval = setTimeout(() => {
+            runway.style.background = "rgba(255, 255, 255, 0.02)";
+            runway.style.borderColor = "rgba(255,255,255,0.15)";
+            runwayStatus.innerText = `[ CPU IDLE: RUNWAY CLEAR ]`;
+            runwayStatus.style.color = "#64748b";
+            
+            readout.innerHTML = `<strong>OS Kernel Hardware Interrupt Event:</strong> Context timer expired! Preempted processing runtime metrics from <code>${activeApp}</code>, saved instruction registry pointers, and safely context-switched back to supervisor privilege space bounds. System clear for next execution frame cascade loop.`;
+            
+            l00ActiveInterval = null;
+        }, 3500); // Expanded timescale interval to 3.5s to let students read low-level pipeline events tracking
+    }
+
+    function clearL00Simulator() {
+        if (l00ActiveInterval) {
+            clearTimeout(l00ActiveInterval);
+            l00ActiveInterval = null;
+        }
+        l00SchedulerQueue = [];
+        updateL00Display();
+        
+        const runway = document.getElementById('l00-runway-box');
+        const runwayStatus = document.getElementById('l00-runway-status');
+        runway.style.background = "rgba(255, 255, 255, 0.02)";
+        runway.style.borderColor = "rgba(255,255,255,0.15)";
+        runwayStatus.innerText = `[ CPU IDLE: RUNWAY CLEAR ]`;
+        runwayStatus.style.color = "#64748b";
+        
+        document.getElementById('l00-readout-box').innerHTML = 
+            `<strong>OS Kernel Status:</strong> Telemetry arrays flushed. Cache state reset back to default system initialization tracking variables. Runway clear.`;
+    }
+</script>
+
+        
     </div>
 </body>
 </html>
