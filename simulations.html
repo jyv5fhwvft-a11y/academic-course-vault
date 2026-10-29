@@ -310,6 +310,171 @@
                     }
                 },
 
+                                4: {
+                    analogy: {
+                        metaTitle: "📬 POST OFFICE MAILBOX GRID & ADDRESS MATRIX",
+                        conceptTitle: "Concept: Standard Mailbox Slots & The Clerk's Cheat Sheet (TLB)",
+                        conceptDesc: "<strong>The Mailbox Grid:</strong> The post office splits a massive room into tiny, identical box slots. Your mail isn't thrown in a random pile; it goes to an exact slot index.<br><strong>The Clerk's Cheat Sheet:</strong> Instead of checking the giant master ledger book for every letter, the clerk keeps a tiny sticky note of the most common names on the counter to speed up sorting.",
+                        inputLabel: "1. Dispatch Incoming Letter to Target Box Address",
+                        btnText: ["📬 Mail: Box 12 (Page 0)", "📬 Mail: Box 13 (Page 1)", "⚡ Check Sticky Note (TLB Hit)"],
+                        btnPayloads: ["Mail_Box_12", "Mail_Box_13", "TLB_Sticky_Note_Hit"],
+                        trackLabel: "📦 PHYSICAL METROPOLITAN MAILBOX WALL STORAGE SUBSTRATE",
+                        trackIdle: "[ SORTING CLOSED: ALL MAIL SECURED INSIDE REGISTERED SLOTS ]",
+                        ledgerLabel: "📋 COUNTER STICKY NOTE RECENT TRANS-LOOKUP CACHE:",
+                        ledgerIdle: "[ Cache Empty &mdash; Clerk Must Consult Main Ledger Book ]",
+                        dispatchBtn: "Route Mail via Post Office Clerk",
+                        queueUnit: "Letters",
+                        readoutIdle: "<strong>Post Office Substation Telemetry:</strong> Standing by. Submit a letter tracking vector above to evaluate sorting speeds."
+                    },
+                    technical: {
+                        metaTitle: "🎛️ TRANSLATION LOOKASIDE BUFFER (TLB) HARDWARE CACHE LAYER",
+                        conceptTitle: "Technical Layer: Paging Frameworks & Translation Lookaside Buffers (TLB)",
+                        conceptDesc: "To bypass slow multi-level page table walks in RAM, the CPU utilizes an on-chip associative hardware cache called the **Translation Lookaside Buffer (TLB)**. It caches recent Virtual Page-to-Physical Frame translations, allowing memory lookups to resolve in a single clock cycle during a **TLB Hit**.",
+                        inputLabel: "1. Issue Virtual Address Conversion Request Sequence",
+                        btnText: ["💾 Virtual Page 0 (TLB Miss)", "💾 Virtual Page 0 (TLB Hit)", "🛑 Flush TLB Cache (Context Switch)"],
+                        btnPayloads: ["Page_0_Miss", "Page_0_Hit", "CR3_Reload_Flush"],
+                        trackLabel: "⚡ HIGH-SPEED MEMORY MANAGEMENT UNIT (MMU) CORE REGISTERS",
+                        trackIdle: "[ RAM BUS ARBITER STEADY: TLB CACHE GATES ARMED FOR MMU CONVERSION ]",
+                        ledgerLabel: "⏳ ASSOCIATIVE TLB HARDWARE ENTRY MAP SLOTS:",
+                        ledgerIdle: "[ TLB Cold &mdash; Next Address Mapping Will Force Page Table Walk ]",
+                        dispatchBtn: "Fire Virtual Pointer into MMU TLB Subsystem",
+                        queueUnit: "Lookups",
+                        readoutIdle: "<strong>MMU Paging Telemetry Status:</strong> Tracking cache registers. Dispatch an address lookup or context switch command above to trace hardware TLB cache transactions."
+                    }
+                },
+
+                5: {
+                    analogy: {
+                        metaTitle: "📚 PUBLIC LIBRARY BOOK CART SWAP ENVIRONMENT",
+                        conceptTitle: "Concept: Small Desk space vs. The Massive Library Vault (Virtual Memory)",
+                        conceptDesc: "<strong>The Book Cart:</strong> Your study desk is tiny and can only hold 3 books at a time. The library vault contains thousands of books. You don't bring the whole library to your desk; you only keep the books you are actively reading on a cart.<br><strong>The Cart Swap:</strong> When you need a new book that isn't on your desk, you stop reading, walk to the vault, swap an old book out back onto the cart, and put the new book on your desk.",
+                        inputLabel: "1. Request Book Title Reference from Library Vault",
+                        btnText: ["📘 Read Book A (On Desk)", "📘 Fetch Book D (Vault Swap)", "🧹 Clear Desk Cart (Eviction)"],
+                        btnPayloads: ["Book_A_Hit", "Book_D_Vault_Fetch", "Evict_Oldest_Volume"],
+                        trackLabel: "🛋️ ACTIVE STUDY DESK SURFACE AREA (VISIBLE WORKSPACE)",
+                        trackIdle: "[ WORKING CONTEXT CALM: DESK BOOKS LOADED AND STABLE ]",
+                        ledgerLabel: "📋 LIBRARY CART INDEX TRACKING SLOTS:",
+                        ledgerIdle: "[ Cart Warm &mdash; Active Study Volumes Cached on Desk ]",
+                        dispatchBtn: "Process Book Reference via Librarian",
+                        queueUnit: "Books",
+                        readoutIdle: "<strong>Librarian Desk Telemetry:</strong> Standing by. Request a book title validation command above to trace desk-to-vault paging cycles."
+                    },
+                    technical: {
+                        metaTitle: "🎛️ DEMAND PAGING & PAGE FAULT EXCEPTION CORE",
+                        conceptTitle: "Technical Layer: Virtual Memory Frameworks & Page Fault Handlers",
+                        conceptDesc: "When a user process references a virtual address whose **Present Bit** is marked 0 in the Page Table entry, the hardware MMU cannot resolve the location and issues a **Page Fault Exception Trap (Interrupt 14)**. The OS kernel captures the trap, reads the block off the disk swap partition, swaps it into an empty physical RAM frame, and resets execution registers.",
+                        inputLabel: "1. Reference Virtual Memory Address Frame Pointer",
+                        btnText: ["💾 Access Addr (Present Bit = 1)", "💾 Access Addr (Present Bit = 0)", "🚨 Force LRU Page Eviction"],
+                        btnPayloads: ["Page_Frame_Hit", "Page_Fault_Trap_Int14", "LRU_Victim_Eviction"],
+                        trackLabel: "⚡ PRIVILEGED RING 0 INTERRUPT HANDLER (PAGE FAULT CORE)",
+                        trackIdle: "[ SYSTEM BUS STABLE: ACTIVE WORKING SET PAGES IN PHYSICAL RAM ]",
+                        ledgerLabel: "⏳ DISK SWAP PARTITION SECTOR TRACK ALLOCATIONS:",
+                        ledgerIdle: "[ Swap Pages Synchronized &mdash; Virtual Adr Translation Fluid ]",
+                        dispatchBtn: "Fire Memory Reference into Demand Paging Subsystem",
+                        queueUnit: "Exceptions",
+                        readoutIdle: "<strong>Virtual Memory Monitor Status:</strong> Tracking exception registers. Submit a valid address reference or trigger a hardware page fault trap above to trace disk swap execution boundaries."
+                    }
+                },
+
+                                6: {
+                    analogy: {
+                        metaTitle: "🎛️ SCRIPTED ACTOR CLONING MATRIX (DUPLICATOR ENGINE)",
+                        conceptTitle: "Concept: The Scripted Actor Clone (Process Isolation)",
+                        conceptDesc: "An actor instantly clones themselves on stage. The clone twin starts with the exact same clothes, memories, and script lines up to that second. The original worker receives a unique index token, while the clone copy gets a zero flag to branch into a different performance line.",
+                        inputLabel: "1. Trigger Actor Duplication System Command",
+                        btnText: ["👥 Execute Stage clone()", "🎭 Assign Clone Actor Role", "🎬 Yield Parent Execution"],
+                        btnPayloads: ["Clone_Twin", "Branch_Role", "Parent_Hold"],
+                        trackLabel: "👥 ACTIVE STAGE CONTAINER AREA (DUPLICATED SET)",
+                        trackIdle: "[ SINGLE ACTOR ACTIVE: RUNTIME SUBSTRATE ISOLATED ]",
+                        ledgerLabel: "📋 ACTIVE BALANCING RUNTIME TOKENS:",
+                        ledgerIdle: "[ Standby &mdash; Master Script Path Normal ]",
+                        dispatchBtn: "Animate Clone Actor Action",
+                        queueUnit: "Clones",
+                        readoutIdle: "<strong>Stage Monitor Telemetry:</strong> Standing by. Fire a stage cloning routine above to trace role splits."
+                    },
+                    technical: {
+                        metaTitle: "🎛️ fork() PROCESS CONTROL BLOCK (PCB) REPLICATOR ENGINE",
+                        conceptTitle: "Technical Layer: fork() System Calls & Copy-on-Write (COW) Memory Maps",
+                        conceptDesc: "The <code>fork()</code> system call duplicates the parent's file descriptor slots, access rights, and **Process Control Block (PCB)**, returning 0 to the child and the child's raw PID to the parent. Real memory mirroring is delayed via hardware-enforced **Copy-on-Write (COW)** page tables to save CPU resources.",
+                        inputLabel: "1. Trap into Ring 0 via fork() System Call Primitive",
+                        btnText: ["⚡ Invoke sys_fork()", "💾 Trigger COW Page Fault", "⏳ Wait on child PID"],
+                        btnPayloads: ["sys_fork()", "COW_Fault_0x04", "waitpid()"],
+                        trackLabel: "💾 ACTIVE KERNEL SLAB ALLOCATOR (PCB LAYER)",
+                        trackIdle: "[ SYSTEM REGISTERS SOLID: SINGLE ACTIVE CONTEXT PCB IN RAM ]",
+                        ledgerLabel: "⏳ PROSTRUCT TASK_STRUCT PID RECORD ENTRIES:",
+                        ledgerIdle: "[ Process Trees Locked &mdash; No Fork Handlers Active ]",
+                        dispatchBtn: "Execute Kernel Process Fork",
+                        queueUnit: "PIDs",
+                        readoutIdle: "<strong>Kernel Process Subsystem Status:</strong> Standing by in Ring 0. Fire a fork or memory write above to trace copy-on-write boundary changes."
+                    }
+                },
+
+                                7: {
+                    analogy: {
+                        metaTitle: "🏦 BANK TELLER TICKET DISPATCH & COUNTER CONFLICT BOARD",
+                        conceptTitle: "Concept: Single Line Ticket Registers vs. Corrupted Cash Vault Balances",
+                        conceptDesc: "<strong>The Bank Ticket Line:</strong> If two customers step up to the exact same teller counter space at the identical second without a ticket number, they will shout over each other and scramble the transaction log.<br><strong>The Ticket Lock:</strong> The counter installs a mechanical ticket spindle lock. Only the single customer physically holding ticket token #1 can converse with the teller. Secondary visitors are forced into a standing wait queue until the token is cleared.",
+                        inputLabel: "1. Advance Customer Transaction Flow Request",
+                        btnText: ["🎟️ Issue Ticket 1 (Acquire Counter)", "🎟️ Issue Ticket 2 (Queue Block)", "🔓 Clear Counter (Release Token)"],
+                        btnPayloads: ["Customer_1_Lock", "Customer_2_Wait_Block", "Release_Counter_Lock"],
+                        trackLabel: "🏦 SINGLE ACTIVE SERVICE TELLER BARRIER COUNTER ZONE",
+                        trackIdle: "[ COUNTER CLEAR: ZERO RACE CONDITIONS DETECTED ]",
+                        ledgerLabel: "📋 LINE PASSENGER TICKETING QUEUE LEDGER ARRAY:",
+                        ledgerIdle: "[ Standby &mdash; Ticket Queue Clear and Operational ]",
+                        dispatchBtn: "Process Customer Account Ledger Link",
+                        queueUnit: "Tickets",
+                        readoutIdle: "<strong>Bank Floor Monitor:</strong> Counter barrier secure. Dispatch a customer reservation or lock clear command above to study synchronization rules."
+                    },
+                    technical: {
+                        metaTitle: "🎛️ ATOMIC MUTEX LOCK & SCHEDULER PREEMPTION CONSOLE",
+                        conceptTitle: "Technical Layer: Shared Memory Critical Sections, Race Conditions, & Mutexes",
+                        conceptDesc: "When multiple thread contexts access a shared memory resource segment simultaneously, a data-tearing **Race Condition** occurs. To protect the critical section, threads must call <code>pthread_mutex_lock()</code>. The atomic hardware instruction switches the flag state; secondary threads are blocked and swapped into a sleep state queue until the lock owner calls <code>pthread_mutex_unlock()</code>.",
+                        inputLabel: "1. Invoke POSIX Thread Synchronization Primitives",
+                        btnText: ["🔒 pthread_mutex_lock() -> Spin Hit", "🔒 pthread_mutex_lock() -> Blocked", "🔓 pthread_mutex_unlock() -> Wake"],
+                        btnPayloads: ["Mutex_Lock_Success", "Thread_2_Blocked_Sleep", "Mutex_Unlock_Wakeup"],
+                        trackLabel: "⚡ PROTECTED CPU CORE CRITICAL SECTION MEMORY SPACE",
+                        trackIdle: "[ DATA BALANCED: NO SHARED VARIABLE CORRUPTIONS POSIBLE ]",
+                        ledgerLabel: "⏳ SCHEDULER WAITING THREAD WAITCHANNEL TASK ARRAY:",
+                        ledgerIdle: "[ Lock Free &mdash; Zero Thread Contexts Suspended in Sleep Queue ]",
+                        dispatchBtn: "Fire Atomic Context Sync Loop into CPU Core",
+                        queueUnit: "Threads",
+                        readoutIdle: "<strong>Concurrency Subsystem Monitor:</strong> Critical section unprotected. Fire an atomic lock wrapper or thread wake command above to watch the scheduler manage race conditions."
+                    }
+                },
+
+                                8: {
+                    analogy: {
+                        metaTitle: "🍽️ THE DINING PHILOSOPHERS BALANCING TABLE CONSOLE",
+                        conceptTitle: "Concept: Sporks, Circular Waiting, and Table Standoffs",
+                        conceptDesc: "<strong>The Table Standoff:</strong> Five thinkers sit around a table with only five forks total. To eat noodles, each person needs two forks. If every thinker picks up the fork on their right at the exact same millisecond, everyone holds one fork. No one can eat, and no one will put down their fork. The entire dinner grid locks up forever.<br><strong>The Avoidance Strategy:</strong> The waiter steps in and changes the rules. Thinkers must ask permission before grabbing forks, ensuring no one creates a trapped circular loop.",
+                        inputLabel: "1. Manage Table Resource Allocation Sequences",
+                        btnText: ["🍴 Pick up Fork Right (Hold 1)", "🚨 Simultaneous Left (Deadlock)", "🙋 Ask Waiter First (Avoidance)"],
+                        btnPayloads: ["Hold_Single_Fork", "Circular_Wait_Deadlock", "Waiter_Resource_Arbitration"],
+                        trackLabel: "🍽️ RECTILINEAR DINING TABLE RECONCILIATION DECK",
+                        trackIdle: "[ DINNER BALANCED: THINKERS ALTERNATING BETWEEN THINKING AND EATING ]",
+                        ledgerLabel: "📋 CIRCULAR WAIT DEPENDENCY GRAPH LEDGER STACK:",
+                        ledgerIdle: "[ Graph Clear &mdash; Zero Resource Deadlocks Detected ]",
+                        dispatchBtn: "Cycle Dinner State Step",
+                        queueUnit: "Thinkers",
+                        readoutIdle: "<strong>Dinner Floor Telemetry:</strong> Table stable. Trigger a simultaneous left fork grab above to witness an unresolvable standoff loop."
+                    },
+                    technical: {
+                        metaTitle: "🎛️ SYSTEM RESOURCE ALLOCATION GRAPH & DEADLOCK ANALYZER",
+                        conceptTitle: "Technical Layer: Coffman Conditions, Mutual Exclusion, and Circular Wait",
+                        conceptDesc: "A **Deadlock** happens when four strict Coffman conditions hit simultaneously: Mutual Exclusion, Hold and Wait, No Preemption, and Circular Wait. If Thread A locks Mutex 1 and waits for Mutex 2, while Thread B locks Mutex 2 and waits for Mutex 1, execution freezes. The kernel must monitor dependency maps or use prevention routines to break the transaction loop.",
+                        inputLabel: "1. Manipulate Shared Hardware Resource Allocation Nodes",
+                        btnText: ["🔒 Lock Mutex 1 (Thread A)", "⚡ Cross Lock Mutex 2 (Deadlock)", "🛡️ Enforce Lock Ordering (Prevention)"],
+                        btnPayloads: ["Thread_A_Acquire_M1", "Circular_Dependency_Fault", "Strict_Lock_Ordering_Active"],
+                        trackLabel: "⚡ ACTIVE PROCESS SUBSYSTEM MUTEX CONTROLLER (RING 0)",
+                        trackIdle: "[ KERNEL RUNNING: THREAD EXECUTIONS COMPILING FLUIDLY INSIDE RAM ]",
+                        ledgerLabel: "⏳ KERNEL WAITCHANNEL DEPENDENCY VECTOR MAP ENTRIES:",
+                        ledgerIdle: "[ Dependency Matrices Fluid &mdash; Zero Cycles Tracked ]",
+                        dispatchBtn: "Scan Subsystem Resource Dependency Vectors",
+                        queueUnit: "Mutexes",
+                        readoutIdle: "<strong>Deadlock Analyzer Subsystem Status:</strong> Monitoring tracking vectors. Force a cross lock execution above to evaluate an unresolvable hardware circular wait state trap."
+                    }
+                },
+
 
                 17: {
                     analogy: {
