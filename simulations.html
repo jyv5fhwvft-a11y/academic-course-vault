@@ -56,3 +56,70 @@
             <h1>CS 301: Interactive Architecture Engine</h1>
             <p class="lab-desc">Central sandbox runtime array executing cross-functional kernel tracking matrices. Toggle between high-relatability 5th-grader conceptual analog hooks and low-level supervisor privilege ring hardware traces.</p>
         </header>
+
+                <!-- ==================== INTERACTIVE TIMELINE SELECTOR CONTROLS ==================== -->
+        <div class="selector-deck">
+            <button id="nav-l00" class="lecture-btn active" onclick="loadLabWorkspace(0)">L00</button>
+            <button id="nav-l01" class="lecture-btn" onclick="loadLabWorkspace(1)">L01</button>
+            <button id="nav-l17" class="lecture-btn" onclick="loadLabWorkspace(17)">L17</button>
+            <button id="nav-l24" class="lecture-btn" onclick="loadLabWorkspace(24)">L24</button>
+            <button id="nav-l27" class="lecture-btn" onclick="loadLabWorkspace(27)">L27</button>
+        </div>
+
+        <!-- ==================== SYSTEM SIMULATION ACTIVE STAGE CONTAINER ==================== -->
+        <div class="simulation-stage" id="main-lab-stage" style="border: 1px solid rgba(255,255,255,0.08); background: var(--bg-card); padding: 24px; border-radius: 12px; display: flex; flex-direction: column; gap: 20px; box-shadow: 0 8px 32px 0 rgba(0,0,0,0.5);">
+            
+            <!-- SUBSTRATE INTERACTIVE DUAL TOGGLE BAR -->
+            <div class="substrate-toggle">
+                <button id="l00-btn-analogy" class="toggle-btn active" onclick="switchLabSubstrate('analogy')">✈️ 5th-GRADER ANALOGY MODE</button>
+                <button id="l00-btn-technical" class="toggle-btn" onclick="switchLabSubstrate('technical')">⚙️ TECHNICAL SYSTEM MODE</button>
+            </div>
+
+            <!-- DYNAMIC MODULE META CONSOLE -->
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 12px;">
+                <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--neon-emerald); font-weight: 700; letter-spacing: 0.1em;" id="lab-meta-title">🎛️ AIR TRAFFIC QUEUE MULTIPLEXER</span>
+                <span style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--ink-muted);" id="lab-queue-count">Ready Queued: 0 Flights</span>
+            </div>
+            
+            <!-- CONCEPT EXPLANATORY STRIP -->
+            <div style="background: rgba(255,255,255,0.01); padding: 14px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.03);">
+                <h4 style="color: var(--ink-bright); font-size: 1.1rem; font-weight: 700; margin-bottom: 4px;" id="lab-concept-title">Concept: Resource Multiplexing &amp; Schedulers</h4>
+                <p style="color: #94a3b8; font-size: 0.88rem; line-height: 1.5;" id="lab-concept-desc">If multiple aircraft attempt to claim the exact same runway strip layout at the identical moment, a catastrophic terminal crash occurs. The tower must arbitrate and schedule them into sequential landing slots.</p>
+            </div>
+
+            <!-- DYNAMIC INTERACTION HARDWARE PANEL LAYOUT -->
+            <div id="dynamic-action-panel" style="display: flex; flex-direction: column; gap: 16px;">
+                <!-- Content will dynamically update here based on selected lecture via JS -->
+                <div style="background: var(--bg-code); border: 1px solid rgba(255,255,255,0.05); padding: 16px; border-radius: 8px;">
+                    <div style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--neon-cyan); text-transform: uppercase; margin-bottom: 10px; font-weight: 700;" id="lab-input-label">1. Request New Runway Landing Authorization</div>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px;" id="lab-buttons-row">
+                        <!-- Loaded Dynamically by runtime javascript engine -->
+                    </div>
+                </div>
+
+                <!-- RUNWAY / HARDWARE TRACK LAYER -->
+                <div id="lab-track-box" style="background: rgba(255, 255, 255, 0.02); border: 1px dashed rgba(255,255,255,0.15); border-radius: 8px; padding: 20px; text-align: center; min-height: 80px; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: all 0.3s ease;">
+                    <div style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--ink-muted); text-transform: uppercase; letter-spacing: 0.05em;" id="lab-track-label">🛬 ACTIVE RUNWAY ZONE (HARDWARE TARGET STRIP)</div>
+                    <div id="lab-track-status" style="font-size: 1.15rem; font-weight: 700; color: var(--ink-muted); margin-top: 6px;">[ RUNWAY EMPTY: STANDING BY ]</div>
+                </div>
+
+                <!-- BUFFER LINE STACK REGISTER -->
+                <div style="background: var(--bg-code); border: 1px solid rgba(255,255,255,0.05); padding: 14px; border-radius: 8px; font-family: var(--font-mono); font-size: 0.8rem; min-height: 85px;">
+                    <div style="color: var(--ink-muted); margin-bottom: 6px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase;" id="lab-ledger-label">⏳ TOWER HOLDING PATTERN ARRAY STACK:</div>
+                    <div id="lab-queue-log" style="color: var(--neon-cyan); line-height: 1.4;">[ Tower Airspace Clear &mdash; Standing By ]</div>
+                </div>
+            </div>
+
+            <!-- CORE DESCRIPTIVE ENGINE STATUS DISPLAY -->
+            <div id="lab-readout-box" style="background: rgba(139, 233, 253, 0.03); border-left: 3px solid var(--neon-cyan); padding: 14px; border-radius: 4px; font-size: 0.9rem; color: var(--ink-secondary); line-height: 1.5; min-height: 65px;">
+                <strong>Laboratory Telemetry:</strong> System initialized. Tap input options to trace low-level architectures.
+            </div>
+
+            <!-- MAIN OPERATIONAL CONTROLS BOTTOM BLOCK -->
+            <div style="display: flex; gap: 12px;">
+                <button onclick="clearActiveLab()" style="flex: 1; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.08); color: var(--ink-muted); padding: 12px; border-radius: 6px; cursor: pointer; font-family: var(--font-mono); font-weight: 700; font-size: 0.75rem; text-transform: uppercase;">Reset Lab</button>
+                <button onclick="dispatchActiveQuantum()" id="lab-dispatch-btn" style="flex: 2; background: var(--neon-blue); border: 1px solid rgba(255,255,255,0.1); color: var(--ink-bright); padding: 12px; border-radius: 6px; cursor: pointer; font-family: var(--font-mono); font-weight: 700; font-size: 0.75rem; text-transform: uppercase; transition: all 0.2s ease;">Authorize Runway Landing</button>
+            </div>
+        </div>
+
+        
