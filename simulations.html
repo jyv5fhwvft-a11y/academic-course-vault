@@ -872,6 +872,108 @@
                     }
                 },
 
+                                21: {
+                    analogy: {
+                        metaTitle: "🔌 UNIVERSAL SOCKET POWER ADAPTER CONTROLLER INTERFACE",
+                        conceptTitle: "Concept: Standard Wall Prongs vs. Random Appliance Cord Plugs",
+                        conceptDesc: "<strong>The Universal Adapter:</strong> The main wall outlet doesn't know how a microwave, phone, or laptop works internally. It just provides a standard geometric socket interface. <br><strong>The Custom Plug:</strong> Every appliance company writes a custom converter box plug (The Device Driver). It plugs into the wall's standard socket shape on one side, and translates that power flow into the hyper-specific voltage lines your appliance needs on the other side.",
+                        inputLabel: "1. Mount Hardware Appliance Socket Plug Interface",
+                        btnText: ["🔌 Plug in Microwave (High Draw Device)", "🔌 Plug in Desk Lamp (Character Line)", "🧹 Unplug Device from Socket Grid"],
+                        btnPayloads: ["Microwave_Driver_Load", "Lamp_Character_Plug", "Device_Hotplug_Removal"],
+                        trackLabel: "🔌 STANDARD HOME WALL OUTLET POWER MATRIX BUS",
+                        trackIdle: "[ SOCKET INACTIVE: WALL BUS STABLE AND STANDING BY FOR PLUGS ]",
+                        ledgerLabel: "📋 RECONCILED CONVERTER DEVICE REGISTER LIST:",
+                        ledgerIdle: "[ Socket Array Clear &mdash; Zero Active Hardware Conversions Loaded ]",
+                        dispatchBtn: "Cycle Power Adapter Handoff Link",
+                        queueUnit: "Adapters",
+                        readoutIdle: "<strong>Adapter Grid Telemetry:</strong> Standing by. Plug a device converter into the socket matrix above to observe abstract structural translation handoffs."
+                    },
+                    technical: {
+                        metaTitle: "🎛️ VFS DEVICE DRIVER MATRIX & REGISTRATION HUB (/dev LAYER)",
+                        conceptTitle: "Technical Layer: Device Drivers, Character/Block Classes, & file_operations Jump Tables",
+                        conceptDesc: "The operating system enforces a strict **'Everything is a File'** abstraction. The monolithic kernel doesn't know how a specific GPU or NVMe storage disk functions. It exposes abstract character and block standard interface nodes inside **`/dev`** (e.g., `/dev/sda`). Peripherals register a custom macro struct jump table of function pointers called **`file_operations`**. When software calls `read()` or `write()` on the node, the VFS redirects the path frame to the driver's low-level hardware-level assembly calls securely inside Ring 0.",
+                        inputLabel: "1. Invoke POSIX I/O System Call Sequence on /dev File Nodes",
+                        btnText: ["💾 Invoke open(/dev/sda1) [Block Dev]", "💾 Invoke write(/dev/tty0) [Char Dev]", "🚨 Insmod Kernel Driver Module (.ko File)"],
+                        btnPayloads: ["Sys_Open_Block_Sda1", "Sys_Write_Char_Tty0", "Insmod_Hardware_Driver"],
+                        trackLabel: "⚡ RING 0 VFS FILE_OPERATIONS ABSTRACT JUMP REGISTER",
+                        trackIdle: "[ KERNEL JUMP MATRIX STEADY: ALL INTERFACE TRANSLATIONS SAFE IN RAM ]",
+                        ledgerLabel: "⏳ DEV_T MAJOR/MINOR REGISTRATION JUMP TABLE DESCRIPTORS:",
+                        ledgerIdle: "[ Driver Core Jump Vectors Synchronized &mdash; Platform Substrate Secure ]",
+                        dispatchBtn: "Traverse VFS file_operations Function Pointer",
+                        queueUnit: "Drivers",
+                        readoutIdle: "<strong>Device Subsystem Monitor Status:</strong> Monitoring `/dev` file nodes. Fire a standard read or write system call above to witness the VFS pass character/block function pointers to raw hardware driver blocks inside Ring 0."
+                    }
+                },
+
+                                22: {
+                    analogy: {
+                        metaTitle: "🎟️ THE SECURITY GUARD BOUNCER CLUB DESK ACCESS BOARD",
+                        conceptTitle: "Concept: The VIP Club Guestlist vs. The Personal Ticket Pass (ACLs vs. Capabilities)",
+                        conceptDesc: "<strong>The VIP Guestlist (ACL):</strong> A security guard guards a private VIP lounge door. Every time a visitor attempts to cross the entry barrier, the guard looks down at a central paper ledger sheet pinned to the door wall framework. If your specific username isn't on that file row, access is rejected.<br><strong>The Ticket Pass (Capabilities):</strong> Instead of a master door list, the system issues physical metallic un-forgeable key passes to trusted patrons. Whoever carries that explicit token key gains instant access, transferring security checks straight into your hand.",
+                        inputLabel: "1. Present Security Authorization to Lounge Guard",
+                        btnText: ["📝 Check VIP Guestlist (ACL Vector Check)", "🎟️ Present Ticket Pass (User Capability Key)", "🚨 Force Gate Entry (Root Overrule)"],
+                        btnPayloads: ["ACL_Guestlist_Check", "Capability_Pass_Present", "Root_Overrule_Pass"],
+                        trackLabel: "🧱 PRIVATE BALCONY LOUNGE STRUCT DECK BARRIER",
+                        trackIdle: "[ ACCESS CONTROLLER BOUNDED: ZONE SECURED AGAINST UNLISTED VISITORS ]",
+                        ledgerLabel: "📋 ACTIVE ACCESS REGISTRATION LEDGER REGISTERS:",
+                        ledgerIdle: "[ Security Baseline Steady &mdash; Zero Protection Infractions Logged ]",
+                        dispatchBtn: "Verify Security Authorization",
+                        queueUnit: "Passes",
+                        readoutIdle: "<strong>Bouncer Desk Telemetry:</strong> Guard standing by. Submit an authorization token or list check command above to watch access checks evaluate."
+                    },
+                    technical: {
+                        metaTitle: "🎛️ POSIX FILE PERMISSION SECURITY ACCESS MATRIX CONTROLLER",
+                        conceptTitle: "Technical Layer: Discretionary Access Control (DAC), Access Control Lists, & Capability Structures",
+                        conceptDesc: "Operating systems protect resources using two main structures. **Access Control Lists (ACLs)** secure objects (like files) by mapping an array of user/group permissions (`rwxr-xr-x`) inside the inode block layout; the kernel cross-checks this list on every file operation call. **Capability Lists** associate keys directly with subjects (like processes); a process carries cryptographically signed access tokens (`CAP_SYS_ADMIN`), letting the kernel grant specific administrative actions directly inside Ring 0 without running an entire file path vector lookup.",
+                        inputLabel: "1. Evaluate Subject Permission Vector Map on Target Inode Node",
+                        btnText: ["💾 Parse Inode stat() ACL (rwxr-xr-x)", "💾 Verify Task Capability bitmask", "🛑 Exploit: Setuid binary execution (Root Trap)"],
+                        btnPayloads: ["Inode_ACL_DAC_Check", "Task_Struct_Cap_Bitmask", "Setuid_Root_Priv_Esc"],
+                        trackLabel: "⚡ PRIVILEGED RING 0 OBJECT DISPATCH LAYER SUBSTRATE",
+                        trackIdle: "[ PROTECTION BUS ACTIVE: HARDWARE HOOK INTERCEPTING SUB-CHANNEL HOOK TRANSACTIONS ]",
+                        ledgerLabel: "⏳ TASK_STRUCT CREDENTIAL ALLOCATION ACCESS PERMS POINTERS:",
+                        ledgerIdle: "[ Object Perms Maps Synchronized &mdash; Platform Sandbox Secure ]",
+                        dispatchBtn: "Run Kernel Access Authorization Check",
+                        queueUnit: "Tokens",
+                        readoutIdle: "<strong>Access Subsystem Monitor Status:</strong> Monitoring process credentials. Fire an ACL check or setuid binary trap execution above to watch how the kernel validates Ring 3 permission bitmasks."
+                    }
+                },
+
+                                23: {
+                    analogy: {
+                        metaTitle: "🔐 THE VAULT MULTI-KEY SAFE DEP BOX INTERFACE",
+                        conceptTitle: "Concept: The Secret Passcode, The Physical Key, and The Salt Shaker",
+                        conceptDesc: "<strong>The Multi-Key Lock:</strong> To unlock a high-security vault box, knowing the secret combination dial phrase isn't enough. You must also physically turn a special brass key held in your hand. <br><strong>The Salt Shaker:</strong> To prevent thieves from forging identical keys by looking at standard lock shapes, the locksmith sprinkles a handful of random unique gravel filings (The Salt) inside each lock cylinder before casting it. Even if two boxes share the exact same combination, their internal lock patterns finish completely unique.",
+                        inputLabel: "1. Submit Multi-Factor Identity Token Credentials",
+                        btnText: ["🔑 Key Option 1: Guess Combo String", "🧂 Key Option 2: Add Unique Salt Layer", "🛡️ Key Option 3: Verify Physical Hardware Key"],
+                        btnPayloads: ["Plain_Text_Combo", "Salted_Hash_Mix", "MFA_Physical_Token_Verified"],
+                        trackLabel: "🔓 COLD STEEL VAULT STORAGE DEAD-BOLT SUBSTRATE",
+                        trackIdle: "[ LOCK STATUS: HIGH SECURITY DEAD-BOLTS ARMED AND ENGAGED ]",
+                        ledgerLabel: "📋 SECURE IDENTITY LOCKSMITH RECORD LEDGER REGS:",
+                        ledgerIdle: "[ Identity State Verified &mdash; Zero Authentication Mismatches Cached ]",
+                        dispatchBtn: "Verify Multi-Factor Lock Security",
+                        queueUnit: "Keys",
+                        readoutIdle: "<strong>Vault Access Tracker:</strong> Standing by. Submit identity token keys above to watch the verification sequence balance."
+                    },
+                    technical: {
+                        metaTitle: "🎛️ CRYPTOGRAPHIC AUTHENTICATION ENGINE & SALTED HASH CONSOLE",
+                        conceptTitle: "Technical Layer: Cryptographic Hashes (bcrypt/SHA), Salted Passwords, & MFA tokens",
+                        conceptDesc: "Operating systems must never store user passwords in raw text frames. The kernel hashes incoming strings against a cryptographically strong unique **Salt** value using computation-heavy algorithms like `bcrypt` or `argon2`, completely neutralizing pre-computed lookup tables (Rainbow Tables). To complete verification, the system demands an out-of-band **Multi-Factor Authentication (MFA)** cryptographic time token (`TOTP`), cross-checking automated dynamic security codes inside Ring 0 before issuing user privilege parameters.",
+                        inputLabel: "1. Invoke Cryptographic Authentication Primitive Validation Sequence",
+                        btnText: ["💾 Hash string via SHA-256 (Raw)", "💾 Inject crypt_salt string array", "⚡ Validate TOTP Hardware Time Token"],
+                        btnPayloads: ["Raw_Hash_Process", "Salted_Bcrypt_Generation", "TOTP_Token_Validation_Pass"],
+                        trackLabel: "⚡ RING 0 SECURE IDENTITY VALIDATION CONTROLLER SUBMODULE",
+                        trackIdle: "[ AUTH BUS STABLE: PASSWORD STORAGE HASHES SECURELY COMPILED INSIDE RAM ]",
+                        ledgerLabel: "⏳ ENCRYPTED SHADOW RECORD SALT-AND-HASH FIELD REGISTERS:",
+                        ledgerIdle: "[ Crypto Registers Synchronized &mdash; Platform Substrate Secure against Breaches ]",
+                        dispatchBtn: "Run Multi-Factor Cryptographic Validation Loop",
+                        queueUnit: "Tokens",
+                        readoutIdle: "<strong>Crypto Auth Core Monitor Status:</strong> Tracking identity hashes. Fire a salted hash mapping calculation or validate a hardware time token above to see how the system secures credential databases against brute-force tracking."
+                    }
+                },
+
+
+
+
 
                 
                 27: {
