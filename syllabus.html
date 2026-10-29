@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>⚡ CS 301: Master Course Syllabus Handout</title>
+    <style>
+        /* ==================== VARIABLE RESET & LAYOUT CONFIGS ==================== */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --bg-base: #06080e;
+            --bg-card: #0b0f19;
+            --bg-code: #020408;
+            --stroke-glass: rgba(255, 255, 255, 0.08);
+            --ink-bright: #ffffff;
+            --ink-secondary: #e2e8f0;
+            --ink-muted: #64748b;
+            --neon-emerald: #50fa7b;
+            --neon-cyan: #8be9fd;
+            --neon-blue: #6366f1;
+            --neon-amber: #ffb86c;
+            --font-sans: system-ui, -apple-system, sans-serif;
+            --font-mono: monospace;
+        }
+        body { background-color: var(--bg-base); color: var(--ink-secondary); font-family: var(--font-sans); padding: 40px 24px; line-height: 1.6; }
+        .wrapper { max-width: 900px; margin: 0 auto; display: flex; flex-direction: column; gap: 24px; }
+        header { border-bottom: 2px solid var(--neon-blue); padding-bottom: 20px; margin-bottom: 10px; }
+        .lab-badge { font-family: var(--font-mono); font-size: 0.75rem; color: var(--neon-emerald); text-transform: uppercase; letter-spacing: 0.15em; font-weight: 700; display: inline-block; margin-bottom: 8px; }
+        h1 { color: var(--ink-bright); font-size: 2.2rem; font-weight: 800; letter-spacing: -0.03em; }
+        
+        /* ==================== SYLLABUS CARDS LAYOUT ==================== */
+        .syllabus-card { background: var(--bg-card); border: 1px solid var(--stroke-glass); border-radius: 12px; padding: 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
+        .syllabus-card h2 { color: var(--neon-cyan); font-family: var(--font-mono); font-size: 1.2rem; margin-bottom: 14px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 6px; text-transform: uppercase; letter-spacing: 0.05em; }
+        
+        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        @media (max-width: 600px) { .info-grid { grid-template-columns: 1fr; } }
+        .info-item { background: var(--bg-code); border: 1px solid rgba(255,255,255,0.03); padding: 12px; border-radius: 6px; }
+        .info-label { font-family: var(--font-mono); font-size: 0.7rem; color: var(--ink-muted); text-transform: uppercase; font-weight: 700; }
+        .info-val { color: var(--ink-bright); font-weight: 600; margin-top: 2px; }
+
+        /* ==================== MODULE MATRIX LISTS ==================== */
+        .pillar-list { display: flex; flex-direction: column; gap: 10px; list-style: none; }
+        .pillar-item { display: flex; align-items: flex-start; gap: 12px; background: var(--bg-code); padding: 12px; border-radius: 6px; border-left: 3px solid var(--neon-blue); }
+        .pillar-num { font-family: var(--font-mono); color: var(--neon-emerald); font-weight: 700; font-size: 0.9rem; }
+        .pillar-text strong { color: var(--ink-bright); }
+        
+        /* ==================== WEIGHT MATRIX TABLE ==================== */
+        table { width: 100%; border-collapse: collapse; background: var(--bg-code); border-radius: 8px; overflow: hidden; margin-top: 8px; }
+        th, td { padding: 12px 16px; text-align: left; }
+        th { background: rgba(99, 102, 241, 0.15); color: var(--ink-bright); font-family: var(--font-mono); font-size: 0.8rem; text-transform: uppercase; font-weight: 700; border-bottom: 1px solid var(--stroke-glass); }
+        td { border-bottom: 1px solid rgba(255,255,255,0.03); }
+        tr:last-child td { border-bottom: none; }
+        .weight-badge { background: rgba(80, 250, 123, 0.12); color: var(--neon-emerald); padding: 4px 8px; border-radius: 4px; font-family: var(--font-mono); font-weight: 700; font-size: 0.8rem; }
+    </style>
+</head>
