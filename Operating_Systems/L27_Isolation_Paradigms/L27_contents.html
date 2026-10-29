@@ -101,6 +101,156 @@
               Peer application spaces are hidden using native host kernel translation arrays, 
               allowing millisecond boot phases.
 ------------------------------------------------=================</div>
+        <!-- ==================== INTERACTIVE SYSTEM CALL TRACKING ENGINE ==================== -->
+        <div class="card shadow-box" style="margin-top: 24px; border: 1px solid rgba(139, 233, 253, 0.2); background: #0b0f19; padding: 24px; border-radius: 12px; display: flex; flex-direction: column; gap: 20px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 12px;">
+                <span style="font-family: monospace; font-size: 0.75rem; color: #8be9fd; font-weight: 700; letter-spacing: 0.1em;">🛠️ LIVE OS ARCHITECTURE WIDGET</span>
+                <span style="font-family: monospace; font-size: 0.8rem; color: #64748b;" id="widget-step-counter">Step 1 / 6</span>
+            </div>
+            
+            <div>
+                <h3 style="color: #ffffff; font-size: 1.2rem; font-weight: 700; margin-bottom: 6px;">Privilege Ring &amp; Container Clone Simulator</h3>
+                <p style="color: #94a3b8; font-size: 0.9rem; line-height: 1.5;">Click through the execution pipeline states to observe how the monolithic kernel manages namespaces and hardware privilege ring transitions.</p>
+            </div>
+
+            <!-- GAUGE CLUSTER -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 8px 0;">
+                <div id="gauge-ring" style="background: rgba(239, 68, 68, 0.06); border: 1px solid rgba(239, 68, 68, 0.2); border-radius: 8px; padding: 16px; text-align: center; transition: all 0.3s ease;">
+                    <div style="font-family: monospace; font-size: 0.65rem; color: #64748b; text-transform: uppercase;">CPU Privilege Tier</div>
+                    <div id="gauge-ring-text" style="font-size: 1.4rem; font-weight: 800; color: #ef4444; margin-top: 4px;">Ring 3 (User)</div>
+                </div>
+                <div id="gauge-subsystem" style="background: rgba(139, 233, 253, 0.04); border: 1px solid rgba(139, 233, 253, 0.15); border-radius: 8px; padding: 16px; text-align: center; transition: all 0.3s ease;">
+                    <div style="font-family: monospace; font-size: 0.65rem; color: #64748b; text-transform: uppercase;">Active Subsystem</div>
+                    <div id="gauge-subsystem-text" style="font-size: 1.1rem; font-weight: 700; color: #8be9fd; margin-top: 8px;">Process Manager</div>
+                </div>
+            </div>
+
+            <!-- TERMINAL CODE PANEL -->
+            <div style="background: #020408; border: 1px solid rgba(255,255,255,0.05); padding: 16px; border-radius: 8px; font-family: monospace; font-size: 0.85rem; line-height: 1.5; color: #a5b4fc; min-height: 120px; white-space: pre-wrap; word-break: break-all;">
+<span style="color: #64748b;" id="trace-code-comment">// Active Hardware State Trace Line:</span>
+<div style="color: #ffffff; font-weight: 700; margin-top: 4px; font-size: 0.9rem;" id="trace-code-instruction">main() -> clone(container_main, ..., CLONE_NEWPID);</div>
+            </div>
+
+            <!-- CORE DESCRIPTIVE READOUT -->
+            <div id="trace-explanation-box" style="background: rgba(80, 250, 123, 0.04); border-left: 3px solid #50fa7b; padding: 14px; border-radius: 4px; font-size: 0.92rem; color: #e2e8f0; line-height: 1.6;">
+                The user space application running on the host initiates a new child execution branch context, requesting an isolated virtual process tree layout boundary using standard library compilation primitives.
+            </div>
+
+            <!-- INTERACTIVE BUTTON DASHBOARD -->
+            <div style="display: flex; gap: 12px; margin-top: 8px;">
+                <button onclick="changeWidgetStep(-1)" style="flex: 1; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.08); color: #94a3b8; padding: 12px; border-radius: 6px; cursor: pointer; font-family: monospace; font-weight: 700; font-size: 0.75rem; text-transform: uppercase;">Previous</button>
+                <button onclick="changeWidgetStep(1)" id="widget-next-btn" style="flex: 2; background: #6366f1; border: 1px solid rgba(255,255,255,0.1); color: #ffffff; padding: 12px; border-radius: 6px; cursor: pointer; font-family: monospace; font-weight: 700; font-size: 0.75rem; text-transform: uppercase; transition: all 0.2s ease;">Next Step</button>
+            </div>
+        </div>
+
+                    <!-- CLIENT APPLICATION RUNTIME CONTROLLER ENGINE -->
+        <script>
+            let activeWidgetIdx = 0;
+            const widgetTimeline = [
+                {
+                    counter: "Step 1 / 6",
+                    ring: "Ring 3 (User)",
+                    ringColor: "#ef4444",
+                    ringBg: "rgba(239, 68, 68, 0.06)",
+                    ringBorder: "rgba(239, 68, 68, 0.2)",
+                    subsystem: "Process Manager",
+                    comment: "// Active Hardware State Trace Line:",
+                    code: "main() -> clone(container_main, ..., CLONE_NEWPID);",
+                    explanation: "The user space application running on the host initiates a new child execution branch context, requesting an isolated virtual process tree layout boundary using standard library compilation primitives."
+                },
+                {
+                    counter: "Step 2 / 6",
+                    ring: "Ring Crossover \uD83D\uDD12",
+                    ringColor: "#ffb86c",
+                    ringBg: "rgba(255, 184, 108, 0.08)",
+                    ringBorder: "rgba(255, 184, 108, 0.25)",
+                    subsystem: "CPU Hardware Architecture",
+                    comment: "// Hardware-Enforced Transition Phase:",
+                    code: "SYS_clone assembly macro instruction execution trap line.",
+                    explanation: "The processor intercepts the clone operation software interrupt trap. The CPU halts normal thread context loops, writes current Ring 3 register flags onto the frame stack, and locks execution boundaries."
+                },
+                {
+                    counter: "Step 3 / 6",
+                    ring: "Ring 0 (Kernel)",
+                    ringColor: "#50fa7b",
+                    ringBg: "rgba(80, 250, 123, 0.06)",
+                    ringBorder: "rgba(80, 250, 123, 0.2)",
+                    subsystem: "Security Manager",
+                    comment: "// Privileged Supervisor Instruction Check:",
+                    code: "sys_clone() parameter validation parsing loops inside Ring 0.",
+                    explanation: "The Security Manager runs authorization routines inside supervisor space. The kernel verifies capability vectors to ensure the host task has the administrative rights to request visibility partitions."
+                },
+                {
+                    counter: "Step 4 / 6",
+                    ring: "Ring 0 (Kernel)",
+                    ringColor: "#50fa7b",
+                    ringBg: "rgba(80, 250, 123, 0.06)",
+                    ringBorder: "rgba(80, 250, 123, 0.2)",
+                    subsystem: "Memory Manager",
+                    comment: "// Supervisor Memory Frame Allocation:",
+                    code: "alloc_pid_ns() -> mapping fresh isolated Process Control Blocks.",
+                    explanation: "The Memory Subsystem allocates space for a brand-new internal namespace tracking profile. It generates dedicated page translation maps and configures a separate tracking graph initialized back to a virtual PID 1."
+                },
+                {
+                    counter: "Step 5 / 6",
+                    ring: "Ring Crossover \uD83D\uDD13",
+                    ringColor: "#ffb86c",
+                    ringBg: "rgba(255, 184, 108, 0.08)",
+                    ringBorder: "rgba(255, 184, 108, 0.25)",
+                    subsystem: "CPU Hardware Architecture",
+                    comment: "// Hardware Privilege Demotion Step:",
+                    code: "iret (Interrupt Return) hardware command block execution line.",
+                    explanation: "The monolithic kernel finishes resource mapping loops. The CPU clears its tracking buffers, pops saved context boundaries off the tracking index stack, and drops hardware privilege states back to unprivileged limits."
+                },
+                {
+                    counter: "Step 6 / 6",
+                    ring: "Ring 3 (User)",
+                    ringColor: "#ef4444",
+                    ringBg: "rgba(239, 68, 68, 0.06)",
+                    ringBorder: "rgba(239, 68, 68, 0.2)",
+                    subsystem: "Process Manager",
+                    comment: "// Sandboxed User Space Execution Payload Loop:",
+                    code: "container_main() enters execution loop running on localized PID 1.",
+                    explanation: "The Illusion Settles: The container application springs to life natively on the host processor. Because its visibility filter maps are clamped by the kernel namespace, it believes it is on a unique machine."
+                }
+            ];
+
+            function renderWidgetState() {
+                const node = widgetTimeline[activeWidgetIdx];
+                document.getElementById('widget-step-counter').innerText = node.counter;
+                
+                const rGauge = document.getElementById('gauge-ring');
+                rGauge.style.background = node.ringBg;
+                rGauge.style.borderColor = node.ringBorder;
+                
+                const rText = document.getElementById('gauge-ring-text');
+                rText.innerText = node.ring;
+                rText.style.color = node.ringColor;
+                
+                document.getElementById('gauge-subsystem-text').innerText = node.subsystem;
+                document.getElementById('trace-code-comment').innerText = node.comment;
+                document.getElementById('trace-code-instruction').innerText = node.code;
+                document.getElementById('trace-explanation-box').innerText = node.explanation;
+                
+                const nextBtn = document.getElementById('widget-next-btn');
+                if(activeWidgetIdx === widgetTimeline.length - 1) {
+                    nextBtn.innerText = "Restart Simulation";
+                    nextBtn.style.background = "#64748b";
+                } else {
+                    nextBtn.innerText = "Next Step";
+                    nextBtn.style.background = "#6366f1";
+                }
+            }
+
+            function changeWidgetStep(dir) {
+                activeWidgetIdx += dir;
+                if(activeWidgetIdx >= widgetTimeline.length) activeWidgetIdx = 0;
+                if(activeWidgetIdx < 0) activeWidgetIdx = widgetTimeline.length - 1;
+                renderWidgetState();
+            }
+        </script>
+
+            
         </div>
 
         <div class="card">
