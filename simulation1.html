@@ -61,3 +61,115 @@
         @keyframes pulse-border { 0% { opacity: 0.7; } 50% { opacity: 1; } 100% { opacity: 0.7; } }
     </style>
 </head>
+<body>
+    <div class="wrapper">
+        <header>
+            <div class="lab-badge">⚙️ CS 301: EXPERT SELF-PACED ENVIRONMENT</div>
+            <h1>Full-Stack Systems Grand Animation Matrix</h1>
+            <p class="lab-desc">An all-in-one immersive learning environment synchronizing your core computer operating system modules into a single unified execution pipeline with pause controls.</p>
+        </header>
+
+        <!-- SECTION 1: THE INTEGRATED MODULE STORY -->
+        <div class="text-card">
+            <h2>📘 The Great Full-Stack Data Journey: An Architecture Story</h2>
+            <div class="story-step">
+                <strong>Step 1: The App Stage (Module 1 — Application Space)</strong>
+                You start out in the unprivileged town square (User Space / Ring 3). Your running application is like an actor performing on stage with their own clothing box and script. They are blocked from touching other actors' dressing rooms or private castle boundaries.
+            </div>
+            <div class="story-step">
+                <strong>Step 2: The Secure Gate (Module 2 — System Calls & Traps)</strong>
+                The actor needs a weapon kept in the King's high-security vault. They can't walk inside alone—that triggers alarms! They must stand at a secure service window (The IDT Interrupt Gate Vector Table) and pass a vouchers request slip across. The CPU switches privilege levels to Ring 0 Supervisor Mode instantly.
+            </div>
+            <div class="story-step">
+                <strong>Step 3: The Waiting Line (Module 3 — Concurrency & Mutexes)</strong>
+                Inside the castle halls, thousands of other requests are shouting to see the King. To protect shared variables, threads must fetch a lock token from a spindle spindle. If someone is already inside the critical room, your thread is suspended into a sleep state until the lock owner unsets the flag.
+            </div>
+            <div class="story-step">
+                <strong>Step 4 & 5: The Master Book Cart (Modules 4 & 5 — Memory & Paging)</strong>
+                The guards check a high-speed sticky index note on their counter counter (The hardware TLB Cache) for page frame locations. On a TLB Miss, they scan the master maps. If the asset box was shipped to an external storage storage swap disk, an Interrupt 14 Page Fault exception halts the processor to roll a box back into physical RAM.
+            </div>
+            <div class="story-step">
+                <strong>Step 6: The Library Indexes (Module 6 — File Systems & Inodes)</strong>
+                To decode raw file blocks, the virtual file system checks a card catalog index tracking sheet record (The ext4 Inode Structure). It reads 12 direct shelf pointers for small payloads, and follows indirect expansion trees to calculate absolute block offsets for massive databases.
+            </div>
+            <div class="story-step">
+                <strong>Step 7: The Castle Moat Guard (Module 7 — Drivers, I/O & Firewalls)</strong>
+                The device driver wagon packages your asset into binary lines. Before it rolls across the drawbridge, a stateful packet filter verifies its history registers inside a conntrack table session matrix. The drawbridge drops, a Hardware Interrupt (IRQ) signal notification pings the core, and your data returns cleanly to Ring 3!
+            </div>
+        </div>
+
+        <!-- SECTION 2: THE HARDWARE CANVAS MAP GRAPH -->
+        <div class="pipeline-display">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--neon-cyan); font-weight: 700;">📡 HARDWARE SUBSTRATE PIPELINE MAP</span>
+                <span id="pipeline-status" style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--neon-amber); font-weight: 700;">[ Core Bus Standby ]</span>
+            </div>
+            
+            <div class="stage-grid">
+                <div class="stage-node active" id="node-0">
+                    <div class="node-title">M1: App</div>
+                    <div class="node-meta" id="meta-0">Ring 3 Space</div>
+                </div>
+                <div class="stage-node" id="node-1" style="opacity: 0.4;">
+                    <div class="node-title">M2: Trap</div>
+                    <div class="node-meta" id="meta-1">IDT Entry</div>
+                </div>
+                <div class="stage-node" id="node-2" style="opacity: 0.4;">
+                    <div class="node-title">M3: Lock</div>
+                    <div class="node-meta" id="meta-2">Mutex Check</div>
+                </div>
+                <div class="stage-node" id="node-3" style="opacity: 0.4;">
+                    <div class="node-title">M4: MMU</div>
+                    <div class="node-meta" id="meta-3">TLB Cache</div>
+                </div>
+                <div class="stage-node" id="node-4" style="opacity: 0.4;">
+                    <div class="node-title">M5: VMem</div>
+                    <div class="node-meta" id="meta-4">Swap Sector</div>
+                </div>
+                <div class="stage-node" id="node-5" style="opacity: 0.4;">
+                    <div class="node-title">M6: VFS</div>
+                    <div class="node-meta" id="meta-5">ext4 Inode</div>
+                </div>
+                <div class="stage-node" id="node-6" style="opacity: 0.4;">
+                    <div class="node-title">M7: Device</div>
+                    <div class="node-meta" id="meta-6">IRQ Output</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 3: DUAL BALANCED REAL-TIME TELEMETRY REGS -->
+        <div class="telemetry-deck">
+            <div class="panel">
+                <div class="panel-header" id="panel-concept-title" style="color: var(--neon-cyan);">📚 5th-Grader Analogy View</div>
+                <div class="log-display" id="concept-box" style="font-family: var(--font-sans); color: #a4b5c6;">
+                    Tap <strong>"Execute System Instruction"</strong> below to watch the pipeline move. The student can read a simple story explanation here first, then look right to see the matching hardware machine logs.
+                </div>
+            </div>
+
+            <div class="panel">
+                <div class="panel-header" style="color: var(--neon-emerald);">📟 Privilege Ring Register Telemetry Log</div>
+                <div class="log-display" id="telemetry-log">
+                    <div class="log-entry">[ 05:10:00 PM ] Microkernel initialized inside Ring 3 sandbox lanes. Ready for clock interrupt handoff track.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 4: MAIN CONTROL PANEL BUTTONS DECK -->
+        <div class="control-strip">
+            <button class="action-btn" id="exec-btn" onclick="launchGrandPipelineAnimation()">Execute System Instruction</button>
+            <button class="action-btn pause-btn" id="pause-btn" onclick="togglePipelinePauseState()" disabled>⏸️ Pause Engine</button>
+            <button onclick="clearActiveLab()" style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.08); color: var(--ink-muted); padding: 12px 18px; border-radius: 6px; cursor: pointer; font-family: var(--font-mono); font-weight: 700; font-size: 0.75rem; text-transform: uppercase; margin-left: auto;">Reset Lab</button>
+        </div>
+
+        <!-- SECTION 5: INTERACTIVE SIMULATOR WORKSPACE MANUAL -->
+        <div class="text-card">
+            <h2>🕹️ Simulation User Manual: How to Track the Lab Workspace</h2>
+            <ul class="manual-list">
+                <li><strong>The Hardware Pipeline Grid:</strong> The canvas maps out your curriculum milestones sequentially. Active steps pulse bright emerald, completed steps turn neon blue, and future steps fade to 40% visibility.</li>
+                <li><strong>Self-Paced Pause Controls:</strong> Tap <strong>"⏸️ Pause Engine"</strong> at any step to freeze the hardware clock context. The current stage stays locked on screen indefinitely, letting students fully absorb the side-by-side analogies before resuming.</li>
+                <li><strong>The Dual Display Tracker:</strong> Read the left panel first to learn the conceptual story logic, then cross-reference the right panel to trace how real CPU registers and privilege matrices behave during that exact execution block.</li>
+            </ul>
+        </div>
+    </div>
+
+    
