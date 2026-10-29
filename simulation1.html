@@ -314,6 +314,27 @@
             isPipelinePaused = false;
             document.getElementById('exec-btn').disabled = false;
             document.getElementById('pause-btn').disabled = true;
+                            document.getElementById('pause-btn').innerText = "⏸️ Pause Engine";
+                document.getElementById('pause-btn').className = "action-btn pause-btn";
+                
+                document.getElementById('pipeline-status').innerText = '[ Core Bus Standby ]';
+                document.getElementById('panel-concept-title').innerText = '📚 Concept Breakdown Window';
+                document.getElementById('concept-box').innerHTML = "Tap 'Execute System Instruction' to launch the animation track and view step-by-step curriculum concept cross-references here.";
+                document.getElementById('telemetry-log').innerHTML = '<div class="log-entry">[ Reset ] System contexts synchronized back to baseline User-Mode boundaries. Registers cold.</div>';
+                
+                document.querySelectorAll('.stage-node').forEach((node, idx) => {
+                    if (idx === 0) {
+                        node.className = 'stage-node active';
+                        node.style.opacity = '1';
+                    } else {
+                        node.className = 'stage-node';
+                        node.style.opacity = '0.4';
+                    }
+                });
+            }
+
+            window.onload = function() { clearActiveLab(); };
+
 
 
     
