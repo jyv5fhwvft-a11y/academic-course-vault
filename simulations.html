@@ -1114,7 +1114,7 @@
                         inputLabel: "1. Fire Central Master Vehicle Activation Signal",
                         btnText: ["🔑 Turn Ignition Key (Boot Substrate)", "⛽ Press Accelerator Pedal (Handoff Flow)", "📊 Scan Diagnostic Dashboard Console"],
                         btnPayloads: ["Ignition_Boot_Sequence", "Accelerator_System_Handoff", "Dashboard_Diagnostic_Trace"],
-                        trackLabel: "🚗 FULL SYSTEM OPERATIONAL ENGINE PLATFORM PLATFORM LAYOUT",
+                        trackLabel: "🚗 FULL SYSTEM OPERATIONAL ENGINE PLATFORM LAYOUT",
                         trackIdle: "[ VEHICLE IDLE: ENGINE RUNNING SMOOTHLY AT BASE PARAMETERS ]",
                         ledgerLabel: "📋 INTEGRATED MECHANIC TELEMETRY TRANSLATION REGS:",
                         ledgerIdle: "[ All Subsystems Cohesive &mdash; Machine Framework Fully Synchronized ]",
@@ -1138,30 +1138,21 @@
                         readoutIdle: "<strong>Grand Retrospective Monitor Status:</strong> Monitoring full-stack convergence layout. Fire an end-to-end execution handoff trace above to witness all 29 modular building blocks mesh seamlessly across the system hardware canvas layer."
                     }
                 }
-
-                    
-                }
             };
 
-            
-
-                                    // ==================== LABORATORY MASTER DESKTOP ENGINE RUNTIME LOGIC ====================
+            // ==================== LABORATORY MASTER DESKTOP ENGINE RUNTIME LOGIC ====================
             function loadLabWorkspace(moduleId) {
-                // Clear any active timer thread structures
                 if (labActiveTimer) {
                     clearTimeout(labActiveTimer);
                     labActiveTimer = null;
                 }
-                
                 currentLabModule = moduleId;
                 labActiveQueue = [];
                 
-                // Toggle active navigational highlight styles
                 document.querySelectorAll('.lecture-btn').forEach(btn => btn.classList.remove('active'));
                 const targetNav = document.getElementById(`nav-l${moduleId < 10 ? '0' + moduleId : moduleId}`);
                 if (targetNav) targetNav.classList.add('active');
                 
-                // Regenerate dynamic action button decks matching the target module content metrics
                 const targetNode = labDatabase[currentLabModule][currentLabSubstrate];
                 const btnRow = document.getElementById('lab-buttons-row');
                 btnRow.innerHTML = '';
@@ -1184,7 +1175,6 @@
                     btn.onclick = () => pushLabQueueItem(payload);
                     btnRow.appendChild(btn);
                 });
-                
                 refreshLabUI();
             }
 
@@ -1192,52 +1182,41 @@
                 currentLabSubstrate = mode;
                 document.getElementById('l00-btn-analogy').classList.toggle('active', mode === 'analogy');
                 document.getElementById('l00-btn-technical').classList.toggle('active', mode === 'technical');
-                
-                // Reload buttons row to match new substrate translation terminology bounds
                 loadLabWorkspace(currentLabModule);
             }
 
             function pushLabQueueItem(item) {
                 labActiveQueue.push(item);
                 updateQueueLogUI();
-                
-                const node = labDatabase[currentLabModule][currentLabSubstrate];
                 if (currentLabSubstrate === 'analogy') {
                     document.getElementById('lab-readout-box').innerHTML = 
-                        `<strong>Lab Router Telemetry:</strong> Buffered entry <code>${item}</code> into tracking system storage layers.`;
+                        "<strong>Lab Router Telemetry:</strong> Buffered entry <code>" + item + "</code> into tracking storage layers.";
                 } else {
                     document.getElementById('lab-readout-box').innerHTML = 
-                        `<strong>Kernel Monitor Status:</strong> Pushed descriptor payload pointer <code>${item}</code> into active scheduling array registers.`;
+                        "<strong>Kernel Monitor Status:</strong> Pushed descriptor payload pointer <code>" + item + "</code> into scheduling array registers.";
                 }
             }
 
             function updateQueueLogUI() {
                 const node = labDatabase[currentLabModule][currentLabSubstrate];
-                document.getElementById('lab-queue-count').innerText = `Ready Queued: ${labActiveQueue.length} ${node.queueUnit}`;
-                
+                document.getElementById('lab-queue-count').innerText = "Ready Queued: " + labActiveQueue.length + " " + node.queueUnit;
                 const logBox = document.getElementById('lab-queue-log');
                 if (labActiveQueue.length === 0) {
                     logBox.innerHTML = node.ledgerIdle;
                 } else {
                     logBox.innerHTML = labActiveQueue.map((item, idx) => {
-                        return `<div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); padding: 5px 10px; margin-top: 4px; border-radius: 4px; display: inline-block; margin-right: 6px; font-family: monospace;">
-                            <span style="color: #64748b;">[Idx ${idx}]</span> ${item}
-                        </div>`;
+                        return "<div style='background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); padding: 5px 10px; margin-top: 4px; border-radius: 4px; display: inline-block; margin-right: 6px; font-family: monospace;'><span style='color: #64748b;'>[Idx " + idx + "]</span> " + item + "</div>";
                     }).join('');
                 }
             }
-
             function dispatchActiveQuantum() {
                 if (labActiveTimer) return;
-                
                 const node = labDatabase[currentLabModule][currentLabSubstrate];
                 if (labActiveQueue.length === 0) {
                     if (currentLabSubstrate === 'analogy') {
-                        document.getElementById('lab-readout-box').innerHTML = 
-                            `<strong>Subsystem Warning:</strong> Processing denied. The analogy tracking array matrix is completely clear.`;
+                        document.getElementById('lab-readout-box').innerHTML = "<strong>Subsystem Warning:</strong> Processing denied. The analogy tracking array matrix is completely clear.";
                     } else {
-                        document.getElementById('lab-readout-box').innerHTML = 
-                            `<strong>Kernel Monitor Status:</strong> Dispatch rejected. The target execution queue tracking descriptor array is empty.`;
+                        document.getElementById('lab-readout-box').innerHTML = "<strong>Kernel Monitor Status:</strong> Dispatch rejected. The target execution queue tracking descriptor array is empty.";
                     }
                     return;
                 }
@@ -1245,33 +1224,31 @@
                 const runway = document.getElementById('lab-track-box');
                 const runwayStatus = document.getElementById('lab-track-status');
                 const readout = document.getElementById('lab-readout-box');
-                
                 let activeItem = labActiveQueue.shift();
                 updateQueueLogUI();
                 
-                runway.style.background = "rgba(239, 68, 68, 0.08)";
-                runway.style.borderColor = "#ef4444";
-                runwayStatus.style.color = "#ef4444";
+                runway.style.background = "rgba(80, 250, 123, 0.04)";
+                runway.style.borderColor = "#50fa7b";
+                runwayStatus.style.color = "#50fa7b";
                 
                 if (currentLabModule === 1) {
+                    runway.style.background = "rgba(239, 68, 68, 0.08)";
+                    runway.style.borderColor = "#ef4444";
+                    runwayStatus.style.color = "#ef4444";
                     if (currentLabSubstrate === 'analogy') {
-                        runwayStatus.innerText = `🚨 CRASH FAULT: ${activeItem}`;
-                        readout.innerHTML = `<strong>Kitchen Dispatch Telemetry:</strong> Segment fault detected at <code>${activeItem}</code>! Isolating broken container unit vehicle. All remaining food trucks continue shipping meals independently...`;
+                        runwayStatus.innerText = "🚨 CRASH FAULT: " + activeItem;
+                        readout.innerHTML = "<strong>Kitchen Dispatch Telemetry:</strong> Segment fault detected at <code>" + activeItem + "</code>! Isolating broken container unit vehicle. All remaining food trucks continue shipping meals independently...";
                     } else {
-                        runwayStatus.innerText = `🚨 USER-SPACE EXPLOIT: ${activeItem}`;
-                        readout.innerHTML = `<strong>Kernel Monitor Status:</strong> Process thread <code>${activeItem}</code> issued a core segmentation fault inside Ring 3! Microkernel intercepted the trap, killed the unprivileged server node, and initiated an automated recovery loop. <strong>Ring 0 primitives remain completely untouched and secure.</strong>`;
+                        runwayStatus.innerText = "🚨 USER-SPACE EXPLOIT: " + activeItem;
+                        readout.innerHTML = "<strong>Kernel Monitor Status:</strong> Process thread <code>" + activeItem + "</code> issued a core segmentation fault inside Ring 3! Microkernel intercepted the trap, killed the unprivileged server node, and initiated an automated recovery loop. <strong>Ring 0 primitives remain completely untouched and secure.</strong>";
                     }
                 } else {
-                    runway.style.background = "rgba(80, 250, 123, 0.04)";
-                    runway.style.borderColor = "#50fa7b";
-                    runwayStatus.style.color = "#50fa7b";
-                    
                     if (currentLabSubstrate === 'analogy') {
-                        runwayStatus.innerText = `🛬 ACTIVE TRAVERSAL: ${activeItem}`;
-                        readout.innerHTML = `<strong>Lab Router Telemetry:</strong> Processing routing path bounds for <code>${activeItem}</code>. All secondary entry point links locked out...`;
+                        runwayStatus.innerText = "🛬 ACTIVE TRAVERSAL: " + activeItem;
+                        readout.innerHTML = "<strong>Lab Router Telemetry:</strong> Processing routing path bounds for <code>" + activeItem + "</code>.";
                     } else {
-                        runwayStatus.innerText = `⚙️ CORE REGISTER ACTIVE: ${activeItem}`;
-                        readout.innerHTML = `<strong>Kernel Monitor Status:</strong> Loaded thread state parameters for <code>${activeItem}</code> onto processor hardware registers. Preemption context timer ticked active...`;
+                        runwayStatus.innerText = "⚙️ CORE REGISTER ACTIVE: " + activeItem;
+                        readout.innerHTML = "<strong>Kernel Monitor Status:</strong> Loaded thread state parameters for <code>" + activeItem + "</code> onto processor hardware registers. Preemption context timer ticked active...";
                     }
                 }
                 
@@ -1282,11 +1259,10 @@
                     runwayStatus.style.color = "#64748b";
                     
                     if (currentLabSubstrate === 'analogy') {
-                        readout.innerHTML = `<strong>Lab Router Telemetry:</strong> Transaction loop for <code>${activeItem}</code> completed cleanly. Target pathway records restored back to baseline parameters.`;
+                        readout.innerHTML = "<strong>Lab Router Telemetry:</strong> Transaction loop completed cleanly.";
                     } else {
-                        readout.innerHTML = `<strong>Kernel Monitor Status:</strong> Execution window closed. Preempted processing runtime parameters for <code>${activeItem}</code> and safely context-switched back to baseline server tracing bounds.`;
+                        readout.innerHTML = "<strong>Kernel Monitor Status:</strong> Execution window closed. Preempted processing runtime parameters for <code>" + activeItem + "</code>.";
                     }
-                    
                     labActiveTimer = null;
                 }, 4000);
             }
@@ -1309,23 +1285,22 @@
                 loadLabWorkspace(currentLabModule);
             }
 
-
-            
-            
-                
-                
-
-            
-            
-
-            
-
-
-            
+            window.onload = () => { loadLabWorkspace(0); };
         </script>
     </div>
 </body>
 </html>
+
+                                    
+                
+                
+                        
+                
+                    
+
+
+            
+        
 
 
         
